@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodBI Агроформа — Панель управления</title>
+<link href="https://fonts.googleapis.com/css2?family=Tilda+Sans+VF:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep-forest: #0A1A0D;
+  --dark-meadow: #1B3A1E;
+  --field-green: #4CAF50;
+  --spring-green: #69F0AE;
+  --sage-gray: #7A9478;
+  --harvest-gold: #FFC107;
+  --danger: #ff5252;
+  --white: #ffffff;
+  --surface: #112614;
+  --surface2: #183520;
+  --border: rgba(76,175,80,0.15);
+  --text-muted: rgba(255,255,255,0.45);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Tilda Sans VF','Tilda Sans',-apple-system,sans-serif;
+  background: var(--deep-forest);
+  color: var(--white);
+  display: flex;
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 50;
+}
+
+.sidebar-logo {
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-icon {
+  width: 34px; height: 34px;
+  background: var(--dark-meadow);
+  border-radius: 8px;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 5px 6px 4px; gap: 2px; position: relative;
+}
+.logo-icon span { display:block; background:var(--field-green); border-radius:2px; width:4px; }
+.logo-icon span:nth-child(1){height:9px}
+.logo-icon span:nth-child(2){height:14px;background:var(--spring-green)}
+.logo-icon span:nth-child(3){height:7px}
+.logo-icon span:nth-child(4){height:11px}
+.logo-dot { position:absolute; top:4px; right:9px; width:5px; height:5px; background:var(--spring-green); border-radius:50%; }
+.logo-text { font-size:17px; font-weight:700; }
+.logo-text .food { color:var(--white); font-weight:600; }
+.logo-text .bi { color:var(--field-green); font-weight:900; }
+.logo-desc { font-size:8px; letter-spacing:2px; color:var(--sage-gray); text-transform:uppercase; }
+
+.sidebar-section-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sage-gray);
+  font-weight: 700;
+  padding: 20px 20px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.18s;
+  color: rgba(255,255,255,0.6);
+  border-left: 2px solid transparent;
+  user-select: none;
+}
+.nav-item:hover { background: rgba(76,175,80,0.07); color: var(--white); }
+.nav-item.active {
+  background: rgba(76,175,80,0.1);
+  color: var(--spring-green);
+  border-left-color: var(--field-green);
+}
+.nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+.nav-item .label { font-weight: 500; }
+.nav-item .badge {
+  margin-left: auto;
+  background: var(--field-green);
+  color: var(--deep-forest);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 100px;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.sidebar-footer strong { color: rgba(255,255,255,0.7); display: block; margin-bottom: 2px; }
+
+/* MAIN */
+.main {
+  margin-left: 240px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP BAR */
+.topbar {
+  padding: 16px 32px;
+  background: rgba(10,26,13,0.95);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+}
+.page-title { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+.topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; border: none;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-primary { background: var(--field-green); color: var(--deep-forest); }
+.btn-primary:hover { background: var(--spring-green); }
+.btn-ghost { background: transparent; color: rgba(255,255,255,0.6); border: 1px solid var(--border); }
+.btn-ghost:hover { border-color: var(--field-green); color: var(--white); }
+.btn-danger { background: rgba(255,82,82,0.12); color: var(--danger); border: 1px solid rgba(255,82,82,0.2); }
+.btn-danger:hover { background: rgba(255,82,82,0.2); }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-gold { background: var(--harvest-gold); color: var(--deep-forest); }
+.btn-gold:hover { background: #ffd54f; }
+
+/* CONTENT */
+.content {
+  padding: 28px 32px;
+  flex: 1;
+}
+
+/* TOAST */
+.toast-container {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  z-index: 999;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  background: var(--dark-meadow);
+  border: 1px solid rgba(105,240,174,0.3);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--spring-green);
+  display: flex; align-items: center; gap: 8px;
+  animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.5s forwards;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+@keyframes slideIn { from { transform: translateX(40px); opacity:0; } to { transform: none; opacity:1; } }
+@keyframes fadeOut { to { opacity:0; transform: translateX(10px); } }
+
+/* TABS */
+.section-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.section-tab {
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.18s;
+}
+.section-tab:hover { color: var(--white); }
+.section-tab.active { color: var(--spring-green); border-bottom-color: var(--field-green); }
+
+/* PANELS */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* CARDS */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.9);
+}
+.card-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--field-green); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+/* FORM ELEMENTS */
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--sage-gray);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--white);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--field-green); }
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.25); }
+.field select option { background: var(--dark-meadow); }
+.field textarea { min-height: 80px; line-height: 1.5; }
+
+/* TOGGLE */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(76,175,80,0.08);
+}
+.toggle-row:last-child { border-bottom: none; }
+.toggle-info strong { display: block; font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.toggle-info span { font-size: 12px; color: var(--text-muted); }
+.toggle {
+  position: relative; width: 40px; height: 22px;
+  cursor: pointer;
+}
+.toggle input { opacity:0; width:0; height:0; }
+.toggle-slider {
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,0.1);
+  border-radius: 22px;
+  transition: 0.2s;
+}
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  left: 3px; top: 3px;
+  background: var(--white);
+  border-radius: 50%;
+  transition: 0.2s;
+}
+.toggle input:checked + .toggle-slider { background: var(--field-green); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+/* TICKER TABLE */
+.ticker-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.ticker-table th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--sage-gray);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.ticker-table td {
+  padding: 9px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(76,175,80,0.06);
+  vertical-align: middle;
+}
+.ticker-table tr:last-child td { border-bottom: none; }
+.ticker-table tr:hover td { background: rgba(76,175,80,0.04); }
+.ticker-table td input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  padding: 5px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+}
+.ticker-table td input:focus { border-color: var(--field-green); }
+.trend-select {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  padding: 5px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+.trend-up { color: var(--spring-green); }
+.trend-dn { color: #ff6b6b; }
+
+/* SOLUTIONS LIST */
+.sol-list { display: flex; flex-direction: column; gap: 12px; }
+.sol-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.sol-drag {
+  color: rgba(255,255,255,0.2);
+  cursor: grab;
+  font-size: 16px;
+  padding-top: 2px;
+  flex-shrink: 0;
+}
+.sol-content { flex: 1; display: grid; grid-template-columns: 60px 1fr 2fr auto; gap: 10px; align-items: start; }
+.sol-emoji-input {
+  font-size: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: center;
+  padding: 8px 4px;
+  width: 50px;
+  color: var(--white);
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+.sol-emoji-input:focus { border-color: var(--field-green); }
+.sol-controls { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+
+/* NEWS CARDS */
+.news-list { display: flex; flex-direction: column; gap: 12px; }
+.news-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.news-item-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.news-item-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); }
+.news-actions { display: flex; gap: 6px; }
+
+/* STATS */
+.stats-edit { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat-edit-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+.stat-edit-card .preview {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, var(--spring-green), var(--field-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  min-height: 40px;
+}
+
+/* COLOR PICKER ROW */
+.color-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.color-row input[type="color"] {
+  width: 36px; height: 36px;
+  padding: 2px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  cursor: pointer;
+}
+.color-swatch {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.color-hex-input {
+  font-size: 12px; font-family: monospace;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  padding: 5px 10px;
+  width: 100px;
+  outline: none;
+}
+.color-hex-input:focus { border-color: var(--field-green); }
+
+/* LIVE PREVIEW LINK */
+.preview-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--sage-gray);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  transition: all 0.2s;
+}
+.preview-link:hover { border-color: var(--field-green); color: var(--field-green); }
+
+/* CLIENTS GRID */
+.clients-edit { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.client-edit-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.client-edit-card input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--white);
+  padding: 5px 8px;
+  font-size: 12px;
+  font-family: inherit;
+  outline: none; width: 100%;
+}
+.client-edit-card input:focus { border-color: var(--field-green); }
+
+/* STATUS DOT */
+.status-dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 6px;
+}
+.status-dot.green { background: var(--spring-green); }
+.status-dot.yellow { background: var(--harvest-gold); }
+.status-dot.red { background: var(--danger); }
+
+/* PREVIEW MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 200;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  width: 90%;
+  max-width: 560px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+.modal h3 { font-size: 18px; font-weight: 800; margin-bottom: 18px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: rgba(255,255,255,0.08);
+  border: none; border-radius: 8px;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--white); font-size: 16px;
+  transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(255,82,82,0.2); }
+
+.info-box {
+  background: rgba(76,175,80,0.08);
+  border: 1px solid rgba(76,175,80,0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 20px;
+  display: flex; gap: 8px;
+}
+.info-box::before { content:'ℹ️'; flex-shrink:0; }
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <span></span><span></span><span></span><span></span>
+      <div class="logo-dot"></div>
+    </div>
+    <div>
+      <div class="logo-text"><span class="food">Food</span><span class="bi">BI</span></div>
+      <div class="logo-desc">Агроформа Admin</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section-label">Контент сайта</div>
+  <div class="nav-item active" onclick="showSection('hero')">
+    <span class="icon">🏠</span><span class="label">Hero-блок</span>
+  </div>
+  <div class="nav-item" onclick="showSection('ticker')">
+    <span class="icon">📊</span><span class="label">Бегущая строка</span>
+    <span class="badge">8</span>
+  </div>
+  <div class="nav-item" onclick="showSection('solutions')">
+    <span class="icon">🧩</span><span class="label">Решения</span>
+    <span class="badge">6</span>
+  </div>
+  <div class="nav-item" onclick="showSection('stats')">
+    <span class="icon">📈</span><span class="label">Статистика</span>
+  </div>
+  <div class="nav-item" onclick="showSection('features')">
+    <span class="icon">⚡</span><span class="label">Возможности</span>
+    <span class="badge">6</span>
+  </div>
+  <div class="nav-item" onclick="showSection('clients')">
+    <span class="icon">🤝</span><span class="label">Клиенты</span>
+  </div>
+  <div class="nav-item" onclick="showSection('news')">
+    <span class="icon">📰</span><span class="label">Новости</span>
+    <span class="badge">3</span>
+  </div>
+  <div class="nav-item" onclick="showSection('cta')">
+    <span class="icon">🎯</span><span class="label">CTA-блок</span>
+  </div>
+  <div class="nav-item" onclick="showSection('footer')">
+    <span class="icon">🔗</span><span class="label">Футер</span>
+  </div>
+
+  <div class="sidebar-section-label">Настройки</div>
+  <div class="nav-item" onclick="showSection('design')">
+    <span class="icon">🎨</span><span class="label">Дизайн и цвета</span>
+  </div>
+  <div class="nav-item" onclick="showSection('seo')">
+    <span class="icon">🔍</span><span class="label">SEO</span>
+  </div>
+
+  <div class="sidebar-footer">
+    <strong>Администратор</strong>
+    brand@agroforma.ru
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="page-title" id="page-title">Hero-блок</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:2px">
+        <span class="status-dot green"></span>Сайт опубликован · agroforma.ru
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <a href="agroforma-holdings.html" target="_blank" class="preview-link">👁 Предпросмотр сайта</a>
+      <button class="btn btn-ghost" onclick="resetSection()">↺ Сбросить</button>
+      <button class="btn btn-gold" onclick="publishAll()">🚀 Опубликовать</button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ===== HERO ===== -->
+    <div class="panel active" id="panel-hero">
+      <div class="info-box">Этот блок управляет главным экраном сайта — заголовком, подзаголовком, тегами и кнопками призыва к действию.</div>
+      <div class="two-col">
+        <div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Главный текст</div>
+            <div class="field">
+              <label>Лейбл над заголовком</label>
+              <input type="text" id="hero_label" value="Платформа для агропромышленных холдингов">
+            </div>
+            <div class="field">
+              <label>Заголовок H1 (строки через / )</label>
+              <textarea id="hero_h1">Предиктивная аналитика/для агрохолдингов/России и СНГ</textarea>
+            </div>
+            <div class="field">
+              <label>Акцентное слово (выделяется зелёным)</label>
+              <input type="text" id="hero_accent" value="агрохолдингов">
+            </div>
+            <div class="field">
+              <label>Подзаголовок</label>
+              <textarea id="hero_sub">Единая экосистема данных: управление агропроизводством, ценовое прогнозирование, контроль цепочки поставок — от поля до полки.</textarea>
+            </div>
+            <div class="field">
+              <label>Заметка под кнопками</label>
+              <input type="text" id="hero_note" value="Бесплатный пробный отчёт для вашего холдинга — без обязательств">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Кнопки CTA</div>
+            <div class="two-col">
+              <div class="field">
+                <label>Кнопка #1 (главная)</label>
+                <input type="text" id="hero_btn1" value="Получить демо-доступ">
+              </div>
+              <div class="field">
+                <label>Кнопка #2 (вторичная)</label>
+                <input type="text" id="hero_btn2" value="Узнать больше">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Теги под подзаголовком</div>
+            <div style="display:flex;flex-direction:column;gap:8px" id="hero_tags_container">
+              <div class="field" style="margin:0"><input type="text" value="Растениеводство"></div>
+              <div class="field" style="margin:0"><input type="text" value="Животноводство"></div>
+              <div class="field" style="margin:0"><input type="text" value="Переработка"></div>
+              <div class="field" style="margin:0"><input type="text" value="Логистика"></div>
+              <div class="field" style="margin:0"><input type="text" value="Экспорт/Импорт"></div>
+              <div class="field" style="margin:0"><input type="text" value="ESG-отчётность"></div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="margin-top:10px;width:100%" onclick="addTag()">+ Добавить тег</button>
+          </div>
+
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Дашборд KPI-карточки</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+              <div>
+                <div class="field"><label>KPI 1 значение</label><input type="text" id="kpi1_val" value="96%"></div>
+                <div class="field"><label>KPI 1 подпись</label><input type="text" id="kpi1_lbl" value="Точность прогноза"></div>
+              </div>
+              <div>
+                <div class="field"><label>KPI 2 значение</label><input type="text" id="kpi2_val" value="+18%"></div>
+                <div class="field"><label>KPI 2 подпись</label><input type="text" id="kpi2_lbl" value="Рост урожайности"></div>
+              </div>
+              <div>
+                <div class="field"><label>KPI 3 значение</label><input type="text" id="kpi3_val" value="2.4М га"></div>
+                <div class="field"><label>KPI 3 подпись</label><input type="text" id="kpi3_lbl" value="Под управлением"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px">
+        <button class="btn btn-ghost" onclick="resetSection()">Сбросить</button>
+        <button class="btn btn-primary" onclick="save('Hero-блок')">💾 Сохранить Hero-блок</button>
+      </div>
+    </div>
+
+    <!-- ===== TICKER ===== -->
+    <div class="panel" id="panel-ticker">
+      <div class="info-box">Бегущая строка отображает котировки в реальном времени вверху сайта. Вы можете изменить название актива, цену и тренд.</div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Котировки</div>
+        <table class="ticker-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Актив</th>
+              <th>Цена</th>
+              <th>Единица</th>
+              <th>Изменение</th>
+              <th>Тренд</th>
+              <th>Показывать</th>
+            </tr>
+          </thead>
+          <tbody id="ticker-tbody"></tbody>
+        </table>
+        <div style="margin-top:14px;display:flex;justify-content:space-between;align-items:center">
+          <button class="btn btn-ghost btn-sm" onclick="addTicker()">+ Добавить котировку</button>
+          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-muted)">
+            Скорость прокрутки:
+            <input type="range" min="10" max="60" value="25" id="ticker_speed" style="width:100px;accent-color:var(--field-green)">
+            <span id="ticker_speed_val">25с</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px">
+        <button class="btn btn-primary" onclick="save('Бегущая строка')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== SOLUTIONS ===== -->
+    <div class="panel" id="panel-solutions">
+      <div class="info-box">Перетаскивайте карточки для изменения порядка. Нажмите на эмодзи для замены иконки решения.</div>
+      <div class="sol-list" id="sol-list"></div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:12px" onclick="addSolution()">+ Добавить решение</button>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button class="btn btn-primary" onclick="save('Решения')">💾 Сохранить решения</button>
+      </div>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <div class="panel" id="panel-stats">
+      <div class="info-box">Четыре ключевых показателя, отображаемых в широком баннере на сайте.</div>
+      <div class="stats-edit" id="stats-edit"></div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button class="btn btn-primary" onclick="save('Статистика')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== FEATURES ===== -->
+    <div class="panel" id="panel-features">
+      <div class="info-box">Шесть возможностей платформы — иконка, бейдж, заголовок и описание.</div>
+      <div class="two-col" id="features-edit"></div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+        <button class="btn btn-primary" onclick="save('Возможности')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== CLIENTS ===== -->
+    <div class="panel" id="panel-clients">
+      <div class="info-box">Логотипы/названия клиентов-агрохолдингов, отображаемые в сетке на сайте.</div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Клиенты (сетка 5×2)</div>
+        <div class="clients-edit" id="clients-edit"></div>
+        <button class="btn btn-ghost btn-sm" style="margin-top:14px" onclick="addClient()">+ Добавить клиента</button>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Текст раздела</div>
+        <div class="two-col">
+          <div class="field"><label>Заголовок</label><input type="text" id="clients_h2" value="Нам доверяют ведущие агрохолдинги"></div>
+          <div class="field"><label>Подзаголовок</label><input type="text" id="clients_sub" value="Более 340 компаний АПК используют FoodBI Агроформа для стратегического планирования."></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="save('Клиенты')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== NEWS ===== -->
+    <div class="panel" id="panel-news">
+      <div class="info-box">Три материала в блоке «Аналитика и новости». Нажмите на карточку для редактирования.</div>
+      <div class="news-list" id="news-list"></div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:12px" onclick="addNews()">+ Добавить новость</button>
+      <div style="display:flex;justify-content:flex-end;margin-top:20px">
+        <button class="btn btn-primary" onclick="save('Новости')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== CTA ===== -->
+    <div class="panel" id="panel-cta">
+      <div class="info-box">CTA-блок — главный призыв к действию и форма захвата контактов.</div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Левая часть — текст</div>
+          <div class="field"><label>Заголовок</label><textarea id="cta_h2">Получите пробный/отчёт бесплатно</textarea></div>
+          <div class="field"><label>Описание</label><textarea id="cta_desc">Попробуйте платформу без обязательств. Персональный аналитик подготовит отчёт по вашему сегменту рынка в течение 1 рабочего дня.</textarea></div>
+          <div class="field"><label>Текст кнопки</label><input type="text" id="cta_btn" value="Заказать пробный отчёт"></div>
+          <div class="field"><label>Подпись под кнопкой</label><input type="text" id="cta_note" value="Персональный менеджер свяжется с вами в течение 2 часов"></div>
+          <div class="card-title" style="margin-top:16px"><span class="dot"></span>Чек-лист преимуществ</div>
+          <div style="display:flex;flex-direction:column;gap:8px" id="cta_checks_container">
+            <div class="field" style="margin:0"><input type="text" value="Ценовой прогноз на 30 дней для выбранных культур или продуктов"></div>
+            <div class="field" style="margin:0"><input type="text" value="Анализ рыночных трендов по вашим регионам присутствия"></div>
+            <div class="field" style="margin:0"><input type="text" value="Кейсы прогнозирования за прошедшие периоды с реальными данными"></div>
+            <div class="field" style="margin:0"><input type="text" value="Демонстрация интеграции с вашей ERP-системой"></div>
+          </div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%" onclick="addCheck()">+ Добавить пункт</button>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Форма — поля</div>
+          <div style="display:flex;flex-direction:column;gap:8px" id="form_fields_container">
+            <div class="field" style="margin:0"><input type="text" value="Ваше имя и фамилия"></div>
+            <div class="field" style="margin:0"><input type="text" value="Название холдинга / компании"></div>
+            <div class="field" style="margin:0"><input type="text" value="Рабочий email"></div>
+            <div class="field" style="margin:0"><input type="text" value="Телефон"></div>
+          </div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%" onclick="addFormField()">+ Добавить поле</button>
+          <div class="field" style="margin-top:14px"><label>Текст кнопки отправки</label><input type="text" id="form_submit_btn" value="Получить пробный отчёт →"></div>
+          <div class="field"><label>Дисклеймер</label><input type="text" id="form_disclaimer" value="Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="save('CTA-блок')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="panel" id="panel-footer">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Контакты в футере</div>
+          <div class="field"><label>Email</label><input type="email" id="footer_email" value="brand@agroforma.ru"></div>
+          <div class="field"><label>Телефон</label><input type="text" id="footer_phone" value="+7 (800) 000-00-00"></div>
+          <div class="field"><label>Описание компании</label><textarea id="footer_desc">Предиктивная аналитика и цифровая платформа для агропромышленных холдингов России и СНГ.</textarea></div>
+          <div class="field"><label>Копирайт</label><input type="text" id="footer_copy" value="© 2024–2026 FoodBI Агроформа. Все права защищены."></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Бейджи и теги</div>
+          <div style="display:flex;flex-direction:column;gap:8px" id="footer_badges_container">
+            <div class="field" style="margin:0"><input type="text" value="B2B AgroTech"></div>
+            <div class="field" style="margin:0"><input type="text" value="Россия & СНГ"></div>
+            <div class="field" style="margin:0"><input type="text" value="ESG"></div>
+          </div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:8px;width:100%" onclick="addFooterBadge()">+ Добавить бейдж</button>
+          <div class="card-title" style="margin-top:20px"><span class="dot"></span>Видимость секций</div>
+          <div class="toggle-row">
+            <div class="toggle-info"><strong>Блок решений</strong><span>Секция с 6 карточками</span></div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><strong>Статистика</strong><span>Баннер с цифрами</span></div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><strong>Блок клиентов</strong><span>Логотипы агрохолдингов</span></div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info"><strong>Новости</strong><span>Аналитика и материалы</span></div>
+            <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="save('Футер')">💾 Сохранить</button>
+      </div>
+    </div>
+
+    <!-- ===== DESIGN ===== -->
+    <div class="panel" id="panel-design">
+      <div class="info-box">Изменение цветов немедленно отражается в предпросмотре. Рекомендуем следовать брендбуку.</div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Цветовая палитра</div>
+          <div style="display:flex;flex-direction:column;gap:14px" id="color-palette"></div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Шрифт</div>
+            <div class="field">
+              <label>Основной шрифт</label>
+              <select id="font_family">
+                <option value="Tilda Sans VF" selected>Tilda Sans VF</option>
+                <option value="Nunito">Nunito</option>
+                <option value="Inter">Inter</option>
+                <option value="Roboto">Roboto</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Размер основного текста</label>
+              <input type="range" min="13" max="18" value="14" id="font_size" style="width:100%;accent-color:var(--field-green)">
+              <span id="font_size_val" style="font-size:12px;color:var(--sage-gray)">14px</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Анимации</div>
+            <div class="toggle-row">
+              <div class="toggle-info"><strong>Scroll-reveal анимации</strong><span>Плавное появление блоков</span></div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info"><strong>Анимация графиков</strong><span>Рост баров в Hero</span></div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info"><strong>Пульс на лейбле</strong><span>Мигающий зелёный индикатор</span></div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="save('Дизайн')">💾 Сохранить дизайн</button>
+      </div>
+    </div>
+
+    <!-- ===== SEO ===== -->
+    <div class="panel" id="panel-seo">
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Метатеги страницы</div>
+        <div class="field"><label>Title страницы</label><input type="text" id="seo_title" value="FoodBI Агроформа — Аналитическая платформа для агрохолдингов"></div>
+        <div class="field"><label>Meta Description</label><textarea id="seo_desc">Предиктивная аналитика для агропромышленных холдингов России и СНГ. Прогнозы цен, управление производством, ESG-отчётность.</textarea></div>
+        <div class="field"><label>Ключевые слова</label><input type="text" id="seo_keywords" value="агрохолдинг, аналитика АПК, прогноз цен, agtech россия, сельское хозяйство BI"></div>
+        <div class="field"><label>OG Image URL</label><input type="text" id="seo_og_image" placeholder="https://agroforma.ru/og-image.jpg"></div>
+        <div class="field"><label>Canonical URL</label><input type="text" id="seo_canonical" value="https://agroforma.ru/"></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="save('SEO')">💾 Сохранить SEO</button>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════ DATA ═══════════════════
+const tickerData = [
+  {name:'Пшеница 3 кл.', price:'14 850', unit:'₽/т', change:'+2.3%', trend:'up', show:true},
+  {name:'Подсолнечник',  price:'32 400', unit:'₽/т', change:'-0.8%', trend:'dn', show:true},
+  {name:'Соя',           price:'27 100', unit:'₽/т', change:'+1.1%', trend:'up', show:true},
+  {name:'Сахарная свёкла', price:'5 200', unit:'₽/т', change:'+0.5%', trend:'up', show:true},
+  {name:'Кукуруза',      price:'12 600', unit:'₽/т', change:'-1.4%', trend:'dn', show:true},
+  {name:'Рапс',          price:'25 800', unit:'₽/т', change:'+3.0%', trend:'up', show:true},
+  {name:'Молоко 3.2%',   price:'42',     unit:'₽/л', change:'+0.9%', trend:'up', show:true},
+  {name:'КРС живой вес', price:'178',    unit:'₽/кг', change:'+1.7%', trend:'up', show:true},
+];
+
+const solutionsData = [
+  {icon:'🌾', title:'Растениеводство', sub:'Зерно, масличные, сахарная свёкла', desc:'Прогнозирование урожайности, оптимизация севооборота и планирование сбыта на основе рыночных данных. Анализ рентабельности культур по регионам.'},
+  {icon:'🐄', title:'Животноводство', sub:'МКС, птицеводство, свиноводство', desc:'Мониторинг цен на живой вес и продукцию переработки. Управление кормовой базой, прогноз спроса от ритейла и HoReCa.'},
+  {icon:'🏭', title:'Переработка', sub:'Мельницы, маслозаводы, сахарные комбинаты', desc:'Синхронизация закупок сырья с ценовыми циклами рынка. Оптимизация загрузки мощностей и управление запасами.'},
+  {icon:'🚛', title:'Логистика и поставки', sub:'Транспортировка, элеваторы, склады', desc:'Оптимизация маршрутов и тарифов перевозки. Прогноз загрузки элеваторов, управление остатками.'},
+  {icon:'📈', title:'Трейдинг и экспорт', sub:'Зерновые, масло, мясо — РФ и СНГ', desc:'Инструменты для зернового трейдинга: котировки, прогнозы цен FOB/CIF, мониторинг пошлин и квот.'},
+  {icon:'🌿', title:'ESG & Устойчивость', sub:'Отчётность, углеродный след, стандарты', desc:'Формирование ESG-отчётов для инвесторов и банков. Расчёт углеродного следа производства.'},
+];
+
+const statsData = [
+  {num:'92–96%', desc:'точность прогнозов цен\nна горизонте 30–90 дней'},
+  {num:'340+', desc:'агрохолдингов и предприятий\nуже используют платформу'},
+  {num:'15М га', desc:'сельхозугодий под\nаналитическим покрытием'},
+  {num:'82 региона', desc:'России и 9 стран СНГ\nв базе данных платформы'},
+];
+
+const featuresData = [
+  {icon:'🔮', badge:'ML-прогнозирование', title:'Предиктивная аналитика цен', desc:'Прогнозы цен на 30, 60, 90 дней для зерновых, масличных, мяса и молока на основе машинного обучения.'},
+  {icon:'📡', badge:'Real-time данные', title:'Мониторинг рынка в реальном времени', desc:'Актуальные ценовые котировки со всех ключевых бирж, элеваторов и торговых площадок России и СНГ.'},
+  {icon:'🔗', badge:'Интеграция', title:'Подключение к ERP и BI-системам', desc:'API-интеграция с 1С:Агро, SAP, Microsoft Dynamics и Power BI. Передача прогнозов напрямую в ваши системы.'},
+  {icon:'🗺', badge:'Геоаналитика', title:'Региональные карты урожайности', desc:'Интерактивные карты по всем регионам России и странам СНГ: динамика производства, складские остатки.'},
+  {icon:'⚡', badge:'Сценарный анализ', title:'Моделирование рыночных сценариев', desc:'Стресс-тестирование стратегий в условиях изменения экспортных пошлин, засух, санкционного давления.'},
+  {icon:'👥', badge:'Экспертиза', title:'Поддержка аналитиков рынка', desc:'Команда отраслевых экспертов консультирует по формированию ценовой стратегии и управлению рисками.'},
+];
+
+const clientsData = [
+  'Русагро','ЭкоНива','Мираторг','Агрокомплекс им. Ткачёва','Степь АПК',
+  'Черкизово','АГРОКО','Продимекс','КДВ Групп','АФГ Националь',
+];
+
+const newsData = [
+  {date:'17 марта 2026', title:'Экспорт зерна из России в 2025/26 МГ: пересмотр прогнозов вниз из-за ограничений', excerpt:'Анализ влияния новых тарифных ограничений на объёмы экспорта пшеницы и ячменя через черноморские порты.', url:'#'},
+  {date:'15 марта 2026', title:'Цены на масличные культуры: рост спроса из Азии поддерживает котировки', excerpt:'Подробный разбор факторов, влияющих на цены подсолнечника и рапса в регионах Поволжья и Юга России.', url:'#'},
+  {date:'12 марта 2026', title:'Животноводство СНГ: итоги зимнего периода и прогноз на весну 2026', excerpt:'Динамика цен на живой вес КРС и птицы, оценка кормовой базы после сложного зернового года.', url:'#'},
+];
+
+const colorsData = [
+  {key:'deep-forest',  label:'Deep Forest — основной фон',   hex:'#0A1A0D'},
+  {key:'dark-meadow',  label:'Dark Meadow — вторичный фон',  hex:'#1B3A1E'},
+  {key:'field-green',  label:'Field Green — основной акцент',hex:'#4CAF50'},
+  {key:'spring-green', label:'Spring Green — яркий акцент',  hex:'#69F0AE'},
+  {key:'sage-gray',    label:'Sage Gray — вспомогательный',  hex:'#7A9478'},
+  {key:'harvest-gold', label:'Harvest Gold — CTA/выделения', hex:'#FFC107'},
+];
+
+// ═══════════════════ RENDER ═══════════════════
+
+function renderTicker() {
+  const tbody = document.getElementById('ticker-tbody');
+  tbody.innerHTML = tickerData.map((row,i) => `
+    <tr>
+      <td style="color:var(--text-muted)">${i+1}</td>
+      <td><input type="text" value="${row.name}" style="width:130px"></td>
+      <td><input type="text" value="${row.price}" style="width:80px"></td>
+      <td><input type="text" value="${row.unit}" style="width:55px"></td>
+      <td><input type="text" value="${row.change}" style="width:65px"></td>
+      <td>
+        <select class="trend-select">
+          <option value="up" ${row.trend==='up'?'selected':''}>↑ Рост</option>
+          <option value="dn" ${row.trend==='dn'?'selected':''}>↓ Падение</option>
+        </select>
+      </td>
+      <td>
+        <label class="toggle" style="display:inline-flex">
+          <input type="checkbox" ${row.show?'checked':''}>
+          <span class="toggle-slider"></span>
+        </label>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderSolutions() {
+  const list = document.getElementById('sol-list');
+  list.innerHTML = solutionsData.map((s,i) => `
+    <div class="sol-item">
+      <span class="sol-drag">⠿</span>
+      <div class="sol-content">
+        <input class="sol-emoji-input" type="text" value="${s.icon}" title="Нажмите для изменения эмодзи">
+        <div>
+          <div class="field" style="margin-bottom:8px"><label>Заголовок</label><input type="text" value="${s.title}"></div>
+          <div class="field" style="margin:0"><label>Подзаголовок</label><input type="text" value="${s.sub}"></div>
+        </div>
+        <div class="field" style="margin:0"><label>Описание</label><textarea style="min-height:70px">${s.desc}</textarea></div>
+        <div class="sol-controls">
+          <button class="btn btn-ghost btn-sm" onclick="moveSol(${i},-1)" title="Вверх">↑</button>
+          <button class="btn btn-ghost btn-sm" onclick="moveSol(${i},1)" title="Вниз">↓</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteSol(${i})">✕</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderStats() {
+  const el = document.getElementById('stats-edit');
+  el.innerHTML = statsData.map((s,i) => `
+    <div class="stat-edit-card">
+      <div class="preview">${s.num}</div>
+      <div class="field"><label>Значение</label><input type="text" value="${s.num}" oninput="this.closest('.stat-edit-card').querySelector('.preview').textContent=this.value"></div>
+      <div class="field" style="margin:0"><label>Описание</label><textarea style="min-height:55px">${s.desc}</textarea></div>
+    </div>
+  `).join('');
+}
+
+function renderFeatures() {
+  const el = document.getElementById('features-edit');
+  el.innerHTML = featuresData.map((f,i) => `
+    <div class="card" style="margin:0">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+        <input type="text" value="${f.icon}" style="width:46px;font-size:22px;text-align:center;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px;color:var(--white);font-family:inherit;outline:none">
+        <input type="text" value="${f.badge}" style="flex:1;padding:6px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--spring-green);font-size:12px;font-weight:700;font-family:inherit;outline:none">
+      </div>
+      <div class="field"><label>Заголовок</label><input type="text" value="${f.title}"></div>
+      <div class="field" style="margin:0"><label>Описание</label><textarea style="min-height:60px">${f.desc}</textarea></div>
+    </div>
+  `).join('');
+}
+
+function renderClients() {
+  const el = document.getElementById('clients-edit');
+  el.innerHTML = clientsData.map((c,i) => `
+    <div class="client-edit-card">
+      <input type="text" value="${c}" placeholder="Название">
+      <button class="btn btn-danger btn-sm" onclick="deleteClient(${i})" style="width:100%;justify-content:center">✕</button>
+    </div>
+  `).join('');
+}
+
+function renderNews() {
+  const el = document.getElementById('news-list');
+  el.innerHTML = newsData.map((n,i) => `
+    <div class="news-item">
+      <div class="news-item-header">
+        <span class="news-item-title">${n.title.substring(0,60)}…</span>
+        <div class="news-actions">
+          <button class="btn btn-danger btn-sm" onclick="deleteNews(${i})">✕ Удалить</button>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field" style="margin:0"><label>Дата</label><input type="text" value="${n.date}"></div>
+        <div class="field" style="margin:0"><label>Ссылка URL</label><input type="text" value="${n.url}"></div>
+      </div>
+      <div class="field" style="margin-top:10px"><label>Заголовок</label><input type="text" value="${n.title}"></div>
+      <div class="field" style="margin:0"><label>Анонс</label><textarea style="min-height:55px">${n.excerpt}</textarea></div>
+    </div>
+  `).join('');
+}
+
+function renderColors() {
+  const el = document.getElementById('color-palette');
+  el.innerHTML = colorsData.map(c => `
+    <div>
+      <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:6px">${c.label}</div>
+      <div class="color-row">
+        <div class="color-swatch" style="background:${c.hex}"></div>
+        <input type="color" value="${c.hex}">
+        <input class="color-hex-input" type="text" value="${c.hex}" placeholder="#000000">
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════ ACTIONS ═══════════════════
+
+function addTag() {
+  const container = document.getElementById('hero_tags_container');
+  const div = document.createElement('div');
+  div.className = 'field';
+  div.style.margin = '0';
+  div.innerHTML = '<input type="text" placeholder="Новый тег">';
+  container.appendChild(div);
+  div.querySelector('input').focus();
+}
+
+function addTicker() {
+  tickerData.push({name:'Новый актив', price:'0', unit:'₽/т', change:'+0.0%', trend:'up', show:true});
+  renderTicker();
+}
+
+function addSolution() {
+  solutionsData.push({icon:'🌱', title:'Новое решение', sub:'Подзаголовок', desc:'Описание нового решения для агрохолдинга.'});
+  renderSolutions();
+}
+
+function moveSol(i, dir) {
+  const j = i + dir;
+  if (j < 0 || j >= solutionsData.length) return;
+  [solutionsData[i], solutionsData[j]] = [solutionsData[j], solutionsData[i]];
+  renderSolutions();
+}
+
+function deleteSol(i) {
+  if (solutionsData.length <= 1) return toast('Нельзя удалить последнее решение', '⚠️');
+  solutionsData.splice(i, 1);
+  renderSolutions();
+  toast('Решение удалено');
+}
+
+function addClient() {
+  clientsData.push('Новый клиент');
+  renderClients();
+}
+
+function deleteClient(i) {
+  clientsData.splice(i, 1);
+  renderClients();
+}
+
+function addNews() {
+  newsData.unshift({date:'26 марта 2026', title:'Новость', excerpt:'Описание', url:'#'});
+  renderNews();
+}
+
+function deleteNews(i) {
+  newsData.splice(i, 1);
+  renderNews();
+  toast('Новость удалена');
+}
+
+function addCheck() {
+  const c = document.getElementById('cta_checks_container');
+  const d = document.createElement('div');
+  d.className = 'field'; d.style.margin = '0';
+  d.innerHTML = '<input type="text" placeholder="Новый пункт чек-листа">';
+  c.appendChild(d);
+  d.querySelector('input').focus();
+}
+
+function addFormField() {
+  const c = document.getElementById('form_fields_container');
+  const d = document.createElement('div');
+  d.className = 'field'; d.style.margin = '0';
+  d.innerHTML = '<input type="text" placeholder="Подсказка нового поля">';
+  c.appendChild(d);
+  d.querySelector('input').focus();
+}
+
+function addFooterBadge() {
+  const c = document.getElementById('footer_badges_container');
+  const d = document.createElement('div');
+  d.className = 'field'; d.style.margin = '0';
+  d.innerHTML = '<input type="text" placeholder="Новый бейдж">';
+  c.appendChild(d);
+  d.querySelector('input').focus();
+}
+
+// ═══════════════════ NAV ═══════════════════
+
+const sectionTitles = {
+  hero:'Hero-блок', ticker:'Бегущая строка', solutions:'Решения',
+  stats:'Статистика', features:'Возможности', clients:'Клиенты',
+  news:'Новости', cta:'CTA-блок', footer:'Футер',
+  design:'Дизайн и цвета', seo:'SEO'
+};
+
+function showSection(id) {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.getElementById('page-title').textContent = sectionTitles[id] || id;
+}
+
+// ═══════════════════ SAVE / PUBLISH ═══════════════════
+
+function save(section) {
+  toast('✓ ' + section + ' сохранён', '💾');
+}
+
+function publishAll() {
+  toast('🚀 Сайт опубликован!', '');
+}
+
+function resetSection() {
+  toast('Данные сброшены до последнего сохранения', '↺');
+}
+
+// ═══════════════════ TOAST ═══════════════════
+
+function toast(msg, icon = '✓') {
+  const container = document.getElementById('toast-container');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `${icon} ${msg}`;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+// ═══════════════════ MISC ═══════════════════
+
+document.getElementById('ticker_speed').addEventListener('input', function() {
+  document.getElementById('ticker_speed_val').textContent = this.value + 'с';
+});
+
+document.getElementById('font_size').addEventListener('input', function() {
+  document.getElementById('font_size_val').textContent = this.value + 'px';
+});
+
+// ═══════════════════ INIT ═══════════════════
+renderTicker();
+renderSolutions();
+renderStats();
+renderFeatures();
+renderClients();
+renderNews();
+renderColors();
+</script>
+</body>
+</html>

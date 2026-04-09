@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodBI Агроформа — Аналитическая платформа для агрохолдингов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tilda+Sans+VF:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #0A1A0D;
+    --dark-meadow: #1B3A1E;
+    --field-green: #4CAF50;
+    --spring-green: #69F0AE;
+    --sage-gray: #7A9478;
+    --harvest-gold: #FFC107;
+    --white: #ffffff;
+    --light-bg: #f0f7f1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Tilda Sans VF', 'Tilda Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--deep-forest);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,26,13,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(76,175,80,0.15);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: var(--dark-meadow);
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 6px 7px 5px;
+    gap: 3px;
+    position: relative;
+  }
+  .logo-icon span {
+    display: block;
+    background: var(--field-green);
+    border-radius: 2px;
+    width: 5px;
+  }
+  .logo-icon span:nth-child(1) { height: 10px; }
+  .logo-icon span:nth-child(2) { height: 16px; background: var(--spring-green); }
+  .logo-icon span:nth-child(3) { height: 8px; }
+  .logo-icon span:nth-child(4) { height: 13px; }
+  .logo-dot {
+    position: absolute;
+    top: 5px; right: 11px;
+    width: 6px; height: 6px;
+    background: var(--spring-green);
+    border-radius: 50%;
+  }
+  .logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .logo-text .food { color: var(--white); font-weight: 600; }
+  .logo-text .bi { color: var(--field-green); font-weight: 900; }
+  .logo-descriptor {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--sage-gray);
+    text-transform: uppercase;
+    margin-top: -2px;
+  }
+
+  nav { display: flex; gap: 32px; align-items: center; }
+  nav a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--spring-green); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: var(--field-green);
+    color: var(--deep-forest);
+  }
+  .btn-primary:hover { background: var(--spring-green); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.25);
+  }
+  .btn-outline:hover { border-color: var(--field-green); color: var(--field-green); }
+  .btn-gold {
+    background: var(--harvest-gold);
+    color: var(--deep-forest);
+  }
+  .btn-gold:hover { background: #ffd54f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,193,7,0.3); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 60px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(76,175,80,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 10%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(105,240,174,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(76,175,80,0.12);
+    border: 1px solid rgba(76,175,80,0.3);
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--spring-green);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+  }
+  .hero-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--spring-green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--field-green);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 16px;
+    max-width: 520px;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+  .hero-tag {
+    padding: 5px 12px;
+    background: rgba(27,58,30,0.8);
+    border: 1px solid rgba(76,175,80,0.2);
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--sage-gray);
+    font-weight: 500;
+  }
+
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  .hero-note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--sage-gray);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hero-note::before { content: '✓'; color: var(--field-green); }
+
+  /* DASHBOARD MOCKUP */
+  .hero-visual {
+    position: relative;
+    animation: floatUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  @keyframes floatUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dashboard-card {
+    background: var(--dark-meadow);
+    border: 1px solid rgba(76,175,80,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .dashboard-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--field-green), var(--spring-green));
+  }
+
+  .dc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .dc-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+  .dc-badge {
+    font-size: 11px;
+    padding: 3px 10px;
+    background: rgba(105,240,174,0.12);
+    color: var(--spring-green);
+    border-radius: 100px;
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: rgba(10,26,13,0.6);
+    border: 1px solid rgba(76,175,80,0.1);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .kpi-val {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--spring-green);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .kpi-val.gold { color: var(--harvest-gold); }
+  .kpi-val.white { color: var(--white); }
+  .kpi-lbl { font-size: 10px; color: var(--sage-gray); }
+
+  .chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 80px;
+    margin-bottom: 12px;
+  }
+  .bar {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    transition: opacity 0.3s;
+    animation: growBar 0.8s ease-out forwards;
+    opacity: 0;
+    transform-origin: bottom;
+  }
+  @keyframes growBar {
+    0% { opacity: 0; transform: scaleY(0); }
+    100% { opacity: 1; transform: scaleY(1); }
+  }
+  .bar:nth-child(1) { height: 45%; background: rgba(76,175,80,0.4); animation-delay: 0.1s; }
+  .bar:nth-child(2) { height: 60%; background: rgba(76,175,80,0.5); animation-delay: 0.15s; }
+  .bar:nth-child(3) { height: 50%; background: rgba(76,175,80,0.4); animation-delay: 0.2s; }
+  .bar:nth-child(4) { height: 75%; background: rgba(76,175,80,0.6); animation-delay: 0.25s; }
+  .bar:nth-child(5) { height: 65%; background: rgba(76,175,80,0.5); animation-delay: 0.3s; }
+  .bar:nth-child(6) { height: 90%; background: var(--field-green); animation-delay: 0.35s; }
+  .bar:nth-child(7) { height: 80%; background: rgba(105,240,174,0.8); animation-delay: 0.4s; }
+
+  .chart-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--sage-gray);
+  }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow: hidden;
+    border-top: 1px solid rgba(76,175,80,0.1);
+    border-bottom: 1px solid rgba(76,175,80,0.1);
+    padding: 10px 0;
+    background: rgba(27,58,30,0.3);
+  }
+  .ticker {
+    display: flex;
+    gap: 60px;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+  .ticker-item strong { color: var(--spring-green); }
+  .ticker-item .up { color: #69f0ae; }
+  .ticker-item .dn { color: #ff6b6b; }
+
+  /* SECTION */
+  section { padding: 100px 60px; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--field-green);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* SOLUTIONS */
+  .solutions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 52px;
+  }
+  .sol-card {
+    background: var(--dark-meadow);
+    border: 1px solid rgba(76,175,80,0.15);
+    border-radius: 16px;
+    padding: 36px 28px;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .sol-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(76,175,80,0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .sol-card:hover { border-color: rgba(76,175,80,0.4); transform: translateY(-4px); }
+  .sol-card:hover::after { opacity: 1; }
+
+  .sol-icon {
+    width: 48px; height: 48px;
+    background: rgba(76,175,80,0.12);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .sol-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .sol-subtitle {
+    font-size: 12px;
+    color: var(--field-green);
+    font-weight: 600;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .sol-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+  }
+  .sol-link {
+    font-size: 13px;
+    color: var(--field-green);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap 0.2s;
+  }
+  .sol-link:hover { gap: 10px; }
+
+  /* FEATURES */
+  .features-bg {
+    background: var(--dark-meadow);
+    border-radius: 24px;
+    padding: 72px 60px;
+    margin: 0 0 0 0;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+    margin-top: 52px;
+  }
+  .feat {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .feat-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+  .feat h4 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+  .feat p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+  .feat-badge {
+    display: inline-flex;
+    width: fit-content;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(76,175,80,0.15);
+    color: var(--spring-green);
+  }
+
+  /* STATS */
+  .stats-section {
+    background: linear-gradient(135deg, var(--dark-meadow), rgba(10,26,13,0.5));
+    border-radius: 24px;
+    padding: 80px 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    border: 1px solid rgba(76,175,80,0.1);
+    position: relative;
+    overflow: hidden;
+    margin: 0 60px;
+  }
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 50%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(105,240,174,0.05) 0%, transparent 60%);
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--spring-green), var(--field-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-num.gold {
+    background: linear-gradient(135deg, var(--harvest-gold), #ff9800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  /* CLIENTS */
+  .clients-section { padding: 80px 60px; }
+  .clients-section .section-sub { margin-bottom: 40px; }
+  .clients-logos {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  .client-logo {
+    background: var(--dark-meadow);
+    border: 1px solid rgba(76,175,80,0.1);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    min-height: 70px;
+    transition: all 0.25s;
+  }
+  .client-logo:hover {
+    border-color: rgba(76,175,80,0.3);
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    margin: 0 60px 100px;
+    background: linear-gradient(135deg, #0d2410 0%, #1a3d1d 50%, #0f2212 100%);
+    border: 1px solid rgba(76,175,80,0.25);
+    border-radius: 24px;
+    padding: 80px 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    right: -100px; top: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(105,240,174,0.08) 0%, transparent 60%);
+  }
+  .cta-section::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--field-green), var(--spring-green), transparent);
+  }
+  .cta-section h2 {
+    font-size: 34px;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    color: rgba(255,255,255,0.6);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .cta-checks { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; }
+  .cta-checks li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .cta-checks li::before {
+    content: '✓';
+    color: var(--spring-green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .form-card {
+    background: rgba(10,26,13,0.6);
+    border: 1px solid rgba(76,175,80,0.15);
+    border-radius: 16px;
+    padding: 36px;
+  }
+  .form-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .form-card .sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 24px;
+  }
+  .form-row { margin-bottom: 14px; }
+  .form-row input, .form-row select {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(27,58,30,0.5);
+    border: 1px solid rgba(76,175,80,0.2);
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-row input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-row input:focus, .form-row select:focus { border-color: var(--field-green); }
+  .form-row select { cursor: pointer; }
+  .form-row select option { background: var(--dark-meadow); }
+
+  /* NEWS */
+  .news-section { padding: 80px 60px; }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .news-card {
+    background: var(--dark-meadow);
+    border: 1px solid rgba(76,175,80,0.12);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.25s;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+  .news-card:hover { border-color: rgba(76,175,80,0.3); transform: translateY(-3px); }
+  .news-date {
+    font-size: 11px;
+    color: var(--sage-gray);
+    margin-bottom: 10px;
+  }
+  .news-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .news-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 60px 40px;
+    border-top: 1px solid rgba(76,175,80,0.1);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+  .footer-brand p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+    margin-top: 12px;
+    max-width: 260px;
+  }
+  .footer-col h5 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 16px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--spring-green); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 24px;
+    border-top: 1px solid rgba(76,175,80,0.08);
+  }
+  .footer-bottom p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+  }
+  .footer-badges {
+    display: flex;
+    gap: 10px;
+  }
+  .footer-badge {
+    padding: 4px 10px;
+    border: 1px solid rgba(76,175,80,0.2);
+    border-radius: 100px;
+    font-size: 10px;
+    color: var(--sage-gray);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* SCROLL ANIMATION */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">
+      <span></span><span></span><span></span><span></span>
+      <div class="logo-dot"></div>
+    </div>
+    <div>
+      <div class="logo-text"><span class="food">Food</span><span class="bi">BI</span></div>
+      <div class="logo-descriptor">Агроформа</div>
+    </div>
+  </a>
+
+  <nav>
+    <a href="#solutions">Решения</a>
+    <a href="#features">Возможности</a>
+    <a href="#clients">Клиенты</a>
+    <a href="#news">Аналитика</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+
+  <div style="display:flex;gap:10px">
+    <a href="#" class="btn btn-outline" style="padding:10px 18px;font-size:13px">Личный кабинет</a>
+    <a href="#cta" class="btn btn-primary" style="padding:10px 18px;font-size:13px">Демо-доступ</a>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap" style="position:fixed;top:73px;left:0;right:0;z-index:99">
+  <div class="ticker">
+    <span class="ticker-item">Пшеница 3 кл. <strong>14 850 ₽/т</strong> <span class="up">↑ +2.3%</span></span>
+    <span class="ticker-item">Подсолнечник <strong>32 400 ₽/т</strong> <span class="dn">↓ -0.8%</span></span>
+    <span class="ticker-item">Соя <strong>27 100 ₽/т</strong> <span class="up">↑ +1.1%</span></span>
+    <span class="ticker-item">Сахарная свёкла <strong>5 200 ₽/т</strong> <span class="up">↑ +0.5%</span></span>
+    <span class="ticker-item">Кукуруза <strong>12 600 ₽/т</strong> <span class="dn">↓ -1.4%</span></span>
+    <span class="ticker-item">Рапс <strong>25 800 ₽/т</strong> <span class="up">↑ +3.0%</span></span>
+    <span class="ticker-item">Молоко 3.2% <strong>42 ₽/л</strong> <span class="up">↑ +0.9%</span></span>
+    <span class="ticker-item">КРС живой вес <strong>178 ₽/кг</strong> <span class="up">↑ +1.7%</span></span>
+
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">Пшеница 3 кл. <strong>14 850 ₽/т</strong> <span class="up">↑ +2.3%</span></span>
+    <span class="ticker-item">Подсолнечник <strong>32 400 ₽/т</strong> <span class="dn">↓ -0.8%</span></span>
+    <span class="ticker-item">Соя <strong>27 100 ₽/т</strong> <span class="up">↑ +1.1%</span></span>
+    <span class="ticker-item">Сахарная свёкла <strong>5 200 ₽/т</strong> <span class="up">↑ +0.5%</span></span>
+    <span class="ticker-item">Кукуруза <strong>12 600 ₽/т</strong> <span class="dn">↓ -1.4%</span></span>
+    <span class="ticker-item">Рапс <strong>25 800 ₽/т</strong> <span class="up">↑ +3.0%</span></span>
+    <span class="ticker-item">Молоко 3.2% <strong>42 ₽/л</strong> <span class="up">↑ +0.9%</span></span>
+    <span class="ticker-item">КРС живой вес <strong>178 ₽/кг</strong> <span class="up">↑ +1.7%</span></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" style="padding-top:140px">
+  <div class="hero-content">
+    <div class="hero-label">Платформа для агропромышленных холдингов</div>
+    <h1>
+      Предиктивная аналитика<br>
+      для <em>агрохолдингов</em><br>
+      России и СНГ
+    </h1>
+    <p class="hero-sub">
+      Единая экосистема данных: управление агропроизводством, ценовое прогнозирование, контроль цепочки поставок — от поля до полки.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">Растениеводство</span>
+      <span class="hero-tag">Животноводство</span>
+      <span class="hero-tag">Переработка</span>
+      <span class="hero-tag">Логистика</span>
+      <span class="hero-tag">Экспорт/Импорт</span>
+      <span class="hero-tag">ESG-отчётность</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#cta" class="btn btn-gold">Получить демо-доступ</a>
+      <a href="#solutions" class="btn btn-outline">Узнать больше</a>
+    </div>
+    <p class="hero-note">Бесплатный пробный отчёт для вашего холдинга — без обязательств</p>
+  </div>
+
+  <div class="hero-visual">
+    <div class="dashboard-card">
+      <div class="dc-header">
+        <span class="dc-title">📊 Дашборд агрохолдинга — Q1 2026</span>
+        <span class="dc-badge">🟢 Live</span>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-val">96%</div>
+          <div class="kpi-lbl">Точность прогноза</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val gold">+18%</div>
+          <div class="kpi-lbl">Рост урожайности</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val white">2.4М га</div>
+          <div class="kpi-lbl">Под управлением</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--sage-gray);margin-bottom:8px">Объём зерновых по регионам, тыс. т</div>
+      <div class="chart-bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <div class="chart-label-row">
+        <span>Авг</span><span>Сен</span><span>Окт</span><span>Ноя</span><span>Дек</span><span>Янв</span><span>Фев</span>
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(76,175,80,0.1);display:flex;gap:12px">
+        <div style="flex:1;background:rgba(10,26,13,0.6);border-radius:8px;padding:10px;font-size:12px">
+          <div style="color:var(--sage-gray);margin-bottom:4px">Пшеница</div>
+          <div style="color:var(--spring-green);font-weight:700">14 850 ₽/т <span style="color:#69f0ae;font-size:10px">↑2.3%</span></div>
+        </div>
+        <div style="flex:1;background:rgba(10,26,13,0.6);border-radius:8px;padding:10px;font-size:12px">
+          <div style="color:var(--sage-gray);margin-bottom:4px">Подсолнечник</div>
+          <div style="color:var(--harvest-gold);font-weight:700">32 400 ₽/т <span style="color:#ff6b6b;font-size:10px">↓0.8%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="section-label">Решения</div>
+  <h2>Инструменты для каждого<br>звена агрохолдинга</h2>
+  <p class="section-sub">Выберите модуль, подходящий вашему подразделению. Каждый адаптирован под специфику агробизнеса.</p>
+
+  <div class="solutions-grid reveal">
+    <div class="sol-card">
+      <div class="sol-icon">🌾</div>
+      <h3>Растениеводство</h3>
+      <div class="sol-subtitle">Зерно, масличные, сахарная свёкла</div>
+      <p>Прогнозирование урожайности, оптимизация севооборота и планирование сбыта на основе рыночных данных. Анализ рентабельности культур по регионам.</p>
+      <a href="#" class="sol-link">Подробнее →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">🐄</div>
+      <h3>Животноводство</h3>
+      <div class="sol-subtitle">МКС, птицеводство, свиноводство</div>
+      <p>Мониторинг цен на живой вес и продукцию переработки. Управление кормовой базой, прогноз спроса от ритейла и HoReCa.</p>
+      <a href="#" class="sol-link">Подробнее →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">🏭</div>
+      <h3>Переработка</h3>
+      <div class="sol-subtitle">Мельницы, маслозаводы, сахарные комбинаты</div>
+      <p>Синхронизация закупок сырья с ценовыми циклами рынка. Оптимизация загрузки мощностей и управление запасами готовой продукции.</p>
+      <a href="#" class="sol-link">Подробнее →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">🚛</div>
+      <h3>Логистика и поставки</h3>
+      <div class="sol-subtitle">Транспортировка, элеваторы, склады</div>
+      <p>Оптимизация маршрутов и тарифов перевозки. Прогноз загрузки элеваторов, управление остатками и планирование экспортных отгрузок.</p>
+      <a href="#" class="sol-link">Подробнее →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">📈</div>
+      <h3>Трейдинг и экспорт</h3>
+      <div class="sol-subtitle">Зерновые, масло, мясо — РФ и СНГ</div>
+      <p>Инструменты для зернового трейдинга: котировки, прогнозы цен FOB/CIF, мониторинг экспортных пошлин и квот. Рыночная аналитика СНГ.</p>
+      <a href="#" class="sol-link">Подробнее →</a>
+    </div>
+    <div class="sol-card">
+      <div class="sol-icon">🌿</div>
+      <h3>ESG & Устойчивость</h3>
+      <div class="sol-subtitle">Отчётность, углеродный след, стандарты</div>
+      <p>Формирование ESG-отчётов для инвесторов и банков. Расчёт углеродного следа производства, отслеживание целей устойчивого развития холдинга.</p>
+      <a href="#" class="sol-link">Подробнее →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section reveal">
+  <div class="stat">
+    <div class="stat-num">92–96%</div>
+    <div class="stat-desc">точность прогнозов цен<br>на горизонте 30–90 дней</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">340+</div>
+    <div class="stat-desc">агрохолдингов и предприятий<br>уже используют платформу</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num gold">15М га</div>
+    <div class="stat-desc">сельхозугодий под<br>аналитическим покрытием</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">82 региона</div>
+    <div class="stat-desc">России и 9 стран СНГ<br>в базе данных платформы</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" style="padding:100px 60px 60px">
+  <div class="features-bg reveal">
+    <div class="section-label">Возможности платформы</div>
+    <h2>Всё необходимое для<br>принятия решений</h2>
+    <p class="section-sub">Интегрированные инструменты аналитики, разработанные специально для агропромышленных холдингов.</p>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-icon">🔮</div>
+        <span class="feat-badge">ML-прогнозирование</span>
+        <h4>Предиктивная аналитика цен</h4>
+        <p>Прогнозы цен на 30, 60, 90 дней для зерновых, масличных, мяса и молока на основе машинного обучения и анализа биржевых данных.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📡</div>
+        <span class="feat-badge">Real-time данные</span>
+        <h4>Мониторинг рынка в реальном времени</h4>
+        <p>Актуальные ценовые котировки со всех ключевых бирж, элеваторов и торговых площадок России и СНГ. Обновление каждые 15 минут.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔗</div>
+        <span class="feat-badge">Интеграция</span>
+        <h4>Подключение к ERP и BI-системам</h4>
+        <p>API-интеграция с 1С:Агро, SAP, Microsoft Dynamics и Power BI. Передача прогнозов напрямую в ваши системы управления.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🗺</div>
+        <span class="feat-badge">Геоаналитика</span>
+        <h4>Региональные карты урожайности</h4>
+        <p>Интерактивные карты по всем регионам России и странам СНГ: динамика производства, складские остатки, транспортная доступность.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">⚡</div>
+        <span class="feat-badge">Сценарный анализ</span>
+        <h4>Моделирование рыночных сценариев</h4>
+        <p>Стресс-тестирование стратегий в условиях изменения экспортных пошлин, засух, санкционного давления и колебаний курса рубля.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">👥</div>
+        <span class="feat-badge">Экспертиза</span>
+        <h4>Поддержка аналитиков рынка</h4>
+        <p>Команда отраслевых экспертов консультирует по формированию ценовой стратегии, управлению рисками и выбору тактики закупок.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<div class="clients-section reveal" id="clients">
+  <div class="section-label">Клиенты</div>
+  <h2>Нам доверяют ведущие<br>агрохолдинги</h2>
+  <p class="section-sub">Более 340 компаний АПК используют FoodBI Агроформа для стратегического планирования.</p>
+  <div class="clients-logos">
+    <div class="client-logo">Русагро</div>
+    <div class="client-logo">ЭкоНива</div>
+    <div class="client-logo">Мираторг</div>
+    <div class="client-logo">Агрокомплекс им. Ткачёва</div>
+    <div class="client-logo">Степь АПК</div>
+    <div class="client-logo">Черкизово</div>
+    <div class="client-logo">АГРОКО</div>
+    <div class="client-logo">Продимекс</div>
+    <div class="client-logo">КДВ Групп</div>
+    <div class="client-logo">АФГ Националь</div>
+  </div>
+</div>
+
+<!-- NEWS -->
+<section class="news-section reveal" id="news">
+  <div class="section-label">Аналитика и новости</div>
+  <h2>Актуальные тренды рынка</h2>
+  <div class="news-grid">
+    <a href="#" class="news-card">
+      <div class="news-date">17 марта 2026</div>
+      <h4>Экспорт зерна из России в 2025/26 МГ: пересмотр прогнозов вниз из-за ограничений</h4>
+      <p>Анализ влияния новых тарифных ограничений на объёмы экспорта пшеницы и ячменя через черноморские порты.</p>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-date">15 марта 2026</div>
+      <h4>Цены на масличные культуры: рост спроса из Азии поддерживает котировки</h4>
+      <p>Подробный разбор факторов, влияющих на цены подсолнечника и рапса в регионах Поволжья и Юга России.</p>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-date">12 марта 2026</div>
+      <h4>Животноводство СНГ: итоги зимнего периода и прогноз на весну 2026</h4>
+      <p>Динамика цен на живой вес КРС и птицы, оценка кормовой базы после сложного зернового года.</p>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section reveal" id="cta">
+  <div>
+    <div class="section-label">Начать работу</div>
+    <h2>Получите пробный<br>отчёт бесплатно</h2>
+    <p>Попробуйте платформу без обязательств. Персональный аналитик подготовит отчёт по вашему сегменту рынка в течение 1 рабочего дня.</p>
+    <ul class="cta-checks">
+      <li>Ценовой прогноз на 30 дней для выбранных культур или продуктов</li>
+      <li>Анализ рыночных трендов по вашим регионам присутствия</li>
+      <li>Кейсы прогнозирования за прошедшие периоды с реальными данными</li>
+      <li>Демонстрация интеграции с вашей ERP-системой</li>
+    </ul>
+    <div style="display:flex;gap:12px;align-items:center">
+      <a href="#" class="btn btn-gold">Заказать пробный отчёт</a>
+    </div>
+    <p style="font-size:12px;color:var(--sage-gray);margin-top:16px">Персональный менеджер свяжется с вами в течение 2 часов</p>
+  </div>
+
+  <div class="form-card">
+    <h3>Оставить заявку</h3>
+    <p class="sub">Получите демо-доступ и пробный отчёт</p>
+    <div class="form-row">
+      <input type="text" placeholder="Ваше имя и фамилия">
+    </div>
+    <div class="form-row">
+      <input type="text" placeholder="Название холдинга / компании">
+    </div>
+    <div class="form-row">
+      <input type="email" placeholder="Рабочий email">
+    </div>
+    <div class="form-row">
+      <input type="tel" placeholder="Телефон">
+    </div>
+    <div class="form-row">
+      <select>
+        <option value="" disabled selected>Направление бизнеса</option>
+        <option>Растениеводство</option>
+        <option>Животноводство</option>
+        <option>Переработка</option>
+        <option>Логистика и трейдинг</option>
+        <option>Вертикально интегрированный холдинг</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:14px">
+      Получить пробный отчёт →
+    </button>
+    <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px;text-align:center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contacts">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon" style="width:32px;height:32px">
+          <span></span><span></span><span></span><span></span>
+          <div class="logo-dot"></div>
+        </div>
+        <div>
+          <div class="logo-text" style="font-size:17px"><span class="food">Food</span><span class="bi">BI</span></div>
+          <div class="logo-descriptor">Агроформа</div>
+        </div>
+      </a>
+      <p>Предиктивная аналитика и цифровая платформа для агропромышленных холдингов России и СНГ.</p>
+      <p style="margin-top:10px">📧 brand@agroforma.ru<br>📞 +7 (800) 000-00-00</p>
+    </div>
+    <div class="footer-col">
+      <h5>Решения</h5>
+      <a href="#">Растениеводство</a>
+      <a href="#">Животноводство</a>
+      <a href="#">Переработка</a>
+      <a href="#">Логистика</a>
+      <a href="#">ESG-отчётность</a>
+    </div>
+    <div class="footer-col">
+      <h5>Компания</h5>
+      <a href="#">О платформе</a>
+      <a href="#">Команда</a>
+      <a href="#">Партнёры</a>
+      <a href="#">Пресс-центр</a>
+      <a href="#">Карьера</a>
+    </div>
+    <div class="footer-col">
+      <h5>Ресурсы</h5>
+      <a href="#">Аналитика рынка</a>
+      <a href="#">База знаний</a>
+      <a href="#">API Документация</a>
+      <a href="#">Политика данных</a>
+      <a href="#">Контакты</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024–2026 FoodBI Агроформа. Все права защищены.</p>
+    <div class="footer-badges">
+      <span class="footer-badge">B2B AgroTech</span>
+      <span class="footer-badge">Россия & СНГ</span>
+      <span class="footer-badge">ESG</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+
+</body>
+</html>
