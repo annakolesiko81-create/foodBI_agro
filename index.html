@@ -1628,17 +1628,17 @@
   <div class="section-label">Аналитика и новости</div>
   <h2>Актуальные тренды рынка</h2>
   <div class="news-grid">
-    <a href="#" class="news-card">
+    <a href="javascript:void(0)" class="news-card" data-modal="news1">
       <div class="news-date">11 апреля 2026</div>
       <h4>Пшеница пробила $240/т: экспортный импульс или краткосрочный отскок?</h4>
       <p>Экспортные котировки российской пшеницы (12,5% протеин) впервые с августа 2025 года преодолели отметку $240/т. Смотрим на факторы роста и оцениваем устойчивость движения для производителей, рассматривающих момент продажи.</p>
     </a>
-    <a href="#" class="news-card">
+    <a href="javascript:void(0)" class="news-card" data-modal="news2">
       <div class="news-date">9 апреля 2026</div>
       <h4>Переработка подсолнечника: убыток 11% — кто платит за диспаритет цен</h4>
       <p>При закупочной цене семечки 40 700 руб./т выручка от продуктов переработки составляет лишь 37 490 руб./т. Разбираем механику «ценовых ножниц» и что это означает для сельхозпроизводителей при планировании реализации урожая.</p>
     </a>
-    <a href="#" class="news-card">
+    <a href="javascript:void(0)" class="news-card" data-modal="news3">
       <div class="news-date">7 апреля 2026</div>
       <h4>Массовый забой КРС и рекордное молоко: два кризиса животноводства одновременно</h4>
       <p>В Сибири, на Урале и Поволжье фиксируют вынужденный забой поголовья, что разгоняет предложение говядины — пока цены сдержаны. Одновременно молочная отрасль входит в парадокс: производство бьёт рекорды, а закупочные цены у хозяйств падают.</p>
@@ -1986,6 +1986,138 @@
           <input class="modal-input" type="text" placeholder="Ваше имя и компания">
           <input class="modal-input" type="tel" placeholder="Телефон или email">
           <button class="modal-btn-submit" onclick="submitModalForm(this,'ESG и устойчивость')">Обсудить с аналитиком</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS MODAL 1: Пшеница $240 -->
+<div class="modal-overlay" id="modal-news1">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <span class="modal-tag">Зерновой рынок · 11 апреля 2026</span>
+      <h2>Пшеница пробила $240/т: экспортный импульс или краткосрочный отскок?</h2>
+      <button class="modal-close" data-close="news1">✕</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="modal-section-title problem"><span class="dot dot-red"></span>Что произошло</div>
+        <p class="modal-text">Экспортные котировки российской пшеницы с протеином 12,5% впервые с августа 2025 года преодолели отметку $240 за тонну (FOB Новороссийск). За две недели цена выросла примерно на $6/т — это значимое движение для рынка, привыкшего к боковику последних месяцев.</p>
+      </div>
+      <div>
+        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что стоит за ростом</div>
+        <ul class="modal-list">
+          <li><strong>Ослабление рубля</strong> поддержало рублёвый эквивалент экспортных цен — у экспортёров выросла мотивация вывозить зерно</li>
+          <li><strong>Казахстан закрыл импорт</strong> российского зерна — часть потоков перенаправляется через альтернативные каналы, создавая локальный дефицит предложения на отдельных направлениях</li>
+          <li><strong>Мировой фон улучшился:</strong> погодные риски в США и Аргентине поддержали котировки на CBOT — Россия следует за мировым трендом</li>
+          <li><strong>Административный фактор:</strong> действующая экспортная пошлина остаётся заградительной для части объёмов, но её расчётная база при росте цены увеличивается — это ограничивает потенциал роста</li>
+        </ul>
+      </div>
+      <div>
+        <div class="modal-section-title results"><span class="dot dot-gold"></span>Что это значит для производителей</div>
+        <div class="results-grid">
+          <div class="result-card"><div class="result-num">$240/т</div><div class="result-desc">FOB Новороссийск — максимум с августа 2025</div></div>
+          <div class="result-card"><div class="result-num">осторожно</div><div class="result-desc">пошлина и курсовой риск ограничивают устойчивость роста</div></div>
+          <div class="result-card"><div class="result-num">окно открыто</div><div class="result-desc">ближайшие 2–3 недели — потенциально выгодный момент для продажи</div></div>
+        </div>
+        <p class="modal-text" style="margin-top:16px">Наша оценка: рост носит умеренно-устойчивый характер. Краткосрочный импульс реален, но для производителей с запасами на хранении текущий уровень цен — повод зафиксировать часть объёма, не дожидаясь коррекции.</p>
+      </div>
+      <div class="modal-cta">
+        <h4>Хотите получить прогноз цен на пшеницу по вашему региону?</h4>
+        <p>Аналитик подготовит расчёт на 30–60 дней по вашей культуре и базису в течение 1 рабочего дня.</p>
+        <div class="modal-cta-form">
+          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
+          <input class="modal-input" type="tel" placeholder="Телефон или email">
+          <button class="modal-btn-submit" onclick="submitModalForm(this,'Новость: пшеница $240')">Получить прогноз</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS MODAL 2: Подсолнечник убыток 11% -->
+<div class="modal-overlay" id="modal-news2">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <span class="modal-tag">Масличные · 9 апреля 2026</span>
+      <h2>Переработка подсолнечника: убыток 11% — кто платит за диспаритет цен</h2>
+      <button class="modal-close" data-close="news2">✕</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="modal-section-title problem"><span class="dot dot-red"></span>Цифры, которые важно понять</div>
+        <p class="modal-text">По данным Масложирового союза на начало апреля 2026 года убыточность переработки подсолнечника составляет 11%. Закупочная цена семечки — 40 700 руб./т, тогда как суммарная выручка от продуктов переработки (масло + шрот) — лишь 37 490 руб./т. Разрыв — больше 3 200 рублей на каждой тонне.</p>
+      </div>
+      <div>
+        <div class="modal-section-title solution"><span class="dot dot-green"></span>Почему так сложилось</div>
+        <ul class="modal-list">
+          <li><strong>Цена семечки держится высоко</strong> из-за ограниченного предложения: урожай 2025 года оказался скромнее ожиданий в ряде южных регионов</li>
+          <li><strong>Цены на масло не растут:</strong> FOB подсолнечного масла — около $1 295/т, что при текущем курсе рубля даёт переработчикам недостаточную маржу</li>
+          <li><strong>Экспортная пошлина на масло</strong> дополнительно сжимает выручку от реализации за рубеж</li>
+          <li><strong>Курс рубля:</strong> укрепление рубля снижает рублёвый эквивалент экспортной выручки от масла, тогда как внутренняя цена семечки остаётся в рублях</li>
+        </ul>
+      </div>
+      <div>
+        <div class="modal-section-title results"><span class="dot dot-gold"></span>Что это значит для производителей семечки</div>
+        <div class="results-grid">
+          <div class="result-card"><div class="result-num">−11%</div><div class="result-desc">убыточность переработки — переработчики будут давить на закупочную цену семечки</div></div>
+          <div class="result-card"><div class="result-num">риск снижения</div><div class="result-desc">закупочных цен на семечку в ближайшие 4–6 недель</div></div>
+          <div class="result-card"><div class="result-num">продавать сейчас</div><div class="result-desc">или ждать нового урожая — вот ключевой вопрос для хозяйств</div></div>
+        </div>
+        <p class="modal-text" style="margin-top:16px">Наша оценка: при сохранении текущей убыточности переработчики будут постепенно снижать закупочные цены на семечку. Для производителей с остатками на складах — это сигнал к активизации продаж в ближайший месяц.</p>
+      </div>
+      <div class="modal-cta">
+        <h4>Хотите получить прогноз цен на подсолнечник по вашему региону?</h4>
+        <p>Оставьте контакт — аналитик пришлёт расчёт с горизонтом на 30–60 дней.</p>
+        <div class="modal-cta-form">
+          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
+          <input class="modal-input" type="tel" placeholder="Телефон или email">
+          <button class="modal-btn-submit" onclick="submitModalForm(this,'Новость: подсолнечник')">Получить прогноз</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS MODAL 3: КРС + молоко -->
+<div class="modal-overlay" id="modal-news3">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <span class="modal-tag">Животноводство · 7 апреля 2026</span>
+      <h2>Массовый забой КРС и рекордное молоко: два кризиса животноводства одновременно</h2>
+      <button class="modal-close" data-close="news3">✕</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="modal-section-title problem"><span class="dot dot-red"></span>Два тревожных сигнала сразу</div>
+        <p class="modal-text">Март–апрель 2026 года принёс животноводству России сразу два острых сюжета, развивающихся одновременно. Первый — вынужденный массовый забой КРС в Сибири, на Урале и в Поволжье из-за заболевания поголовья. Второй — молочная отрасль входит в парадоксальный кризис: рекордное производство сырого молока при обвальном падении закупочных цен.</p>
+      </div>
+      <div>
+        <div class="modal-section-title solution"><span class="dot dot-green"></span>Детали по каждому сюжету</div>
+        <ul class="modal-list">
+          <li><strong>КРС — вынужденный забой:</strong> Новосибирская, Омская, Пензенская области, Алтай и Урал фиксируют резкий рост предложения говядины. Краткосрочно цены на говядину сдержаны, импорт из Бразилии и Аргентины дополнительно давит на рынок</li>
+          <li><strong>Говядина — прогноз:</strong> умеренный рост цен в пределах 10% в течение года по мере сокращения поголовья. Импортная квота (беспошлинная) остаётся буфером</li>
+          <li><strong>Молоко — парадокс 2026:</strong> производство сырого молока бьёт рекорды, однако закупочные цены у хозяйств падают из-за переизбытка предложения и стагнации переработки</li>
+          <li><strong>ФАС давит на сети:</strong> перед Пасхой регулятор предостерёг торговые сети от необоснованного роста цен на яйца, молоко и сливочное масло — что дополнительно ограничивает ценовой потенциал для производителей</li>
+        </ul>
+      </div>
+      <div>
+        <div class="modal-section-title results"><span class="dot dot-gold"></span>Что это значит для хозяйств</div>
+        <div class="results-grid">
+          <div class="result-card"><div class="result-num">говядина</div><div class="result-desc">кратковременный навес предложения — не лучший момент для реализации скота</div></div>
+          <div class="result-card"><div class="result-num">молоко</div><div class="result-desc">закупочные цены под давлением — затраты на корма не компенсируются</div></div>
+          <div class="result-card"><div class="result-num">кормовая база</div><div class="result-desc">прогноз цен на фуражное зерно — ключевой параметр для планирования на лето</div></div>
+        </div>
+        <p class="modal-text" style="margin-top:16px">Наша оценка: для молочных хозяйств критично понимать прогноз цен на фуражное зерно на ближайшие 3–4 месяца — это прямо влияет на решение о наращивании или сокращении поголовья в летний период.</p>
+      </div>
+      <div class="modal-cta">
+        <h4>Хотите получить прогноз по кормовой базе и закупочным ценам?</h4>
+        <p>Оставьте контакт — аналитик подготовит расчёт по вашему виду животноводства и региону.</p>
+        <div class="modal-cta-form">
+          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
+          <input class="modal-input" type="tel" placeholder="Телефон или email">
+          <button class="modal-btn-submit" onclick="submitModalForm(this,'Новость: КРС и молоко')">Получить расчёт</button>
         </div>
       </div>
     </div>
