@@ -572,20 +572,30 @@
     background: var(--dark-meadow);
     border: 1px solid rgba(76,175,80,0.1);
     border-radius: 12px;
-    padding: 20px;
+    padding: 20px 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.4);
-    text-align: center;
-    min-height: 70px;
+    min-height: 80px;
     transition: all 0.25s;
+    overflow: hidden;
   }
   .client-logo:hover {
-    border-color: rgba(76,175,80,0.3);
-    color: rgba(255,255,255,0.7);
+    border-color: rgba(76,175,80,0.35);
+    background: rgba(27,58,30,0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+  .client-logo svg {
+    max-width: 140px;
+    max-height: 48px;
+    width: 100%;
+    height: auto;
+    opacity: 0.75;
+    transition: opacity 0.25s;
+  }
+  .client-logo:hover svg {
+    opacity: 1;
   }
 
   /* CTA SECTION */
@@ -1610,16 +1620,94 @@
   <h2>Нам доверяют ведущие<br>агрохолдинги</h2>
   <p class="section-sub">Более 340 компаний АПК используют FoodBI Агроформа для стратегического планирования.</p>
   <div class="clients-logos">
-    <div class="client-logo">Русагро</div>
-    <div class="client-logo">ЭкоНива</div>
-    <div class="client-logo">Мираторг</div>
-    <div class="client-logo">Агрокомплекс им. Ткачёва</div>
-    <div class="client-logo">Степь АПК</div>
-    <div class="client-logo">Черкизово</div>
-    <div class="client-logo">АГРОКО</div>
-    <div class="client-logo">Продимекс</div>
-    <div class="client-logo">КДВ Групп</div>
-    <div class="client-logo">АФГ Националь</div>
+    <!-- Русагро -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="10" width="6" height="30" rx="2" fill="#E63312"/>
+        <rect x="9" y="18" width="6" height="22" rx="2" fill="#E63312"/>
+        <rect x="18" y="6" width="6" height="34" rx="2" fill="#E63312"/>
+        <text x="30" y="34" font-family="Arial,sans-serif" font-weight="800" font-size="20" fill="#ffffff" letter-spacing="-0.5">РУСАГРО</text>
+      </svg>
+    </div>
+    <!-- ЭкоНива -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="25" r="16" fill="none" stroke="#4CAF50" stroke-width="3"/>
+        <path d="M14 25 Q22 10 30 25 Q22 40 14 25Z" fill="#4CAF50"/>
+        <text x="44" y="22" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="#4CAF50">ЭкоНива</text>
+        <text x="44" y="38" font-family="Arial,sans-serif" font-weight="400" font-size="10" fill="rgba(255,255,255,0.6)">AGRO</text>
+      </svg>
+    </div>
+    <!-- Мираторг -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 38 L18 12 L28 32 L38 12 L48 38" fill="none" stroke="#D4A017" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+        <text x="56" y="31" font-family="Arial,sans-serif" font-weight="800" font-size="16" fill="#ffffff" letter-spacing="0.5">МИРАТОРГ</text>
+      </svg>
+    </div>
+    <!-- Агрокомплекс им. Ткачёва -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="20,8 32,8 38,20 32,32 20,32 14,20" fill="none" stroke="#1565C0" stroke-width="2.5"/>
+        <text x="8" y="8" font-family="Arial,sans-serif" font-weight="800" font-size="11" fill="#ffffff" dy="28" letter-spacing="0">АГРОКОМПЛЕКС</text>
+        <text x="8" y="44" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.55)">им. Ткачёва</text>
+      </svg>
+    </div>
+    <!-- Степь АПК -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 36 Q20 10 35 28 Q42 36 50 20" fill="none" stroke="#F9A825" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="50" cy="20" r="4" fill="#F9A825"/>
+        <text x="60" y="22" font-family="Arial,sans-serif" font-weight="800" font-size="16" fill="#ffffff">СТЕПЬ</text>
+        <text x="60" y="38" font-family="Arial,sans-serif" font-weight="400" font-size="11" fill="rgba(255,255,255,0.6)">АПК</text>
+      </svg>
+    </div>
+    <!-- Черкизово -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="10" width="32" height="30" rx="4" fill="#C62828"/>
+        <text x="10" y="21" font-family="Arial,sans-serif" font-weight="900" font-size="10" fill="#ffffff">ЧГ</text>
+        <text x="10" y="34" font-family="Arial,sans-serif" font-weight="400" font-size="7" fill="rgba(255,255,255,0.8)">GROUP</text>
+        <text x="44" y="22" font-family="Arial,sans-serif" font-weight="800" font-size="14" fill="#ffffff">ЧЕРКИЗОВО</text>
+        <text x="44" y="37" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.5)">GROUP</text>
+      </svg>
+    </div>
+    <!-- АГРОКО -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 36 L24 10 L38 36Z" fill="none" stroke="#2E7D32" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="15" y1="28" x2="33" y2="28" stroke="#2E7D32" stroke-width="2.5"/>
+        <text x="46" y="31" font-family="Arial,sans-serif" font-weight="900" font-size="20" fill="#ffffff" letter-spacing="1">АГРОКО</text>
+      </svg>
+    </div>
+    <!-- Продимекс -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="14" width="28" height="22" rx="3" fill="#1B5E20"/>
+        <rect x="10" y="18" width="8" height="14" rx="1" fill="#69F0AE"/>
+        <rect x="21" y="22" width="8" height="10" rx="1" fill="#4CAF50"/>
+        <text x="40" y="22" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="#ffffff">ПРОДИМЕКС</text>
+        <text x="40" y="37" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.5)">сахарный холдинг</text>
+      </svg>
+    </div>
+    <!-- КДВ Групп -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="10" width="34" height="30" rx="6" fill="#FF6F00"/>
+        <text x="11" y="31" font-family="Arial,sans-serif" font-weight="900" font-size="18" fill="#ffffff">КДВ</text>
+        <text x="46" y="24" font-family="Arial,sans-serif" font-weight="800" font-size="15" fill="#ffffff">ГРУППА</text>
+        <text x="46" y="39" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.5)">КДВ</text>
+      </svg>
+    </div>
+    <!-- АФГ Националь -->
+    <div class="client-logo">
+      <svg viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="25" r="15" fill="#0D47A1"/>
+        <text x="10" y="30" font-family="Arial,sans-serif" font-weight="900" font-size="13" fill="#ffffff">АФГ</text>
+        <text x="44" y="22" font-family="Arial,sans-serif" font-weight="800" font-size="13" fill="#ffffff">НАЦИОНАЛЬ</text>
+        <text x="44" y="38" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.5)">рисовый холдинг</text>
+      </svg>
+    </div>
   </div>
 </div>
 
