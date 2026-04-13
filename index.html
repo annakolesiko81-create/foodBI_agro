@@ -481,17 +481,8 @@
     gap: 12px;
   }
   .feat-icon {
-    width: 68px; height: 68px;
-    background: rgba(76,175,80,0.12);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 28px;
     margin-bottom: 4px;
-    flex-shrink: 0;
-  }
-  .feat-icon svg {
-    width: 36px; height: 36px;
   }
   .feat h4 {
     font-size: 16px;
@@ -572,30 +563,27 @@
     background: var(--dark-meadow);
     border: 1px solid rgba(76,175,80,0.1);
     border-radius: 12px;
-    padding: 20px 16px;
+    padding: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 80px;
+    min-height: 70px;
     transition: all 0.25s;
-    overflow: hidden;
+  }
+  .client-logo img {
+    max-width: 100%;
+    max-height: 44px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1) opacity(0.5);
+    transition: filter 0.25s;
   }
   .client-logo:hover {
-    border-color: rgba(76,175,80,0.35);
-    background: rgba(27,58,30,0.9);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    border-color: rgba(76,175,80,0.3);
   }
-  .client-logo svg {
-    max-width: 140px;
-    max-height: 48px;
-    width: 100%;
-    height: auto;
-    opacity: 0.75;
-    transition: opacity 0.25s;
-  }
-  .client-logo:hover svg {
-    opacity: 1;
+  .client-logo:hover img {
+    filter: brightness(0) invert(1) opacity(0.85);
   }
 
   /* CTA SECTION */
@@ -793,395 +781,6 @@
     opacity: 1;
     transform: none;
   }
-
-  /* ===================== MODAL OVERLAY ===================== */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(5,14,7,0.82);
-    backdrop-filter: blur(6px);
-    align-items: flex-start;
-    justify-content: center;
-    padding: 40px 20px;
-    overflow-y: auto;
-  }
-  .modal-overlay.open { display: flex; }
-
-  .modal-dialog {
-    background: var(--dark-meadow);
-    border: 1px solid rgba(76,175,80,0.25);
-    border-radius: 20px;
-    width: 100%;
-    max-width: 780px;
-    margin: auto;
-    position: relative;
-    animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1) both;
-    overflow: hidden;
-  }
-  @keyframes modalIn {
-    from { opacity: 0; transform: translateY(28px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .modal-header {
-    padding: 36px 44px 28px;
-    border-bottom: 1px solid rgba(76,175,80,0.12);
-    position: relative;
-  }
-  .modal-tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--spring-green);
-    background: rgba(105,240,174,0.1);
-    border-radius: 6px;
-    padding: 4px 10px;
-    margin-bottom: 14px;
-  }
-  .modal-header h2 {
-    font-size: 26px;
-    font-weight: 800;
-    line-height: 1.25;
-    letter-spacing: -0.4px;
-    max-width: 600px;
-  }
-  .modal-close {
-    position: absolute;
-    top: 20px; right: 20px;
-    width: 36px; height: 36px;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-    color: rgba(255,255,255,0.6);
-    font-size: 18px;
-    line-height: 1;
-  }
-  .modal-close:hover { background: rgba(76,175,80,0.2); color: var(--spring-green); }
-
-  .modal-body {
-    padding: 36px 44px 44px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .modal-section-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .modal-section-title .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .dot-red  { background: #FF5252; }
-  .dot-green{ background: var(--spring-green); }
-  .dot-gold { background: var(--harvest-gold); }
-
-  .modal-section-title.problem { color: rgba(255,82,82,0.9); }
-  .modal-section-title.solution { color: var(--spring-green); }
-  .modal-section-title.results { color: var(--harvest-gold); }
-
-  .modal-text {
-    font-size: 15px;
-    line-height: 1.72;
-    color: rgba(255,255,255,0.72);
-  }
-
-  .modal-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 0; padding: 0;
-  }
-  .modal-list li {
-    font-size: 15px;
-    line-height: 1.55;
-    color: rgba(255,255,255,0.72);
-    padding-left: 22px;
-    position: relative;
-  }
-  .modal-list li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--field-green);
-    font-weight: 700;
-  }
-
-  .results-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-  }
-  .result-card {
-    background: rgba(76,175,80,0.07);
-    border: 1px solid rgba(76,175,80,0.18);
-    border-radius: 12px;
-    padding: 18px 16px;
-    text-align: center;
-  }
-  .result-num {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--harvest-gold);
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-  .result-desc {
-    font-size: 12px;
-    line-height: 1.45;
-    color: rgba(255,255,255,0.55);
-  }
-
-  /* CTA-форма внутри модала */
-  .modal-cta {
-    background: rgba(76,175,80,0.06);
-    border: 1px solid rgba(76,175,80,0.2);
-    border-radius: 14px;
-    padding: 28px 32px;
-  }
-  .modal-cta h4 {
-    font-size: 17px;
-    font-weight: 800;
-    margin-bottom: 6px;
-  }
-  .modal-cta p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-    margin-bottom: 20px;
-  }
-  .modal-cta-form {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .modal-input {
-    flex: 1;
-    min-width: 180px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(76,175,80,0.25);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 14px;
-    color: var(--white);
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .modal-input::placeholder { color: rgba(255,255,255,0.35); }
-  .modal-input:focus { border-color: var(--field-green); }
-  .modal-btn-submit {
-    background: var(--field-green);
-    color: var(--deep-forest);
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s;
-  }
-  .modal-btn-submit:hover { background: var(--spring-green); }
-
-  /* ===================== SVG ICONS ===================== */
-  .sol-icon svg {
-    width: 26px; height: 26px;
-  }
-
-  /* ===================== HAMBURGER BUTTON ===================== */
-  .burger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px; height: 36px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-    z-index: 110;
-  }
-  .burger span {
-    display: block;
-    height: 2px;
-    background: var(--white);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-  .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .burger.open span:nth-child(2) { opacity: 0; }
-  .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* MOBILE MENU OVERLAY */
-  .mobile-nav {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 105;
-    background: rgba(10,26,13,0.98);
-    backdrop-filter: blur(16px);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    padding: 80px 40px 40px;
-  }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a {
-    font-size: 22px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    letter-spacing: -0.3px;
-    transition: color 0.2s;
-  }
-  .mobile-nav a:hover { color: var(--spring-green); }
-  .mobile-nav .btn { font-size: 16px; padding: 14px 32px; margin-top: 8px; }
-
-  /* ===================== TABLET (≤ 1024px) ===================== */
-  @media (max-width: 1024px) {
-    header { padding: 16px 32px; }
-    .hero { padding: 100px 32px 60px; gap: 40px; }
-    section { padding: 80px 32px; }
-    .features-bg { padding: 60px 32px; }
-    .stats-section { margin: 0 32px; padding: 60px 32px; }
-    .clients-section { padding: 60px 32px; }
-    .news-section { padding: 60px 32px; }
-    .cta-section { margin: 0 32px 80px; padding: 60px 48px; }
-    footer { padding: 50px 32px 32px; }
-    .solutions-grid { grid-template-columns: repeat(2, 1fr); }
-    .features-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-    .stats-section { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-    .clients-logos { grid-template-columns: repeat(3, 1fr); }
-    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
-    .hero-visual { display: none; }
-    .hero { grid-template-columns: 1fr; }
-    h2 { font-size: clamp(26px, 4vw, 38px); }
-  }
-
-  /* ===================== MOBILE (≤ 768px) ===================== */
-  @media (max-width: 768px) {
-    /* Header */
-    header { padding: 14px 20px; }
-    nav, .header-btns { display: none; }
-    .burger { display: flex; }
-
-    /* Hero */
-    .hero {
-      padding: 90px 20px 52px;
-      grid-template-columns: 1fr;
-    }
-    .hero h1 { font-size: clamp(28px, 7vw, 42px); letter-spacing: -1px; }
-    .hero-sub { font-size: 15px; }
-    .hero-visual { display: none; }
-    .hero-cta { flex-direction: column; align-items: flex-start; }
-    .hero-cta .btn { width: 100%; justify-content: center; }
-
-    /* Sections */
-    section { padding: 60px 20px; }
-    .section-sub { font-size: 15px; }
-    h2 { font-size: clamp(24px, 6.5vw, 34px); }
-
-    /* Solutions */
-    .solutions-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 36px; }
-    .sol-card { padding: 28px 22px; }
-
-    /* Features */
-    .features-bg { padding: 44px 20px; border-radius: 16px; }
-    .features-grid { grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
-    .feat-icon { width: 58px; height: 58px; }
-    .feat-icon svg { width: 30px; height: 30px; }
-
-    /* Stats */
-    .stats-section {
-      margin: 0 20px;
-      padding: 44px 28px;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-      border-radius: 16px;
-    }
-    .stat-num { font-size: 36px; letter-spacing: -1px; }
-    .stat-desc { font-size: 13px; }
-
-    /* Clients */
-    .clients-section { padding: 60px 20px; }
-    .clients-logos { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .client-logo { padding: 16px 12px; font-size: 12px; min-height: 60px; }
-
-    /* News */
-    .news-section { padding: 60px 20px; }
-    .news-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 28px; }
-
-    /* CTA */
-    .cta-section {
-      margin: 0 20px 60px;
-      padding: 44px 24px;
-      grid-template-columns: 1fr;
-      gap: 36px;
-      border-radius: 16px;
-    }
-    .cta-section h2 { font-size: 26px; }
-    .cta-section > div:first-child .btn-group,
-    [style*="display:flex;gap:12px"] { flex-direction: column; }
-
-    /* Form */
-    .form-card { padding: 24px 20px; }
-
-    /* Footer */
-    footer { padding: 44px 20px 32px; }
-    .footer-top { grid-template-columns: 1fr; gap: 28px; }
-    .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
-    .footer-badges { justify-content: center; }
-    .footer-brand p { max-width: 100%; }
-  }
-
-  /* ===================== SMALL MOBILE (≤ 400px) ===================== */
-  @media (max-width: 400px) {
-    .hero h1 { font-size: 26px; }
-    .stats-section { grid-template-columns: 1fr; }
-    .stat-num { font-size: 40px; }
-    .solutions-grid { gap: 12px; }
-    .sol-card { padding: 24px 18px; }
-  }
-
-  /* ===================== RESPONSIVE MODAL ===================== */
-  @media (max-width: 640px) {
-    .modal-overlay { padding: 0; align-items: flex-end; }
-    .modal-dialog {
-      border-radius: 20px 20px 0 0;
-      max-height: 90vh;
-      overflow-y: auto;
-      animation: modalInMobile 0.3s cubic-bezier(0.34,1.2,0.64,1) both;
-    }
-    @keyframes modalInMobile {
-      from { opacity: 0; transform: translateY(60px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .modal-header { padding: 28px 20px 20px; }
-    .modal-body { padding: 24px 20px 36px; gap: 24px; }
-    .modal-header h2 { font-size: 20px; }
-    .results-grid { grid-template-columns: 1fr; gap: 10px; }
-    .modal-cta-form { flex-direction: column; }
-    .modal-input { min-width: unset; }
-    .modal-close { top: 16px; right: 16px; }
-  }
 </style>
 </head>
 <body>
@@ -1207,49 +806,102 @@
     <a href="#contacts">Контакты</a>
   </nav>
 
-  <div class="header-btns" style="display:flex;gap:10px">
+  <div style="display:flex;gap:10px">
     <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_uyqhw/" target="_blank" class="btn btn-outline" style="padding:10px 18px;font-size:13px">Личный кабинет</a>
     <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_pam56/" target="_blank" class="btn btn-primary" style="padding:10px 18px;font-size:13px">Демо-доступ</a>
   </div>
-
-  <button class="burger" id="burger" aria-label="Меню">
-    <span></span><span></span><span></span>
-  </button>
 </header>
-
-<!-- MOBILE NAVIGATION -->
-<nav class="mobile-nav" id="mobileNav">
-  <a href="#solutions" class="mobile-nav-link">Решения</a>
-  <a href="#features" class="mobile-nav-link">Возможности</a>
-  <a href="#clients" class="mobile-nav-link">Клиенты</a>
-  <a href="#news" class="mobile-nav-link">Аналитика</a>
-  <a href="#contacts" class="mobile-nav-link">Контакты</a>
-  <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_pam56/" target="_blank" class="btn btn-primary">Демо-доступ</a>
-</nav>
 
 <!-- TICKER -->
 <div class="ticker-wrap" style="position:fixed;top:73px;left:0;right:0;z-index:99">
-  <div class="ticker">
-    <span class="ticker-item">Пшеница 3 кл. <strong>14 850 ₽/т</strong> <span class="up">↑ +2.3%</span></span>
-    <span class="ticker-item">Подсолнечник <strong>32 400 ₽/т</strong> <span class="dn">↓ -0.8%</span></span>
-    <span class="ticker-item">Соя <strong>27 100 ₽/т</strong> <span class="up">↑ +1.1%</span></span>
-    <span class="ticker-item">Сахарная свёкла <strong>5 200 ₽/т</strong> <span class="up">↑ +0.5%</span></span>
-    <span class="ticker-item">Кукуруза <strong>12 600 ₽/т</strong> <span class="dn">↓ -1.4%</span></span>
-    <span class="ticker-item">Рапс <strong>25 800 ₽/т</strong> <span class="up">↑ +3.0%</span></span>
-    <span class="ticker-item">Молоко 3.2% <strong>42 ₽/л</strong> <span class="up">↑ +0.9%</span></span>
-    <span class="ticker-item">КРС живой вес <strong>178 ₽/кг</strong> <span class="up">↑ +1.7%</span></span>
-
-    <!-- duplicate for seamless loop -->
-    <span class="ticker-item">Пшеница 3 кл. <strong>14 850 ₽/т</strong> <span class="up">↑ +2.3%</span></span>
-    <span class="ticker-item">Подсолнечник <strong>32 400 ₽/т</strong> <span class="dn">↓ -0.8%</span></span>
-    <span class="ticker-item">Соя <strong>27 100 ₽/т</strong> <span class="up">↑ +1.1%</span></span>
-    <span class="ticker-item">Сахарная свёкла <strong>5 200 ₽/т</strong> <span class="up">↑ +0.5%</span></span>
-    <span class="ticker-item">Кукуруза <strong>12 600 ₽/т</strong> <span class="dn">↓ -1.4%</span></span>
-    <span class="ticker-item">Рапс <strong>25 800 ₽/т</strong> <span class="up">↑ +3.0%</span></span>
-    <span class="ticker-item">Молоко 3.2% <strong>42 ₽/л</strong> <span class="up">↑ +0.9%</span></span>
-    <span class="ticker-item">КРС живой вес <strong>178 ₽/кг</strong> <span class="up">↑ +1.7%</span></span>
-  </div>
+  <div class="ticker" id="agro-ticker"></div>
 </div>
+<script>
+(function() {
+  // Базовые цены (резервные данные)
+  var BASE_PRICES = [
+    { name: 'Пшеница 3 кл.',  price: 14850, unit: '₽/т' },
+    { name: 'Подсолнечник',   price: 32400, unit: '₽/т' },
+    { name: 'Соя',            price: 27100, unit: '₽/т' },
+    { name: 'Сахарная свёкла',price: 5200,  unit: '₽/т' },
+    { name: 'Кукуруза',       price: 12600, unit: '₽/т' },
+    { name: 'Рапс',           price: 25800, unit: '₽/т' },
+    { name: 'Молоко 3.2%',    price: 42,    unit: '₽/л' },
+    { name: 'КРС живой вес',  price: 178,   unit: '₽/кг' },
+    { name: 'Ячмень 2 кл.',   price: 11200, unit: '₽/т' },
+    { name: 'Горох',          price: 16300, unit: '₽/т' }
+  ];
+
+  var CACHE_KEY = 'agro_ticker_data';
+  var CACHE_DATE_KEY = 'agro_ticker_date';
+
+  function todayStr() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function randChange(base) {
+    // Эмулирует дневное изменение ±3% от базы, детерминировано по дате
+    var seed = todayStr().replace(/-/g, '') * 1 + base;
+    var x = Math.sin(seed) * 10000;
+    var r = (x - Math.floor(x)) * 6 - 3; // -3% .. +3%
+    return Math.round(r * 10) / 10;
+  }
+
+  function buildItems(items) {
+    return items.map(function(item) {
+      var chg = randChange(item.price);
+      var cls = chg >= 0 ? 'up' : 'dn';
+      var arrow = chg >= 0 ? '↑' : '↓';
+      var sign = chg >= 0 ? '+' : '';
+      return '<span class="ticker-item">' + item.name +
+        ' <strong>' + item.price.toLocaleString('ru-RU') + ' ' + item.unit + '</strong>' +
+        ' <span class="' + cls + '">' + arrow + ' ' + sign + chg + '%</span></span>';
+    }).join('');
+  }
+
+  function renderTicker(items) {
+    var html = buildItems(items);
+    var updated = '<span class="ticker-item" style="opacity:0.35;font-size:11px">Обновлено: ' + todayStr() + '</span>';
+    // Дублируем для бесшовной прокрутки
+    document.getElementById('agro-ticker').innerHTML = html + updated + html + updated;
+  }
+
+  function loadAndRender() {
+    var cachedDate = localStorage.getItem(CACHE_DATE_KEY);
+    var cachedData = localStorage.getItem(CACHE_KEY);
+
+    if (cachedDate === todayStr() && cachedData) {
+      try {
+        renderTicker(JSON.parse(cachedData));
+        return;
+      } catch(e) {}
+    }
+
+    // Попытка загрузить актуальные данные с agro.foodbi.ru API
+    // Если API недоступен — используем базовые цены с дневной вариацией
+    fetch('https://agro.foodbi.ru/api/prices/current', { mode: 'cors' })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data && data.prices && data.prices.length) {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(data.prices));
+          localStorage.setItem(CACHE_DATE_KEY, todayStr());
+          renderTicker(data.prices);
+        } else {
+          fallback();
+        }
+      })
+      .catch(function() { fallback(); });
+
+    function fallback() {
+      localStorage.setItem(CACHE_KEY, JSON.stringify(BASE_PRICES));
+      localStorage.setItem(CACHE_DATE_KEY, todayStr());
+      renderTicker(BASE_PRICES);
+    }
+  }
+
+  loadAndRender();
+})();
+</script>
 
 <!-- HERO -->
 <div class="hero" style="padding-top:140px">
@@ -1332,130 +984,47 @@
   <p class="section-sub">Выберите модуль, подходящий вашему подразделению. Каждый адаптирован под специфику агробизнеса.</p>
 
   <div class="solutions-grid reveal">
-    <div class="sol-card" data-modal="rastenie">
-      <div class="sol-icon">
-        <!-- Колос пшеницы -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-          <path d="M24 42V18" stroke="#69F0AE" stroke-width="2.2" stroke-linecap="round"/>
-          <ellipse cx="24" cy="11" rx="4" ry="6.5" fill="#69F0AE" opacity="0.9"/>
-          <path d="M24 20 Q18 16 14 17" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-          <ellipse cx="11.5" cy="14.5" rx="3.2" ry="5.5" fill="#4CAF50" opacity="0.75" transform="rotate(-30 11.5 14.5)"/>
-          <path d="M24 20 Q30 16 34 17" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-          <ellipse cx="36.5" cy="14.5" rx="3.2" ry="5.5" fill="#4CAF50" opacity="0.75" transform="rotate(30 36.5 14.5)"/>
-          <path d="M24 27 Q17 23 13 24" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
-          <ellipse cx="10.5" cy="21.5" rx="2.8" ry="4.8" fill="#4CAF50" opacity="0.55" transform="rotate(-28 10.5 21.5)"/>
-          <path d="M24 27 Q31 23 35 24" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
-          <ellipse cx="37.5" cy="21.5" rx="2.8" ry="4.8" fill="#4CAF50" opacity="0.55" transform="rotate(28 37.5 21.5)"/>
-          <path d="M18 42 Q24 40 30 42" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        </svg>
-      </div>
+    <div class="sol-card">
+      <div class="sol-icon">🌾</div>
       <h3>Растениеводство</h3>
       <div class="sol-subtitle">Зерно, масличные, сахарная свёкла</div>
       <p>Прогнозирование урожайности, оптимизация севооборота и планирование сбыта на основе рыночных данных. Анализ рентабельности культур по регионам.</p>
-      <a href="javascript:void(0)" class="sol-link" data-modal="rastenie">Подробнее →</a>
+      <a href="#" class="sol-link">Подробнее →</a>
     </div>
-    <div class="sol-card" data-modal="zhivot">
-      <div class="sol-icon">
-        <!-- Корова (голова + рога) -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-          <path d="M14 12 Q10 6 7 8" stroke="#69F0AE" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M34 12 Q38 6 41 8" stroke="#69F0AE" stroke-width="2.2" stroke-linecap="round"/>
-          <ellipse cx="24" cy="20" rx="13" ry="11" stroke="#69F0AE" stroke-width="2.2" fill="none"/>
-          <ellipse cx="15" cy="16" rx="3.5" ry="2.5" stroke="#4CAF50" stroke-width="1.8" fill="none"/>
-          <ellipse cx="33" cy="16" rx="3.5" ry="2.5" stroke="#4CAF50" stroke-width="1.8" fill="none"/>
-          <ellipse cx="24" cy="25" rx="5" ry="3" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
-          <circle cx="21.5" cy="25" r="1.2" fill="#4CAF50"/>
-          <circle cx="26.5" cy="25" r="1.2" fill="#4CAF50"/>
-          <circle cx="18" cy="17" r="1.5" fill="#69F0AE"/>
-          <circle cx="30" cy="17" r="1.5" fill="#69F0AE"/>
-          <path d="M16 31 L16 40" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-          <path d="M32 31 L32 40" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-          <path d="M20 31 L20 40" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-          <path d="M28 31 L28 40" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
+    <div class="sol-card">
+      <div class="sol-icon">🐄</div>
       <h3>Животноводство</h3>
       <div class="sol-subtitle">МКС, птицеводство, свиноводство</div>
       <p>Мониторинг цен на живой вес и продукцию переработки. Управление кормовой базой, прогноз спроса от ритейла и HoReCa.</p>
-      <a href="javascript:void(0)" class="sol-link" data-modal="zhivot">Подробнее →</a>
+      <a href="#" class="sol-link">Подробнее →</a>
     </div>
-    <div class="sol-card" data-modal="pererab">
-      <div class="sol-icon">
-        <!-- Завод + шестерня -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-          <rect x="6" y="26" width="36" height="16" rx="2" stroke="#69F0AE" stroke-width="2" fill="none"/>
-          <path d="M6 26 L14 16 L20 22 L26 14 L32 20 L38 12 L42 18 L42 26" stroke="#4CAF50" stroke-width="2" stroke-linejoin="round" fill="none"/>
-          <rect x="10" y="30" width="6" height="12" rx="1" fill="#4CAF50" opacity="0.5"/>
-          <rect x="21" y="30" width="6" height="12" rx="1" fill="#4CAF50" opacity="0.5"/>
-          <rect x="32" y="30" width="6" height="12" rx="1" fill="#4CAF50" opacity="0.5"/>
-          <path d="M20 10 L22 6 L24 10 L28 10 L26 13 L27.5 17 L24 15 L20.5 17 L22 13 L20 10Z" fill="#69F0AE" opacity="0.85"/>
-        </svg>
-      </div>
+    <div class="sol-card">
+      <div class="sol-icon">🏭</div>
       <h3>Переработка</h3>
       <div class="sol-subtitle">Мельницы, маслозаводы, сахарные комбинаты</div>
       <p>Синхронизация закупок сырья с ценовыми циклами рынка. Оптимизация загрузки мощностей и управление запасами готовой продукции.</p>
-      <a href="javascript:void(0)" class="sol-link" data-modal="pererab">Подробнее →</a>
+      <a href="#" class="sol-link">Подробнее →</a>
     </div>
-    <div class="sol-card" data-modal="logist">
-      <div class="sol-icon">
-        <!-- Грузовик -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-          <rect x="3" y="20" width="26" height="16" rx="2" stroke="#69F0AE" stroke-width="2" fill="none"/>
-          <path d="M29 24 L35 24 L44 30 L44 36 L29 36 Z" stroke="#69F0AE" stroke-width="2" stroke-linejoin="round" fill="none"/>
-          <circle cx="10" cy="38" r="4" stroke="#4CAF50" stroke-width="2" fill="none"/>
-          <circle cx="10" cy="38" r="1.5" fill="#4CAF50"/>
-          <circle cx="37" cy="38" r="4" stroke="#4CAF50" stroke-width="2" fill="none"/>
-          <circle cx="37" cy="38" r="1.5" fill="#4CAF50"/>
-          <path d="M5 20 L5 14 Q5 12 7 12 L18 12 L18 20" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M8 16 L15 16" stroke="#4CAF50" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
-          <path d="M8 19 L15 19" stroke="#4CAF50" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
-          <path d="M36 24 L36 30 L42 30" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
+    <div class="sol-card">
+      <div class="sol-icon">🚛</div>
       <h3>Логистика и поставки</h3>
       <div class="sol-subtitle">Транспортировка, элеваторы, склады</div>
       <p>Оптимизация маршрутов и тарифов перевозки. Прогноз загрузки элеваторов, управление остатками и планирование экспортных отгрузок.</p>
-      <a href="javascript:void(0)" class="sol-link" data-modal="logist">Подробнее →</a>
+      <a href="#" class="sol-link">Подробнее →</a>
     </div>
-    <div class="sol-card" data-modal="trading">
-      <div class="sol-icon">
-        <!-- График-свечи + стрелка вверх -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-          <path d="M6 38 L18 28 L26 33 L42 12" stroke="#69F0AE" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M36 12 L42 12 L42 18" stroke="#69F0AE" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="8" y="28" width="5" height="10" rx="1" fill="#4CAF50" opacity="0.6"/>
-          <path d="M10.5 26 L10.5 28" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M10.5 38 L10.5 40" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="20" y="22" width="5" height="14" rx="1" fill="#69F0AE" opacity="0.5"/>
-          <path d="M22.5 20 L22.5 22" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M22.5 36 L22.5 38" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="32" y="16" width="5" height="18" rx="1" fill="#4CAF50" opacity="0.6"/>
-          <path d="M34.5 14 L34.5 16" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M6 42 L42 42" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-        </svg>
-      </div>
+    <div class="sol-card">
+      <div class="sol-icon">📈</div>
       <h3>Трейдинг и экспорт</h3>
       <div class="sol-subtitle">Зерновые, масло, мясо — РФ и СНГ</div>
       <p>Инструменты для зернового трейдинга: котировки, прогнозы цен FOB/CIF, мониторинг экспортных пошлин и квот. Рыночная аналитика СНГ.</p>
-      <a href="javascript:void(0)" class="sol-link" data-modal="trading">Подробнее →</a>
+      <a href="#" class="sol-link">Подробнее →</a>
     </div>
-    <div class="sol-card" data-modal="esg">
-      <div class="sol-icon">
-        <!-- Лист + цикл -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-          <path d="M24 40 C24 40 10 30 10 20 C10 13 16 8 24 8 C32 8 38 13 38 20 C38 30 24 40 24 40Z" stroke="#69F0AE" stroke-width="2.2" fill="rgba(105,240,174,0.08)"/>
-          <path d="M24 40 L24 20" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="2 3"/>
-          <path d="M24 20 C24 20 18 26 16 22" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M24 20 C24 20 30 26 32 22" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M14 42 Q18 36 24 40 Q30 36 34 42" stroke="#69F0AE" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.6"/>
-          <circle cx="34" cy="14" r="6" stroke="#69F0AE" stroke-width="1.8" fill="none"/>
-          <path d="M31 14 L33 16 L37 12" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
+    <div class="sol-card">
+      <div class="sol-icon">🌿</div>
       <h3>ESG & Устойчивость</h3>
       <div class="sol-subtitle">Отчётность, углеродный след, стандарты</div>
       <p>Формирование ESG-отчётов для инвесторов и банков. Расчёт углеродного следа производства, отслеживание целей устойчивого развития холдинга.</p>
-      <a href="javascript:void(0)" class="sol-link" data-modal="esg">Подробнее →</a>
+      <a href="#" class="sol-link">Подробнее →</a>
     </div>
   </div>
 </section>
@@ -1488,124 +1057,37 @@
     <p class="section-sub">Интегрированные инструменты аналитики, разработанные специально для агропромышленных холдингов.</p>
     <div class="features-grid">
       <div class="feat">
-        <div class="feat-icon">
-          <!-- Нейросеть + график: ML-прогнозирование -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-            <circle cx="12" cy="12" r="4" stroke="#69F0AE" stroke-width="2"/>
-            <circle cx="36" cy="12" r="4" stroke="#69F0AE" stroke-width="2"/>
-            <circle cx="12" cy="36" r="4" stroke="#4CAF50" stroke-width="2"/>
-            <circle cx="36" cy="36" r="4" stroke="#4CAF50" stroke-width="2"/>
-            <circle cx="24" cy="24" r="5" fill="rgba(105,240,174,0.15)" stroke="#69F0AE" stroke-width="2.2"/>
-            <line x1="15.5" y1="13.5" x2="20.5" y2="20.5" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="32.5" y1="13.5" x2="27.5" y2="20.5" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="15.5" y1="34.5" x2="20.5" y2="27.5" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="32.5" y1="34.5" x2="27.5" y2="27.5" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M8 40 L14 32 L20 36 L28 26 L34 30 L40 18" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="36,18 40,18 40,22" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          </svg>
-        </div>
+        <div class="feat-icon">🔮</div>
         <span class="feat-badge">ML-прогнозирование</span>
         <h4>Предиктивная аналитика цен</h4>
         <p>Прогнозы цен на 30, 60, 90 дней для зерновых, масличных, мяса и молока на основе машинного обучения и анализа биржевых данных.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon">
-          <!-- Спутниковая тарелка + сигнал: Real-time -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-            <path d="M10 38 L22 26" stroke="#69F0AE" stroke-width="2.2" stroke-linecap="round"/>
-            <circle cx="10" cy="38" r="3" fill="#4CAF50"/>
-            <ellipse cx="20" cy="28" rx="10" ry="10" stroke="#4CAF50" stroke-width="2" fill="rgba(76,175,80,0.08)" transform="rotate(-45 20 28)"/>
-            <path d="M26 14 C32 14 37 19 37 25" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <path d="M26 8 C35 8 42 15 42 24" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
-            <path d="M26 20 C29 20 31 22 31 25" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <circle cx="31" cy="25" r="2.5" fill="#69F0AE"/>
-            <path d="M6 42 L14 34" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-          </svg>
-        </div>
+        <div class="feat-icon">📡</div>
         <span class="feat-badge">Real-time данные</span>
         <h4>Мониторинг рынка в реальном времени</h4>
         <p>Актуальные ценовые котировки со всех ключевых бирж, элеваторов и торговых площадок России и СНГ. Обновление каждые 15 минут.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon">
-          <!-- Соединённые модули: Интеграция ERP -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-            <rect x="4" y="18" width="12" height="12" rx="3" stroke="#69F0AE" stroke-width="2" fill="rgba(105,240,174,0.08)"/>
-            <rect x="18" y="6" width="12" height="12" rx="3" stroke="#4CAF50" stroke-width="2" fill="rgba(76,175,80,0.08)"/>
-            <rect x="18" y="30" width="12" height="12" rx="3" stroke="#4CAF50" stroke-width="2" fill="rgba(76,175,80,0.08)"/>
-            <rect x="32" y="18" width="12" height="12" rx="3" stroke="#69F0AE" stroke-width="2" fill="rgba(105,240,174,0.08)"/>
-            <line x1="16" y1="24" x2="18" y2="24" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="24" y1="18" x2="24" y2="30" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="30" y1="24" x2="32" y2="24" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="16" y1="22" x2="18" y2="14" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-            <line x1="16" y1="26" x2="18" y2="34" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-            <line x1="32" y1="22" x2="30" y2="14" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-            <line x1="32" y1="26" x2="30" y2="34" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-            <circle cx="24" cy="24" r="2.5" fill="#69F0AE"/>
-          </svg>
-        </div>
+        <div class="feat-icon">🔗</div>
         <span class="feat-badge">Интеграция</span>
         <h4>Подключение к ERP и BI-системам</h4>
         <p>API-интеграция с 1С:Агро, SAP, Microsoft Dynamics и Power BI. Передача прогнозов напрямую в ваши системы управления.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon">
-          <!-- Карта с пинами: Геоаналитика -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-            <path d="M6 12 L18 8 L30 12 L42 8 L42 38 L30 42 L18 38 L6 42 Z" stroke="#69F0AE" stroke-width="2" stroke-linejoin="round" fill="rgba(105,240,174,0.06)"/>
-            <line x1="18" y1="8" x2="18" y2="38" stroke="#4CAF50" stroke-width="1.2" stroke-dasharray="2 3" opacity="0.5"/>
-            <line x1="30" y1="12" x2="30" y2="42" stroke="#4CAF50" stroke-width="1.2" stroke-dasharray="2 3" opacity="0.5"/>
-            <circle cx="20" cy="20" r="4" stroke="#69F0AE" stroke-width="2" fill="rgba(105,240,174,0.15)"/>
-            <path d="M20 16 C20 16 20 24 20 24" stroke="#69F0AE" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="20" cy="20" r="1.5" fill="#69F0AE"/>
-            <circle cx="33" cy="28" r="3" stroke="#4CAF50" stroke-width="1.8" fill="rgba(76,175,80,0.15)"/>
-            <path d="M33 25 C33 25 33 31 33 31" stroke="#4CAF50" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="33" cy="28" r="1.2" fill="#4CAF50"/>
-            <path d="M10 30 Q14 26 18 30" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
-          </svg>
-        </div>
+        <div class="feat-icon">🗺</div>
         <span class="feat-badge">Геоаналитика</span>
         <h4>Региональные карты урожайности</h4>
         <p>Интерактивные карты по всем регионам России и странам СНГ: динамика производства, складские остатки, транспортная доступность.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon">
-          <!-- Дерево сценариев: Сценарный анализ -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="8" r="4" stroke="#69F0AE" stroke-width="2" fill="rgba(105,240,174,0.15)"/>
-            <line x1="24" y1="12" x2="24" y2="18" stroke="#69F0AE" stroke-width="2" stroke-linecap="round"/>
-            <path d="M24 18 L12 24" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-            <path d="M24 18 L36 24" stroke="#4CAF50" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="28" r="3.5" stroke="#4CAF50" stroke-width="2" fill="rgba(76,175,80,0.1)"/>
-            <circle cx="36" cy="28" r="3.5" stroke="#4CAF50" stroke-width="2" fill="rgba(76,175,80,0.1)"/>
-            <path d="M12 31.5 L8 38" stroke="#69F0AE" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
-            <path d="M12 31.5 L16 38" stroke="#69F0AE" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
-            <path d="M36 31.5 L32 38" stroke="#69F0AE" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
-            <path d="M36 31.5 L40 38" stroke="#69F0AE" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
-            <circle cx="8" cy="40" r="2.5" fill="#69F0AE" opacity="0.6"/>
-            <circle cx="16" cy="40" r="2.5" fill="#4CAF50" opacity="0.8"/>
-            <circle cx="32" cy="40" r="2.5" fill="#4CAF50" opacity="0.6"/>
-            <circle cx="40" cy="40" r="2.5" fill="#69F0AE" opacity="0.8"/>
-          </svg>
-        </div>
+        <div class="feat-icon">⚡</div>
         <span class="feat-badge">Сценарный анализ</span>
         <h4>Моделирование рыночных сценариев</h4>
         <p>Стресс-тестирование стратегий в условиях изменения экспортных пошлин, засух, санкционного давления и колебаний курса рубля.</p>
       </div>
       <div class="feat">
-        <div class="feat-icon">
-          <!-- Люди + диалог: Экспертиза -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
-            <circle cx="16" cy="14" r="6" stroke="#69F0AE" stroke-width="2" fill="rgba(105,240,174,0.1)"/>
-            <path d="M6 36 C6 28 10 24 16 24 C19 24 22 25.5 24 28" stroke="#69F0AE" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <circle cx="32" cy="16" r="5" stroke="#4CAF50" stroke-width="2" fill="rgba(76,175,80,0.1)"/>
-            <path d="M24 38 C24 31 27.5 27 32 27 C36.5 27 40 31 40 38" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" fill="none"/>
-            <rect x="26" y="6" width="16" height="11" rx="4" stroke="#69F0AE" stroke-width="1.8" fill="rgba(105,240,174,0.08)"/>
-            <path d="M30 17 L28 21 L34 17" stroke="#69F0AE" stroke-width="1.5" stroke-linejoin="round" fill="rgba(105,240,174,0.08)"/>
-            <line x1="30" y1="10" x2="38" y2="10" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
-            <line x1="30" y1="13" x2="36" y2="13" stroke="#69F0AE" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-          </svg>
-        </div>
+        <div class="feat-icon">👥</div>
         <span class="feat-badge">Экспертиза</span>
         <h4>Поддержка аналитиков рынка</h4>
         <p>Команда отраслевых экспертов консультирует по формированию ценовой стратегии, управлению рисками и выбору тактики закупок.</p>
@@ -1620,102 +1102,26 @@
   <h2>Нам доверяют ведущие<br>агрохолдинги</h2>
   <p class="section-sub">Более 340 компаний АПК используют FoodBI Агроформа для стратегического планирования.</p>
   <div class="clients-logos">
-    <!-- Русагро -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="8" width="8" height="38" rx="2" fill="#E63312"/>
-        <rect x="16" y="18" width="8" height="28" rx="2" fill="#E63312"/>
-        <rect x="28" y="4" width="8" height="42" rx="2" fill="#E63312"/>
-        <text x="44" y="37" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="19" fill="#ffffff" letter-spacing="0.5">РУСАГРО</text>
-      </svg>
-    </div>
-    <!-- ЭкоНива -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="22" cy="28" rx="17" ry="17" fill="#006B3C"/>
-        <path d="M12 28 Q22 10 32 28 Q22 46 12 28Z" fill="#ffffff" opacity="0.9"/>
-        <path d="M18 28 Q22 18 26 28 Q22 38 18 28Z" fill="#006B3C"/>
-        <text x="46" y="25" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="#006B3C">ЭкоНива</text>
-        <text x="46" y="41" font-family="Arial,sans-serif" font-weight="400" font-size="10" fill="rgba(255,255,255,0.55)" letter-spacing="2">AGRO</text>
-      </svg>
-    </div>
-    <!-- Мираторг -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#1A1A2E"/>
-        <path d="M12 42 L24 14 L36 34 L48 14 L60 42" fill="none" stroke="#C8A84B" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
-        <text x="68" y="35" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="15" fill="#ffffff" letter-spacing="0.5">МИРАТОРГ</text>
-      </svg>
-    </div>
-    <!-- Агрокомплекс им. Ткачёва -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#003087"/>
-        <text x="80" y="26" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="11" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">АГРОКОМПЛЕКС</text>
-        <line x1="20" y1="32" x2="140" y2="32" stroke="#C8A84B" stroke-width="1.5"/>
-        <text x="80" y="46" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="#C8A84B" text-anchor="middle" letter-spacing="1">им. Ткачёва</text>
-      </svg>
-    </div>
-    <!-- Степь АПК -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#1B3A1E"/>
-        <path d="M10 44 Q30 10 55 30 Q70 42 90 16" fill="none" stroke="#F9A825" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="90" cy="16" r="5" fill="#F9A825"/>
-        <text x="100" y="26" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="17" fill="#ffffff">СТЕПЬ</text>
-        <text x="100" y="42" font-family="Arial,sans-serif" font-weight="600" font-size="11" fill="#F9A825" letter-spacing="2">АПК</text>
-      </svg>
-    </div>
-    <!-- Черкизово -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#B71C1C"/>
-        <rect x="10" y="10" width="36" height="36" rx="3" fill="#ffffff" opacity="0.12"/>
-        <text x="14" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="16" fill="#ffffff">ЧГ</text>
-        <text x="54" y="28" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#ffffff">ЧЕРКИЗОВО</text>
-        <text x="54" y="43" font-family="Arial,sans-serif" font-weight="400" font-size="10" fill="rgba(255,255,255,0.7)" letter-spacing="2">GROUP</text>
-      </svg>
-    </div>
-    <!-- АГРОКО -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#0A2E0A"/>
-        <path d="M16 44 L34 12 L52 44Z" fill="none" stroke="#4CAF50" stroke-width="3" stroke-linejoin="round"/>
-        <line x1="22" y1="34" x2="46" y2="34" stroke="#4CAF50" stroke-width="2.5"/>
-        <text x="62" y="34" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="18" fill="#ffffff" letter-spacing="1">АГРОКО</text>
-      </svg>
-    </div>
-    <!-- Продимекс -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#1B5E20"/>
-        <rect x="10" y="14" width="12" height="28" rx="2" fill="#69F0AE"/>
-        <rect x="26" y="20" width="12" height="22" rx="2" fill="#4CAF50"/>
-        <rect x="42" y="10" width="12" height="32" rx="2" fill="#A5D6A7"/>
-        <text x="62" y="28" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#ffffff" letter-spacing="0.3">ПРОДИМЕКС</text>
-        <text x="62" y="42" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.55)" letter-spacing="0.5">сахарный холдинг</text>
-      </svg>
-    </div>
-    <!-- КДВ Групп -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#E65100"/>
-        <rect x="10" y="10" width="46" height="36" rx="6" fill="rgba(0,0,0,0.2)"/>
-        <text x="33" y="35" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="20" fill="#ffffff" text-anchor="middle">КДВ</text>
-        <text x="80" y="28" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="15" fill="#ffffff">ГРУППА</text>
-        <text x="80" y="44" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="rgba(255,255,255,0.7)" letter-spacing="1">KDV GROUP</text>
-      </svg>
-    </div>
-    <!-- АФГ Националь -->
-    <div class="client-logo">
-      <svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="4" width="152" height="48" rx="4" fill="#0D2B6B"/>
-        <circle cx="26" cy="28" r="18" fill="none" stroke="#C8A84B" stroke-width="2.5"/>
-        <text x="26" y="33" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#ffffff" text-anchor="middle">АФГ</text>
-        <text x="52" y="24" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="11" fill="#ffffff">НАЦИОНАЛЬ</text>
-        <text x="52" y="40" font-family="Arial,sans-serif" font-weight="400" font-size="9" fill="#C8A84B" letter-spacing="0.5">рисовый холдинг</text>
-      </svg>
-    </div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок1.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок6.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок7.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок8.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок9.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок10.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок11.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок12.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок13.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок14.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок15.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок16.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок17.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок18.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок19.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок21.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок22.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок23.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок24.svg" alt="Клиент"></div>
+    <div class="client-logo"><img src="Лого клиентов/Рисунок25.svg" alt="Клиент"></div>
   </div>
 </div>
 
@@ -1724,20 +1130,20 @@
   <div class="section-label">Аналитика и новости</div>
   <h2>Актуальные тренды рынка</h2>
   <div class="news-grid">
-    <a href="javascript:void(0)" class="news-card" data-modal="news1">
-      <div class="news-date">11 апреля 2026</div>
-      <h4>Пшеница пробила $240/т: экспортный импульс или краткосрочный отскок?</h4>
-      <p>Экспортные котировки российской пшеницы (12,5% протеин) впервые с августа 2025 года преодолели отметку $240/т. Смотрим на факторы роста и оцениваем устойчивость движения для производителей, рассматривающих момент продажи.</p>
+    <a href="#" class="news-card">
+      <div class="news-date">17 марта 2026</div>
+      <h4>Экспорт зерна из России в 2025/26 МГ: пересмотр прогнозов вниз из-за ограничений</h4>
+      <p>Анализ влияния новых тарифных ограничений на объёмы экспорта пшеницы и ячменя через черноморские порты.</p>
     </a>
-    <a href="javascript:void(0)" class="news-card" data-modal="news2">
-      <div class="news-date">9 апреля 2026</div>
-      <h4>Переработка подсолнечника: убыток 11% — кто платит за диспаритет цен</h4>
-      <p>При закупочной цене семечки 40 700 руб./т выручка от продуктов переработки составляет лишь 37 490 руб./т. Разбираем механику «ценовых ножниц» и что это означает для сельхозпроизводителей при планировании реализации урожая.</p>
+    <a href="#" class="news-card">
+      <div class="news-date">15 марта 2026</div>
+      <h4>Цены на масличные культуры: рост спроса из Азии поддерживает котировки</h4>
+      <p>Подробный разбор факторов, влияющих на цены подсолнечника и рапса в регионах Поволжья и Юга России.</p>
     </a>
-    <a href="javascript:void(0)" class="news-card" data-modal="news3">
-      <div class="news-date">7 апреля 2026</div>
-      <h4>Массовый забой КРС и рекордное молоко: два кризиса животноводства одновременно</h4>
-      <p>В Сибири, на Урале и Поволжье фиксируют вынужденный забой поголовья, что разгоняет предложение говядины — пока цены сдержаны. Одновременно молочная отрасль входит в парадокс: производство бьёт рекорды, а закупочные цены у хозяйств падают.</p>
+    <a href="#" class="news-card">
+      <div class="news-date">12 марта 2026</div>
+      <h4>Животноводство СНГ: итоги зимнего периода и прогноз на весну 2026</h4>
+      <p>Динамика цен на живой вес КРС и птицы, оценка кормовой базы после сложного зернового года.</p>
     </a>
   </div>
 </section>
@@ -1763,7 +1169,7 @@
   <div class="form-card">
     <h3>Оставить заявку</h3>
     <p class="sub">Получите демо-доступ и пробный отчёт</p>
-    <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_uyqhw/" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;text-decoration:none;margin-top:16px">
+    <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_ht63i/" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;text-decoration:none;margin-top:16px">
       Оставить заявку →
     </a>
     <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:12px;text-align:center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
@@ -1785,7 +1191,7 @@
         </div>
       </a>
       <p>Предиктивная аналитика и цифровая платформа для агропромышленных холдингов России и СНГ.</p>
-      <p style="margin-top:10px">📧 brand@agroforma.ru<br>📞 +7 (800) 000-00-00</p>
+      <p style="margin-top:10px">📧 <a href="mailto:sale@inline-ltd.ru" style="color:inherit">sale@inline-ltd.ru</a><br>📞 <a href="tel:+78124253265" style="color:inherit">+7 (812) 425-32-65</a></p>
     </div>
     <div class="footer-col">
       <h5>Решения</h5>
@@ -1822,404 +1228,6 @@
   </div>
 </footer>
 
-<!-- ==================== MODALS ==================== -->
-
-<!-- MODAL: Растениеводство -->
-<div class="modal-overlay" id="modal-rastenie">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Растениеводство</span>
-      <h2>Как производители зерна теряют 15–25% маржи из‑за неверного момента продажи</h2>
-      <button class="modal-close" data-close="modal-rastenie">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Проблема</div>
-        <p class="modal-text">Рынок зерновых — один из самых непредсказуемых в АПК. Цены на пшеницу, кукурузу и подсолнечник колеблются на 30–40% в течение сезона. Большинство хозяйств продают урожай «по ощущениям» — и в итоге попадают в локальный минимум.<br><br>Без понимания, куда движется рынок, невозможно правильно выбрать момент продажи, спланировать структуру посева на следующий сезон или закупить удобрения вовремя.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что даёт FoodBI Агро</div>
-        <p class="modal-text" style="margin-bottom:14px">FoodBI Агро предоставляет <strong>прогнозы закупочных цен</strong> на пшеницу, ячмень, кукурузу, подсолнечник и другие культуры — с горизонтом 1, 3 и 6 месяцев, в разрезе регионов. Имея этот прогноз, производитель может:</p>
-        <ul class="modal-list">
-          <li><strong>Выбрать оптимальный момент продажи</strong> урожая — не угадывать, а опираться на данные о том, когда цена будет выше</li>
-          <li><strong>Спланировать структуру посева</strong> на следующий сезон с учётом ожидаемой доходности по культурам</li>
-          <li><strong>Скорректировать сроки закупки ресурсов</strong> — удобрений, СЗР, семян — ориентируясь на прогноз себестоимости будущего урожая</li>
-          <li><strong>Вести переговоры с покупателями</strong> (трейдерами, элеваторами) с пониманием реальной рыночной перспективы</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>На что влияет прогноз цен</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">+12–18%</div><div class="result-desc">к цене реализации урожая при правильном выборе момента продажи</div></div>
-          <div class="result-card"><div class="result-num">−8–12%</div><div class="result-desc">затрат на ресурсы при закупке в низкой точке цикла</div></div>
-          <div class="result-card"><div class="result-num">обоснованный план</div><div class="result-desc">структуры посева под рыночный прогноз на сезон</div></div>
-        </div>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите узнать прогноз цен по вашей культуре?</h4>
-        <p>Оставьте контакт — аналитик пришлёт пробный отчёт по вашей культуре и региону в течение 1 рабочего дня.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Растениеводство')">Получить отчёт</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Животноводство -->
-<div class="modal-overlay" id="modal-zhivot">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Животноводство</span>
-      <h2>Корма дорожают непредсказуемо — маржа падает. Как видеть «ножницы цен» за 2–3 месяца до их появления</h2>
-      <button class="modal-close" data-close="modal-zhivot">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Проблема</div>
-        <p class="modal-text">Себестоимость животноводческой продукции на 55–70% состоит из кормов. Когда цены на фуражное зерно резко растут, а цены на живой вес или молоко не успевают за ними — возникают «ножницы», которые за один квартал могут уничтожить всю прибыль.<br><br>Предприятия обычно замечают это уже по факту — когда контракты подписаны, корма закуплены по неудачной цене, а изменить что-то уже поздно.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что даёт FoodBI Агро</div>
-        <p class="modal-text" style="margin-bottom:14px">FoodBI Агро предоставляет <strong>прогнозы цен</strong> на фуражное зерно (пшеница, ячмень, кукуруза, шрот) и одновременно на продукцию животноводства (живой вес КРС, свиньи, птица, молоко). Имея оба прогноза, предприятие может:</p>
-        <ul class="modal-list">
-          <li><strong>Заблаговременно увидеть сближение цен</strong> на корма и продукцию — до того, как маржа упала</li>
-          <li><strong>Принять решение о форвардной закупке корма</strong> — зафиксировать цену поставщика, пока она ещё ниже прогнозной</li>
-          <li><strong>Скорректировать производственный план</strong> — объём поголовья, сроки реализации — исходя из ожидаемой доходности</li>
-          <li><strong>Сравнить цены на корма по регионам</strong> и выбрать, где закупка выгоднее в данный момент</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>На что влияет прогноз цен</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">2–3 мес.</div><div class="result-desc">запас времени для реакции до появления «ножниц цен»</div></div>
-          <div class="result-card"><div class="result-num">−6–14%</div><div class="result-desc">кормовых затрат при своевременной форвардной закупке</div></div>
-          <div class="result-card"><div class="result-num">управляемая маржа</div><div class="result-desc">вместо реакции по факту — плановое управление доходностью</div></div>
-        </div>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите увидеть прогноз по вашим кормам и продукции?</h4>
-        <p>Оставьте контакт — аналитик подготовит пробный расчёт по вашему виду животноводства.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Животноводство')">Получить расчёт</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Переработка -->
-<div class="modal-overlay" id="modal-pererab">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Переработка</span>
-      <h2>Мукомолы и маслозаводы: как не закупить сырьё на пике и не продать продукт на дне</h2>
-      <button class="modal-close" data-close="modal-pererab">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Проблема</div>
-        <p class="modal-text">Переработчик зажат между двумя рынками: закупает сырьё (пшеницу, подсолнечник) и продаёт готовую продукцию (муку, масло). Ошибка в тайминге на любом из этих рынков — и маржа исчезает.<br><br>Типичная ситуация: закупили большой объём сырья «на хранение» в момент высоких цен, а через два месяца рынок упал и готовую продукцию пришлось отдавать ниже себестоимости. Или наоборот — не закупили впрок, а сырьё резко выросло.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что даёт FoodBI Агро</div>
-        <p class="modal-text" style="margin-bottom:14px">FoodBI Агро предоставляет <strong>прогнозы цен</strong> одновременно на сырьё и на готовую продукцию переработки — с разбивкой по регионам и горизонтом до 6 месяцев. Имея эти данные, предприятие может:</p>
-        <ul class="modal-list">
-          <li><strong>Видеть ожидаемый «спред»</strong> между ценой сырья и ценой продукта — и выбирать, когда закупать выгодно, а когда подождать</li>
-          <li><strong>Принимать решения по объёму закупки сырья</strong> на основе прогноза, а не ощущений или давления поставщика</li>
-          <li><strong>Планировать загрузку мощностей</strong> под периоды, когда маржа переработки прогнозируется максимальной</li>
-          <li><strong>Обоснованно вести переговоры</strong> с поставщиками сырья и покупателями готовой продукции, опираясь на рыночные данные</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>На что влияет прогноз цен</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">−9–16%</div><div class="result-desc">закупочной стоимости сырья при выборе правильного окна</div></div>
-          <div class="result-card"><div class="result-num">+3–8 п.п.</div><div class="result-desc">маржи переработки за счёт синхронизации входа и выхода</div></div>
-          <div class="result-card"><div class="result-num">снижение рисков</div><div class="result-desc">неликвидных запасов, закупленных на неудачной цене</div></div>
-        </div>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите увидеть прогноз спреда для вашего производства?</h4>
-        <p>Укажите тип переработки — аналитик подготовит пробный расчёт по вашему сырью и продукту.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Переработка')">Получить прогноз</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Логистика -->
-<div class="modal-overlay" id="modal-logist">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Логистика и поставки</span>
-      <h2>Когда везти зерно — так же важно, как куда везти. Как прогноз цен меняет логику отгрузок</h2>
-      <button class="modal-close" data-close="modal-logist">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Проблема</div>
-        <p class="modal-text">Решение о сроках отгрузки зерна чаще всего принимается исходя из наличия свободного транспорта или давления покупателя — но не из понимания рыночной конъюнктуры.<br><br>В результате зерно уходит в момент, когда цена на него ниже среднесезонной. Альтернативные направления сбыта (другой регион, экспорт, другой покупатель) не рассматриваются — просто потому что нет данных для сравнения.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что даёт FoodBI Агро</div>
-        <p class="modal-text" style="margin-bottom:14px">FoodBI Агро предоставляет <strong>прогнозы закупочных цен по регионам</strong> — что позволяет логисту и коммерческому директору принимать решения об отгрузке не вслепую, а с данными. На их основе компания может:</p>
-        <ul class="modal-list">
-          <li><strong>Выбрать оптимальное направление отгрузки</strong> — сравнить цены по регионам и направить зерно туда, где они выше прямо сейчас или вырастут</li>
-          <li><strong>Спланировать сроки отгрузки</strong> под прогнозный пик цен, а не под давление «надо везти»</li>
-          <li><strong>Обоснованно сравнить внутренний рынок и экспорт</strong> — используя прогнозы внутренних и FOB-цен</li>
-          <li><strong>Согласовать коммерческую стратегию</strong> с реальным рыночным прогнозом при работе с элеваторами и покупателями</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>На что влияет прогноз цен</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">+8–15%</div><div class="result-desc">к выручке от реализации за счёт выбора лучшего региона и момента</div></div>
-          <div class="result-card"><div class="result-num">осознанный выбор</div><div class="result-desc">между внутренним рынком и экспортом на основе данных</div></div>
-          <div class="result-card"><div class="result-num">меньше спешки</div><div class="result-desc">отгрузка по плану, а не под давлением рынка</div></div>
-        </div>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите сравнить цены по регионам для ваших направлений?</h4>
-        <p>Оставьте контакт — покажем прогноз по вашим культурам и ключевым направлениям отгрузки.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Логистика')">Получить прогноз</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: Трейдинг -->
-<div class="modal-overlay" id="modal-trading">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Трейдинг и экспорт</span>
-      <h2>Зерновой трейдинг без прогнозов — это угадывание. Работайте с данными, а не с интуицией</h2>
-      <button class="modal-close" data-close="modal-trading">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Проблема</div>
-        <p class="modal-text">Трейдеры работают в условиях постоянной неопределённости: внутренние цены меняются каждую неделю, экспортные пошлины корректируются, мировая конъюнктура (CBOT, MATIF) влияет на российский рынок с лагом.<br><br>При тонкой марже в зерновом трейдинге даже небольшое опоздание с решением о закупке или фиксации цены продажи — это потери, которые не компенсировать.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что даёт FoodBI Агро</div>
-        <p class="modal-text" style="margin-bottom:14px">FoodBI Агро предоставляет <strong>прогнозы цен на зерно</strong> — внутренних закупочных и экспортных (FOB Новороссийск, Тамань) — с горизонтом 1–3 месяца. Трейдер использует их для:</p>
-        <ul class="modal-list">
-          <li><strong>Выбора момента закупки зерна у производителей</strong> — покупать сейчас или ждать снижения цены</li>
-          <li><strong>Принятия решения: внутренний рынок или экспорт</strong> — сравнение ожидаемых цен с учётом пошлин и базиса</li>
-          <li><strong>Переговоров с покупателями</strong> — обоснование ценового предложения прогнозными данными, а не только спотом</li>
-          <li><strong>Оценки рисков позиций</strong> — понимание вероятного диапазона цен на горизонте сделки</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>На что влияет прогноз цен</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">+3–7%</div><div class="result-desc">к марже сделок за счёт тайминга закупки и продажи</div></div>
-          <div class="result-card"><div class="result-num">данные вместо интуиции</div><div class="result-desc">обоснованные решения по каждой позиции</div></div>
-          <div class="result-card"><div class="result-num">снижение рисков</div><div class="result-desc">понимание ценового диапазона до входа в позицию</div></div>
-        </div>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите получить прогноз по вашим культурам и направлениям?</h4>
-        <p>Оставьте контакт — пришлём пробную сводку внутренних и FOB-цен с горизонтом на 1–2 месяца.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Трейдинг и экспорт')">Получить сводку</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL: ESG -->
-<div class="modal-overlay" id="modal-esg">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">ESG & Устойчивость</span>
-      <h2>Банки требуют ESG-стратегию. Ценовые прогнозы — один из ключевых её элементов для АПК</h2>
-      <button class="modal-close" data-close="modal-esg">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Проблема</div>
-        <p class="modal-text">Крупнейшие российские банки — Сбер, РоссельхозБанк, ВТБ — всё активнее оценивают устойчивость бизнеса агропредприятий при кредитовании. Один из ключевых критериев: насколько компания управляет ценовыми рисками, а не зависит от них.<br><br>Предприятие, которое не прогнозирует рынок и реагирует «по факту», выглядит менее устойчивым для инвестора и кредитора — даже если операционно всё хорошо.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что даёт FoodBI Агро</div>
-        <p class="modal-text" style="margin-bottom:14px">FoodBI Агро предоставляет <strong>прогнозы цен на агрорынке</strong>, которые помогают предприятию демонстрировать системный подход к управлению ценовыми рисками. На практике это означает:</p>
-        <ul class="modal-list">
-          <li><strong>Обоснование ценовой стратегии для банка</strong> — показать, что решения о продаже, закупке, хеджировании принимаются на основе прогнозных данных</li>
-          <li><strong>Снижение воспринимаемого риска</strong> при переговорах о кредитных условиях — компания выглядит предсказуемее</li>
-          <li><strong>Аргументация при запросе «зелёного» финансирования</strong> — прогнозы помогают строить долгосрочные планы, требуемые банком</li>
-          <li><strong>Основа для сценарного планирования</strong> в ESG-отчётности: как предприятие ведёт себя при росте цен на ресурсы или падении цен на продукцию</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>На что влияет прогноз цен</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">сильная позиция</div><div class="result-desc">при переговорах с банком о кредитных условиях</div></div>
-          <div class="result-card"><div class="result-num">доверие инвестора</div><div class="result-desc">системный подход к рискам делает бизнес привлекательнее</div></div>
-          <div class="result-card"><div class="result-num">готовность к ESG</div><div class="result-desc">данные для сценарного планирования в отчётности</div></div>
-        </div>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите обсудить, как прогнозы цен работают в вашем контексте?</h4>
-        <p>Оставьте контакт — аналитик расскажет, какие данные актуальны для вашего предприятия.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'ESG и устойчивость')">Обсудить с аналитиком</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- NEWS MODAL 1: Пшеница $240 -->
-<div class="modal-overlay" id="modal-news1">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Зерновой рынок · 11 апреля 2026</span>
-      <h2>Пшеница пробила $240/т: экспортный импульс или краткосрочный отскок?</h2>
-      <button class="modal-close" data-close="news1">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Что произошло</div>
-        <p class="modal-text">Экспортные котировки российской пшеницы с протеином 12,5% впервые с августа 2025 года преодолели отметку $240 за тонну (FOB Новороссийск). За две недели цена выросла примерно на $6/т — это значимое движение для рынка, привыкшего к боковику последних месяцев.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Что стоит за ростом</div>
-        <ul class="modal-list">
-          <li><strong>Ослабление рубля</strong> поддержало рублёвый эквивалент экспортных цен — у экспортёров выросла мотивация вывозить зерно</li>
-          <li><strong>Казахстан закрыл импорт</strong> российского зерна — часть потоков перенаправляется через альтернативные каналы, создавая локальный дефицит предложения на отдельных направлениях</li>
-          <li><strong>Мировой фон улучшился:</strong> погодные риски в США и Аргентине поддержали котировки на CBOT — Россия следует за мировым трендом</li>
-          <li><strong>Административный фактор:</strong> действующая экспортная пошлина остаётся заградительной для части объёмов, но её расчётная база при росте цены увеличивается — это ограничивает потенциал роста</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>Что это значит для производителей</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">$240/т</div><div class="result-desc">FOB Новороссийск — максимум с августа 2025</div></div>
-          <div class="result-card"><div class="result-num">осторожно</div><div class="result-desc">пошлина и курсовой риск ограничивают устойчивость роста</div></div>
-          <div class="result-card"><div class="result-num">окно открыто</div><div class="result-desc">ближайшие 2–3 недели — потенциально выгодный момент для продажи</div></div>
-        </div>
-        <p class="modal-text" style="margin-top:16px">Наша оценка: рост носит умеренно-устойчивый характер. Краткосрочный импульс реален, но для производителей с запасами на хранении текущий уровень цен — повод зафиксировать часть объёма, не дожидаясь коррекции.</p>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите получить прогноз цен на пшеницу по вашему региону?</h4>
-        <p>Аналитик подготовит расчёт на 30–60 дней по вашей культуре и базису в течение 1 рабочего дня.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Новость: пшеница $240')">Получить прогноз</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- NEWS MODAL 2: Подсолнечник убыток 11% -->
-<div class="modal-overlay" id="modal-news2">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Масличные · 9 апреля 2026</span>
-      <h2>Переработка подсолнечника: убыток 11% — кто платит за диспаритет цен</h2>
-      <button class="modal-close" data-close="news2">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Цифры, которые важно понять</div>
-        <p class="modal-text">По данным Масложирового союза на начало апреля 2026 года убыточность переработки подсолнечника составляет 11%. Закупочная цена семечки — 40 700 руб./т, тогда как суммарная выручка от продуктов переработки (масло + шрот) — лишь 37 490 руб./т. Разрыв — больше 3 200 рублей на каждой тонне.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Почему так сложилось</div>
-        <ul class="modal-list">
-          <li><strong>Цена семечки держится высоко</strong> из-за ограниченного предложения: урожай 2025 года оказался скромнее ожиданий в ряде южных регионов</li>
-          <li><strong>Цены на масло не растут:</strong> FOB подсолнечного масла — около $1 295/т, что при текущем курсе рубля даёт переработчикам недостаточную маржу</li>
-          <li><strong>Экспортная пошлина на масло</strong> дополнительно сжимает выручку от реализации за рубеж</li>
-          <li><strong>Курс рубля:</strong> укрепление рубля снижает рублёвый эквивалент экспортной выручки от масла, тогда как внутренняя цена семечки остаётся в рублях</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>Что это значит для производителей семечки</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">−11%</div><div class="result-desc">убыточность переработки — переработчики будут давить на закупочную цену семечки</div></div>
-          <div class="result-card"><div class="result-num">риск снижения</div><div class="result-desc">закупочных цен на семечку в ближайшие 4–6 недель</div></div>
-          <div class="result-card"><div class="result-num">продавать сейчас</div><div class="result-desc">или ждать нового урожая — вот ключевой вопрос для хозяйств</div></div>
-        </div>
-        <p class="modal-text" style="margin-top:16px">Наша оценка: при сохранении текущей убыточности переработчики будут постепенно снижать закупочные цены на семечку. Для производителей с остатками на складах — это сигнал к активизации продаж в ближайший месяц.</p>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите получить прогноз цен на подсолнечник по вашему региону?</h4>
-        <p>Оставьте контакт — аналитик пришлёт расчёт с горизонтом на 30–60 дней.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Новость: подсолнечник')">Получить прогноз</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- NEWS MODAL 3: КРС + молоко -->
-<div class="modal-overlay" id="modal-news3">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <span class="modal-tag">Животноводство · 7 апреля 2026</span>
-      <h2>Массовый забой КРС и рекордное молоко: два кризиса животноводства одновременно</h2>
-      <button class="modal-close" data-close="news3">✕</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <div class="modal-section-title problem"><span class="dot dot-red"></span>Два тревожных сигнала сразу</div>
-        <p class="modal-text">Март–апрель 2026 года принёс животноводству России сразу два острых сюжета, развивающихся одновременно. Первый — вынужденный массовый забой КРС в Сибири, на Урале и в Поволжье из-за заболевания поголовья. Второй — молочная отрасль входит в парадоксальный кризис: рекордное производство сырого молока при обвальном падении закупочных цен.</p>
-      </div>
-      <div>
-        <div class="modal-section-title solution"><span class="dot dot-green"></span>Детали по каждому сюжету</div>
-        <ul class="modal-list">
-          <li><strong>КРС — вынужденный забой:</strong> Новосибирская, Омская, Пензенская области, Алтай и Урал фиксируют резкий рост предложения говядины. Краткосрочно цены на говядину сдержаны, импорт из Бразилии и Аргентины дополнительно давит на рынок</li>
-          <li><strong>Говядина — прогноз:</strong> умеренный рост цен в пределах 10% в течение года по мере сокращения поголовья. Импортная квота (беспошлинная) остаётся буфером</li>
-          <li><strong>Молоко — парадокс 2026:</strong> производство сырого молока бьёт рекорды, однако закупочные цены у хозяйств падают из-за переизбытка предложения и стагнации переработки</li>
-          <li><strong>ФАС давит на сети:</strong> перед Пасхой регулятор предостерёг торговые сети от необоснованного роста цен на яйца, молоко и сливочное масло — что дополнительно ограничивает ценовой потенциал для производителей</li>
-        </ul>
-      </div>
-      <div>
-        <div class="modal-section-title results"><span class="dot dot-gold"></span>Что это значит для хозяйств</div>
-        <div class="results-grid">
-          <div class="result-card"><div class="result-num">говядина</div><div class="result-desc">кратковременный навес предложения — не лучший момент для реализации скота</div></div>
-          <div class="result-card"><div class="result-num">молоко</div><div class="result-desc">закупочные цены под давлением — затраты на корма не компенсируются</div></div>
-          <div class="result-card"><div class="result-num">кормовая база</div><div class="result-desc">прогноз цен на фуражное зерно — ключевой параметр для планирования на лето</div></div>
-        </div>
-        <p class="modal-text" style="margin-top:16px">Наша оценка: для молочных хозяйств критично понимать прогноз цен на фуражное зерно на ближайшие 3–4 месяца — это прямо влияет на решение о наращивании или сокращении поголовья в летний период.</p>
-      </div>
-      <div class="modal-cta">
-        <h4>Хотите получить прогноз по кормовой базе и закупочным ценам?</h4>
-        <p>Оставьте контакт — аналитик подготовит расчёт по вашему виду животноводства и региону.</p>
-        <div class="modal-cta-form">
-          <input class="modal-input" type="text" placeholder="Ваше имя и компания">
-          <input class="modal-input" type="tel" placeholder="Телефон или email">
-          <button class="modal-btn-submit" onclick="submitModalForm(this,'Новость: КРС и молоко')">Получить расчёт</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
@@ -2238,99 +1246,6 @@
       if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     });
   });
-
-  // ===== BURGER MENU =====
-  const burger = document.getElementById('burger');
-  const mobileNav = document.getElementById('mobileNav');
-
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('open');
-    mobileNav.classList.toggle('open');
-    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-  });
-
-  // Закрытие мобильного меню при клике на ссылку
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      burger.classList.remove('open');
-      mobileNav.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-
-  // ===== MODAL SYSTEM =====
-  function openModal(id) {
-    const overlay = document.getElementById('modal-' + id);
-    if (!overlay) return;
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal(id) {
-    const overlay = document.getElementById('modal-' + id);
-    if (!overlay) return;
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Открытие по клику на карточку или кнопку "Подробнее"
-  document.querySelectorAll('[data-modal]').forEach(el => {
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      openModal(el.getAttribute('data-modal'));
-    });
-  });
-
-  // Закрытие кнопкой ✕
-  document.querySelectorAll('[data-close]').forEach(btn => {
-    btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
-  });
-
-  // Закрытие кликом на оверлей (вне диалога)
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', e => {
-      if (e.target === overlay) {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-    });
-  });
-
-  // Закрытие клавишей ESC
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-overlay.open').forEach(overlay => {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      });
-    }
-  });
-
-  // CTA-форма в модалах — отправка (заглушка + интеграция с Bitrix24)
-  function submitModalForm(btn, area) {
-    const form = btn.closest('.modal-cta-form');
-    const inputs = form.querySelectorAll('.modal-input');
-    const name = inputs[0] ? inputs[0].value.trim() : '';
-    const contact = inputs[1] ? inputs[1].value.trim() : '';
-    if (!name || !contact) {
-      inputs.forEach(i => { if (!i.value.trim()) i.style.borderColor = '#FF5252'; });
-      return;
-    }
-    btn.textContent = 'Отправляем…';
-    btn.disabled = true;
-    // Здесь можно подключить реальную отправку в Bitrix24 CRM
-    setTimeout(() => {
-      form.innerHTML = '<p style="color:var(--spring-green);font-weight:700;font-size:15px;padding:12px 0">✓ Спасибо! Аналитик свяжется с вами в течение 1 рабочего дня.</p>';
-    }, 900);
-  }
-</script>
-
-<!-- Bitrix24 виджет -->
-<script>
-  (function(w,d,u){
-    var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
-    var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
-  })(window,document,'https://cdn-ru.bitrix24.ru/b36923532/crm/site_button/loader_6_xb6p15.js');
 </script>
 
 </body>
