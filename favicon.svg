@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Фон -->
+  <rect width="32" height="32" rx="7" fill="#1B3A1E"/>
+  <!-- Бар 1 -->
+  <rect x="5" y="19" width="4" height="8" rx="1.5" fill="#4CAF50" opacity="0.75"/>
+  <!-- Бар 2 (высокий, акцентный) -->
+  <rect x="11" y="12" width="4" height="15" rx="1.5" fill="#69F0AE"/>
+  <!-- Бар 3 -->
+  <rect x="17" y="16" width="4" height="11" rx="1.5" fill="#4CAF50" opacity="0.75"/>
+  <!-- Бар 4 -->
+  <rect x="23" y="14" width="4" height="13" rx="1.5" fill="#4CAF50" opacity="0.6"/>
+  <!-- Dot (акцент) -->
+  <circle cx="24" cy="8" r="3" fill="#69F0AE"/>
+</svg>
