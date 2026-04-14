@@ -1150,6 +1150,11 @@
     .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
     .footer-badges { justify-content: center; }
     .footer-brand p { max-width: 100%; }
+
+    /* Pricing */
+    #tarify { padding: 60px 20px !important; }
+    #tarify > div:nth-child(2) > div { grid-template-columns: 1fr !important; max-width: 440px; margin: 0 auto; }
+    #tarify > div:nth-child(2) > div > div:nth-child(2) { transform: none !important; }
   }
 
   /* ===================== SMALL MOBILE (≤ 400px) ===================== */
@@ -1331,7 +1336,7 @@
       </div>
       <h3>Растениеводство</h3>
       <div class="sol-subtitle">Зерно, масличные, сахарная свёкла</div>
-      <p>Прогнозирование урожайности, оптимизация севооборота и планирование сбыта на основе рыночных данных. Анализ рентабельности культур по регионам.</p>
+      <p>Прогнозы закупочных цен на зерновые и масличные культуры в разрезе регионов. Принимайте обоснованные решения о сроках продажи и объёмах реализации на основе актуальных рыночных данных.</p>
       <a href="javascript:void(0)" class="sol-link" data-modal="rastenie">Подробнее →</a>
     </div>
     <div class="sol-card" data-modal="zhivot">
@@ -1394,7 +1399,7 @@
       </div>
       <h3>Логистика и поставки</h3>
       <div class="sol-subtitle">Транспортировка, элеваторы, склады</div>
-      <p>Оптимизация маршрутов и тарифов перевозки. Прогноз загрузки элеваторов, управление остатками и планирование экспортных отгрузок.</p>
+      <p>Сравнение ценовых уровней по регионам и направлениям сбыта. Выбирайте оптимальный момент и регион отгрузки, опираясь на актуальные прогнозы закупочных цен.</p>
       <a href="javascript:void(0)" class="sol-link" data-modal="logist">Подробнее →</a>
     </div>
     <div class="sol-card" data-modal="trading">
@@ -1545,8 +1550,8 @@
           </svg>
         </div>
         <span class="feat-badge">Геоаналитика</span>
-        <h4>Региональные карты урожайности</h4>
-        <p>Интерактивные карты по всем регионам России и странам СНГ: динамика производства, складские остатки, транспортная доступность.</p>
+        <h4>Ценовая аналитика по регионам</h4>
+        <p>Прогнозы цен в разрезе регионов России и стран СНГ. Сравнивайте ценовые уровни по рынкам и выбирайте наиболее выгодные направления для сбыта.</p>
       </div>
       <div class="feat">
         <div class="feat-icon">
@@ -1610,16 +1615,6 @@
     <div class="client-logo">Агрокомплекс им. Ткачёва</div>
     <div class="client-logo">Степь АПК</div>
     <div class="client-logo">Черкизово</div>
-    <div class="client-logo">АГРОКО</div>
-    <div class="client-logo">Продимекс</div>
-    <div class="client-logo">КДВ Групп</div>
-    <div class="client-logo">АФГ Националь</div>
-    <div class="client-logo">Дамате</div>
-    <div class="client-logo">Прогресс Агро</div>
-    <div class="client-logo">РусМолоко</div>
-    <div class="client-logo">Башкирская МСК</div>
-    <div class="client-logo">Сибагро</div>
-    <div class="client-logo">ГК Агроэко</div>
   </div>
 </div>
 
@@ -1643,6 +1638,85 @@
       <h4>Массовый забой КРС и рекордное молоко: два кризиса животноводства одновременно</h4>
       <p>В Сибири, на Урале и Поволжье фиксируют вынужденный забой поголовья, что разгоняет предложение говядины — пока цены сдержаны. Одновременно молочная отрасль входит в парадокс: производство бьёт рекорды, а закупочные цены у хозяйств падают.</p>
     </a>
+  </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section id="tarify" class="reveal" style="padding:80px 60px;max-width:1300px;margin:0 auto">
+  <div style="text-align:center;margin-bottom:52px">
+    <div class="section-label">Тарифы</div>
+    <h2 style="font-size:clamp(28px,3.5vw,44px);font-weight:900;letter-spacing:-1px;line-height:1.1">Выберите план для<br><span style="color:var(--field-green)">вашего холдинга</span></h2>
+    <p style="margin-top:16px;font-size:16px;color:rgba(255,255,255,0.55);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6">Все тарифы включают обновление данных раз в сутки и доступ к личному кабинету</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start">
+
+    <!-- СТАНДАРТ -->
+    <div style="background:var(--dark-meadow);border:1px solid rgba(76,175,80,0.15);border-radius:20px;padding:36px 32px;transition:all 0.3s" onmouseover="this.style.borderColor='rgba(76,175,80,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(76,175,80,0.15)';this.style.transform='none'">
+      <span style="display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:20px;background:rgba(76,175,80,0.12);color:var(--sage-gray)">Стандарт</span>
+      <div style="font-size:24px;font-weight:900;letter-spacing:-0.5px;margin-bottom:8px">Стандарт</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:28px;line-height:1.5">Для малых и средних предприятий АПК, начинающих работу с аналитикой цен</div>
+      <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(76,175,80,0.1)">
+        <div style="font-size:12px;color:var(--sage-gray);margin-bottom:4px">от</div>
+        <div style="font-size:38px;font-weight:900;letter-spacing:-1.5px;color:var(--spring-green)">7 900 ₽</div>
+        <div style="font-size:14px;color:var(--sage-gray);margin-top:4px">в месяц · оплата ежемесячно</div>
+      </div>
+      <ul style="list-style:none;margin-bottom:36px">
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>До 10 культур / SKU</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Ежемесячные прогнозы цен</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Доступ к базовым отчётам</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Email-поддержка эксперта</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Личный кабинет</li>
+      </ul>
+      <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_i4zrb/" target="_blank" style="display:block;width:100%;padding:14px;border-radius:10px;text-align:center;font-size:15px;font-weight:700;text-decoration:none;background:rgba(76,175,80,0.12);color:var(--spring-green);border:1.5px solid rgba(76,175,80,0.3);box-sizing:border-box;transition:all 0.25s">Выбрать тариф</a>
+    </div>
+
+    <!-- ПРОФИ (featured) -->
+    <div style="background:linear-gradient(145deg,#1f4424 0%,var(--dark-meadow) 100%);border:1px solid var(--field-green);border-radius:20px;padding:36px 32px;position:relative;transform:translateY(-8px);box-shadow:0 20px 48px rgba(76,175,80,0.2);transition:all 0.3s">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--field-green),var(--spring-green));border-radius:20px 20px 0 0"></div>
+      <span style="display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:20px;background:rgba(76,175,80,0.2);color:var(--spring-green)">Профи · Популярный</span>
+      <div style="font-size:24px;font-weight:900;letter-spacing:-0.5px;margin-bottom:8px">Профи</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:28px;line-height:1.5">Для крупных агропредприятий с широким портфелем культур и регионов</div>
+      <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(76,175,80,0.1)">
+        <div style="font-size:12px;color:var(--sage-gray);margin-bottom:4px">от</div>
+        <div style="font-size:38px;font-weight:900;letter-spacing:-1.5px;color:var(--spring-green)">75 900 ₽</div>
+        <div style="font-size:14px;color:var(--sage-gray);margin-top:4px">в месяц · оплата ежемесячно</div>
+      </div>
+      <ul style="list-style:none;margin-bottom:36px">
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>От 11 до 50 культур / SKU</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Ежемесячные прогнозы цен</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Расширенная региональная аналитика</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Консультации экспертов рынка</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Геоаналитика по регионам РФ и СНГ</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Сценарный анализ рынка</li>
+      </ul>
+      <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_i4zrb/" target="_blank" style="display:block;width:100%;padding:14px;border-radius:10px;text-align:center;font-size:15px;font-weight:700;text-decoration:none;background:var(--field-green);color:var(--deep-forest);box-sizing:border-box;transition:all 0.25s">Выбрать тариф</a>
+    </div>
+
+    <!-- ЭКСКЛЮЗИВ -->
+    <div style="background:var(--dark-meadow);border:1px solid rgba(76,175,80,0.15);border-radius:20px;padding:36px 32px;transition:all 0.3s" onmouseover="this.style.borderColor='rgba(76,175,80,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(76,175,80,0.15)';this.style.transform='none'">
+      <span style="display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:20px;background:rgba(255,193,7,0.15);color:var(--harvest-gold)">Эксклюзив</span>
+      <div style="font-size:24px;font-weight:900;letter-spacing:-0.5px;margin-bottom:8px">Эксклюзив</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.5);margin-bottom:28px;line-height:1.5">Для агрохолдингов федерального масштаба с индивидуальными требованиями</div>
+      <div style="margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid rgba(76,175,80,0.1)">
+        <div style="font-size:12px;color:var(--sage-gray);margin-bottom:4px">от</div>
+        <div style="font-size:38px;font-weight:900;letter-spacing:-1.5px;color:var(--harvest-gold)">295 000 ₽</div>
+        <div style="font-size:14px;color:var(--sage-gray);margin-top:4px">в месяц · оплата ежемесячно</div>
+      </div>
+      <ul style="list-style:none;margin-bottom:36px">
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>50+ культур / SKU без ограничений</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Персональный менеджер 24/7</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Индивидуальные отчёты под холдинг</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0;border-bottom:1px solid rgba(76,175,80,0.06)"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Полная API-интеграция</li>
+        <li style="display:flex;gap:10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.75);padding:8px 0"><span style="color:var(--spring-green);font-weight:700;flex-shrink:0">✓</span>Стресс-тесты и сценарный анализ</li>
+      </ul>
+      <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_i4zrb/" target="_blank" style="display:block;width:100%;padding:14px;border-radius:10px;text-align:center;font-size:15px;font-weight:700;text-decoration:none;background:rgba(255,193,7,0.1);color:var(--harvest-gold);border:1.5px solid rgba(255,193,7,0.3);box-sizing:border-box;transition:all 0.25s">Выбрать тариф</a>
+    </div>
+
+  </div>
+
+  <div style="margin-top:24px;text-align:center">
+    <a href="tarify.html" style="font-size:14px;color:var(--sage-gray);text-decoration:none;border-bottom:1px dashed rgba(122,148,120,0.4);padding-bottom:2px">Подробное сравнение тарифов →</a>
   </div>
 </section>
 
