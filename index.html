@@ -2293,143 +2293,253 @@
   }
 </script>
 
-<!-- ===== DAILY DATA UPDATE SYSTEM ===== -->
+<!-- ===== DAILY DATA UPDATE SYSTEM (MOEX ISS + fallback) ===== -->
 <script>
 (function(){
-  // ─── КОНФИГ ЦЕН (обновляйте базовые значения вручную при необходимости) ───
+  'use strict';
+
+  // ─── Базовые цены (используются как fallback и для позиций без биржевых данных) ───
   var PRICES = [
-    { id:'wheat',   name:'Пшеница 3 кл.',   price:14850, unit:'₽/т' },
-    { id:'sunfl',   name:'Подсолнечник',     price:32400, unit:'₽/т' },
-    { id:'soy',     name:'Соя',              price:27100, unit:'₽/т' },
-    { id:'beet',    name:'Сахарная свёкла',  price:5200,  unit:'₽/т' },
-    { id:'corn',    name:'Кукуруза',         price:12600, unit:'₽/т' },
-    { id:'rape',    name:'Рапс',             price:25800, unit:'₽/т' },
-    { id:'milk',    name:'Молоко 3.2%',      price:42,    unit:'₽/л'  },
-    { id:'cattle',  name:'КРС живой вес',    price:178,   unit:'₽/кг' },
-    { id:'barley',  name:'Ячмень 2 кл.',     price:11200, unit:'₽/т' },
-    { id:'peas',    name:'Горох',            price:16300, unit:'₽/т' }
+    { id:'wheat',  name:'Пшеница 3 кл.',  price:14850, unit:'₽/т', keys:['пшениц','wheat'] },
+    { id:'sunfl',  name:'Подсолнечник',    price:32400, unit:'₽/т', keys:['подсолнечник','sunfl'] },
+    { id:'soy',    name:'Соя',             price:27100, unit:'₽/т', keys:['соя','soy'] },
+    { id:'beet',   name:'Сахарная свёкла', price:5200,  unit:'₽/т', keys:['свёкл','свекл','beet'] },
+    { id:'corn',   name:'Кукуруза',        price:12600, unit:'₽/т', keys:['кукуруза','corn','маис'] },
+    { id:'rape',   name:'Рапс',            price:25800, unit:'₽/т', keys:['рапс','rape'] },
+    { id:'milk',   name:'Молоко 3.2%',     price:42,    unit:'₽/л', keys:['молоко','milk'] },
+    { id:'cattle', name:'КРС живой вес',   price:178,   unit:'₽/кг',keys:['крс','cattle','говяд'] },
+    { id:'barley', name:'Ячмень 2 кл.',    price:11200, unit:'₽/т', keys:['ячмень','barley'] },
+    { id:'peas',   name:'Горох',           price:16300, unit:'₽/т', keys:['горох','peas'] }
   ];
 
+  // MOEX ISS: НТБ (Национальная Товарная Биржа) — товарный рынок
+  var MOEX_URL = 'https://iss.moex.com/iss/engines/commodity/markets/goods/securities.json?iss.meta=off';
+
+  var CACHE_KEY  = 'agro_mkt_v5';
+  var CACHE_DATE = 'agro_mkt_date_v5';
+
+  // ── утилиты ──────────────────────────────────────────────
   function today(){ return new Date().toISOString().slice(0,10); }
-
-  // Детерминированное псевдо-случайное число [0,1) по дате + seed
-  function rnd(seed){
-    var s = parseInt(today().replace(/-/g,'')) * 31 + seed * 7919;
-    var x = Math.sin(s) * 43758.5453123;
-    return x - Math.floor(x);
-  }
-
-  // Изменение цены ±3%
-  function chg(seed){ return Math.round((rnd(seed)*6 - 3)*10)/10; }
-
-  // Форматирование цены
-  function fmt(n){ return n.toLocaleString('ru-RU'); }
-
-  // Квартал
+  function fmt(n){ return Math.round(n).toLocaleString('ru-RU'); }
   function quarter(){
     var m = new Date().getMonth();
     return 'Q'+(Math.floor(m/3)+1)+' '+new Date().getFullYear();
   }
+  function rnd(seed){
+    var s = parseInt(today().replace(/-/g,''))*31 + seed*7919;
+    var x = Math.sin(s)*43758.5453123;
+    return x - Math.floor(x);
+  }
+  function chg(seed){ return Math.round((rnd(seed)*6-3)*10)/10; }
 
-  function buildData(){
+  // ── Симуляция (детерминированная по дате) ────────────────
+  function buildSim(){
     return PRICES.map(function(p,i){
       var c = chg(i+1);
-      return { name:p.name, price:p.price, unit:p.unit,
-               change:c, up:c>=0 };
+      return { name:p.name, price:p.price, unit:p.unit, change:c, up:c>=0, src:'sim' };
     });
   }
 
-  function loadData(){
-    var key='agro_data', dkey='agro_data_date';
-    var saved = localStorage.getItem(key), savedDate = localStorage.getItem(dkey);
-    if(savedDate===today() && saved){ try{ return JSON.parse(saved); }catch(e){} }
-    var data = buildData();
-    localStorage.setItem(key, JSON.stringify(data));
-    localStorage.setItem(dkey, today());
-    return data;
+  // ── Кэш ──────────────────────────────────────────────────
+  function loadCache(){
+    var d=localStorage.getItem(CACHE_DATE), v=localStorage.getItem(CACHE_KEY);
+    if(d===today()&&v){ try{return JSON.parse(v);}catch(e){} }
+    return null;
+  }
+  function saveCache(data){
+    try{ localStorage.setItem(CACHE_KEY,JSON.stringify(data)); localStorage.setItem(CACHE_DATE,today()); }catch(e){}
   }
 
-  function applyAll(){
-    var data = loadData();
-    var wheat  = data[0], sunfl = data[1];
+  // ── Сопоставление биржевого названия с нашими позициями ──
+  function matchItem(str){
+    var ln=(str||'').toLowerCase();
+    for(var i=0;i<PRICES.length;i++){
+      var keys=PRICES[i].keys;
+      for(var j=0;j<keys.length;j++){
+        if(ln.indexOf(keys[j])>=0) return PRICES[i];
+      }
+    }
+    return null;
+  }
 
-    // ── Дашборд Hero ──
-    var dcTitle = document.getElementById('dc-title');
-    var dcBadge = document.getElementById('dc-badge');
-    if(dcTitle) dcTitle.textContent = '📊 Дашборд агрохолдинга — '+quarter();
-    if(dcBadge) dcBadge.textContent = '🟢 ' + today();
+  // ── Парсинг ответа MOEX ISS ───────────────────────────────
+  function parseMOEX(json){
+    try{
+      var sec=json.securities, md=json.marketdata;
+      if(!sec||!md||!sec.data||!sec.data.length) return null;
 
-    // KPI (лёгкая вариация ±1)
-    var acc = document.getElementById('kpi-accuracy');
-    var yld = document.getElementById('kpi-yield');
-    var area = document.getElementById('kpi-area');
-    if(acc){
-      var a = 94 + Math.floor(rnd(99)*3);
-      acc.textContent = a+'%';
-    }
-    if(yld){
-      var y = 15 + Math.floor(rnd(77)*8);
-      yld.textContent = '+'+y+'%';
-    }
-    if(area){
-      var ar = (2.2 + rnd(55)*0.5).toFixed(1);
-      area.textContent = ar+'М га';
-    }
+      // Индексы колонок marketdata
+      var mc=md.columns;
+      var mi_id   = mc.indexOf('SECID');
+      var mi_last = mc.indexOf('LAST');
+      var mi_open = mc.indexOf('OPEN');
+      var mi_pct  = mc.indexOf('LASTTOPREVPRICE'); // % изменение к пред. закрытию
+      var mi_prev = mc.indexOf('PREVPRICE');
+
+      // Строим map: SECID → строка marketdata
+      var mdMap={};
+      md.data.forEach(function(row){ if(row[mi_id]) mdMap[row[mi_id]]=row; });
+
+      // Колонки securities
+      var sc=sec.columns;
+      var si_id   = sc.indexOf('SECID');
+      var si_name = sc.indexOf('SHORTNAME');
+      var si_prev = sc.indexOf('PREVPRICE');
+
+      var results=[], seen={};
+
+      sec.data.forEach(function(row){
+        var secId = row[si_id];
+        var name  = row[si_name];
+        var item  = matchItem(name)||matchItem(secId);
+        if(!item||seen[item.id]) return;
+
+        var price=null, pct=0;
+        var mr=mdMap[secId];
+        if(mr){
+          price = mr[mi_last]||mr[mi_open]||mr[mi_prev];
+          pct   = mr[mi_pct]||0;
+        }
+        if(!price||price<=0) price=row[si_prev];
+        if(!price||price<=0) return;
+
+        seen[item.id]=true;
+        results.push({
+          name:   item.name,
+          price:  Math.round(price/50)*50,
+          unit:   item.unit,
+          change: Math.round(pct*10)/10,
+          up:     pct>=0,
+          src:    'moex'
+        });
+      });
+
+      return results.length>=3 ? results : null;
+    }catch(e){ return null; }
+  }
+
+  // ── Fetch MOEX с таймаутом 5 с ───────────────────────────
+  function fetchMOEX(cb){
+    var done=false;
+    var timer=setTimeout(function(){ if(!done){done=true;cb(null);} },5000);
+    fetch(MOEX_URL)
+      .then(function(r){return r.json();})
+      .then(function(json){ if(!done){done=true;clearTimeout(timer);cb(json);} })
+      .catch(function(){ if(!done){done=true;clearTimeout(timer);cb(null);} });
+  }
+
+  // ── Рендер тикера ─────────────────────────────────────────
+  function renderTicker(data){
+    var ticker=document.getElementById('agro-ticker');
+    if(!ticker) return;
+
+    var hasMOEX = data.some(function(d){ return d.src==='moex'; });
+    var dateStr  = today().split('-').reverse().join('.');
+
+    var badge = hasMOEX
+      ? '<span class="ticker-item" style="background:rgba(105,240,174,0.12);color:#69F0AE;'
+        +'padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;'
+        +'letter-spacing:0.8px;border:1px solid rgba(105,240,174,0.25);flex-shrink:0">'
+        +'📊 МосБиржа · '+dateStr+'</span>'
+      : '<span class="ticker-item" style="color:rgba(255,255,255,0.25);font-size:10px;flex-shrink:0">'
+        +'⏱ расчётные данные · '+dateStr+'</span>';
+
+    var items = data.map(function(d){
+      var cls=d.up?'up':'dn', arr=d.up?'↑':'↓', sgn=d.up?'+':'';
+      return '<span class="ticker-item">'+d.name
+        +' <strong>'+fmt(d.price)+' '+d.unit+'</strong>'
+        +' <span class="'+cls+'">'+arr+' '+sgn+d.change+'%</span></span>';
+    }).join('');
+
+    var full = badge+items;
+    ticker.innerHTML = full+full; // дублируем для бесшовной прокрутки
+  }
+
+  // ── Применить все данные на страницу ──────────────────────
+  function applyAll(data){
+    var wheat=data[0], sunfl=data[1];
+
+    renderTicker(data);
+
+    // Дашборд Hero
+    var dcTitle=document.getElementById('dc-title');
+    var dcBadge=document.getElementById('dc-badge');
+    if(dcTitle) dcTitle.textContent='📊 Дашборд агрохолдинга — '+quarter();
+    if(dcBadge) dcBadge.textContent='🟢 '+today();
+
+    // KPI
+    var acc=document.getElementById('kpi-accuracy');
+    var yld=document.getElementById('kpi-yield');
+    var area=document.getElementById('kpi-area');
+    if(acc)  acc.textContent =(94+Math.floor(rnd(99)*3))+'%';
+    if(yld)  yld.textContent ='+' +(15+Math.floor(rnd(77)*8))+'%';
+    if(area) area.textContent=(2.2+rnd(55)*0.5).toFixed(1)+'М га';
 
     // Бары графика
-    var bars = document.querySelectorAll('#chart-bars .bar');
-    var barHeights = [45,62,50,78,65,85,70].map(function(h,i){
-      return Math.max(20, Math.min(95, h + Math.floor(rnd(i+10)*20-10)));
-    });
-    bars.forEach(function(b,i){
-      if(barHeights[i]) b.style.height = barHeights[i]+'%';
+    var bars=document.querySelectorAll('#chart-bars .bar');
+    [45,62,50,78,65,85,70].forEach(function(h,i){
+      var el=bars[i];
+      if(el) el.style.height=Math.max(20,Math.min(95,h+Math.floor(rnd(i+10)*20-10)))+'%';
     });
 
-    // Подписи месяцев — сдвигаем к текущему месяцу
+    // Подписи месяцев
     var months=['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
-    var now = new Date(), cm = now.getMonth();
-    var labels = document.querySelectorAll('#chart-labels span');
-    labels.forEach(function(l,i){
-      l.textContent = months[(cm-6+i+12)%12];
+    var cm=new Date().getMonth();
+    document.querySelectorAll('#chart-labels span').forEach(function(l,i){
+      l.textContent=months[(cm-6+i+12)%12];
     });
 
     // Цены в дашборде
-    var dw = document.getElementById('dash-wheat');
-    var ds = document.getElementById('dash-sunfl');
-    if(dw){
-      var wc = wheat.change, wa = wc>=0?'↑':'↓', wclr = wc>=0?'#69f0ae':'#ff6b6b';
-      dw.innerHTML = fmt(wheat.price)+' ₽/т <span style="color:'+wclr+';font-size:10px">'+wa+Math.abs(wc)+'%</span>';
+    var dw=document.getElementById('dash-wheat');
+    var ds=document.getElementById('dash-sunfl');
+    if(dw&&wheat){
+      var wc=wheat.change,wclr=wc>=0?'#69f0ae':'#ff6b6b',wa=wc>=0?'↑':'↓';
+      dw.innerHTML=fmt(wheat.price)+' ₽/т <span style="color:'+wclr+';font-size:10px">'+wa+Math.abs(wc)+'%</span>';
     }
-    if(ds){
-      var sc = sunfl.change, sa = sc>=0?'↑':'↓', sclr = sc>=0?'#69f0ae':'#ff6b6b';
-      ds.innerHTML = fmt(sunfl.price)+' ₽/т <span style="color:'+sclr+';font-size:10px">'+sa+Math.abs(sc)+'%</span>';
-    }
-
-    // ── Статистика ──
-    var sc2 = document.getElementById('stat-clients');
-    if(sc2){
-      var base = 340, grow = Math.floor((Date.now() - new Date('2024-01-01').getTime()) / (1000*60*60*24*30));
-      sc2.textContent = (base+grow)+'+';
+    if(ds&&sunfl){
+      var sc=sunfl.change,sclr=sc>=0?'#69f0ae':'#ff6b6b',sa=sc>=0?'↑':'↓';
+      ds.innerHTML=fmt(sunfl.price)+' ₽/т <span style="color:'+sclr+';font-size:10px">'+sa+Math.abs(sc)+'%</span>';
     }
 
-    // ── Тикер ──
-    var ticker = document.getElementById('agro-ticker');
-    if(ticker){
-      var upd = '<span class="ticker-item" style="opacity:0.35;font-size:11px">Обновлено: '+today()+'</span>';
-      var items = data.map(function(d){
-        var cls=d.up?'up':'dn', arr=d.up?'↑':'↓', sgn=d.up?'+':'';
-        return '<span class="ticker-item">'+d.name+' <strong>'+fmt(d.price)+' '+d.unit+'</strong> <span class="'+cls+'">'+arr+' '+sgn+d.change+'%</span></span>';
-      }).join('');
-      ticker.innerHTML = items+upd+items+upd;
+    // Статистика
+    var stc=document.getElementById('stat-clients');
+    if(stc){
+      var base=340,grow=Math.floor((Date.now()-new Date('2024-01-01').getTime())/(864e5*30));
+      stc.textContent=(base+grow)+'+';
     }
   }
 
-  // Запускаем после загрузки DOM
+  // ── Главный запуск ────────────────────────────────────────
+  function run(){
+    // 1. Пробуем кэш
+    var cached=loadCache();
+    if(cached){ applyAll(cached); return; }
+
+    // 2. Показываем симуляцию немедленно
+    var sim=buildSim();
+    applyAll(sim);
+
+    // 3. Запрашиваем биржу в фоне
+    fetchMOEX(function(json){
+      if(!json){ saveCache(sim); return; }
+      var moex=parseMOEX(json);
+      if(moex&&moex.length>=3){
+        // Дополняем биржевые данные симуляцией для недостающих позиций
+        var seen2={};
+        moex.forEach(function(d){ seen2[d.name]=true; });
+        sim.forEach(function(d){ if(!seen2[d.name]) moex.push(d); });
+        saveCache(moex);
+        applyAll(moex);
+      } else {
+        saveCache(sim);
+        // Симуляция уже отображена, ничего не делаем
+      }
+    });
+  }
+
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', applyAll);
-  } else {
-    applyAll();
-  }
+    document.addEventListener('DOMContentLoaded',run);
+  } else { run(); }
 })();
 </script>
 
