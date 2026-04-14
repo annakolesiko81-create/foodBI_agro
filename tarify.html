@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тарифы — FoodBI Агроформа</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tilda+Sans+VF:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #0A1A0D;
+    --dark-meadow: #1B3A1E;
+    --field-green: #4CAF50;
+    --spring-green: #69F0AE;
+    --sage-gray: #7A9478;
+    --harvest-gold: #FFC107;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Tilda Sans VF', -apple-system, sans-serif;
+    background: var(--deep-forest);
+    color: var(--white);
+  }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,26,13,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(76,175,80,0.15);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 38px; height: 38px; background: var(--dark-meadow);
+    border-radius: 8px; display: flex; align-items: flex-end;
+    justify-content: center; padding: 6px 7px 5px; gap: 3px; position: relative;
+  }
+  .logo-icon span { display: block; background: var(--field-green); border-radius: 2px; width: 5px; }
+  .logo-icon span:nth-child(1) { height: 10px; }
+  .logo-icon span:nth-child(2) { height: 16px; background: var(--spring-green); }
+  .logo-icon span:nth-child(3) { height: 8px; }
+  .logo-icon span:nth-child(4) { height: 13px; }
+  .logo-dot { position: absolute; top: 5px; right: 11px; width: 6px; height: 6px; background: var(--spring-green); border-radius: 50%; }
+  .logo-text { font-size: 20px; font-weight: 700; }
+  .logo-text .food { color: var(--white); font-weight: 600; }
+  .logo-text .bi { color: var(--field-green); font-weight: 900; }
+  .logo-descriptor { font-size: 9px; letter-spacing: 3px; color: var(--sage-gray); text-transform: uppercase; margin-top: -2px; }
+
+  nav { display: flex; gap: 32px; align-items: center; }
+  nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  nav a:hover, nav a.active { color: var(--spring-green); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 8px; font-size: 14px;
+    font-weight: 700; text-decoration: none; cursor: pointer;
+    border: none; transition: all 0.25s; font-family: inherit;
+  }
+  .btn-primary { background: var(--field-green); color: var(--deep-forest); }
+  .btn-primary:hover { background: var(--spring-green); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.25); }
+  .btn-outline:hover { border-color: var(--field-green); color: var(--field-green); }
+
+  /* PAGE */
+  .page-wrap { padding: 120px 60px 100px; max-width: 1200px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--field-green); font-weight: 700; margin-bottom: 16px;
+  }
+  h1 {
+    font-size: clamp(32px, 4vw, 52px); font-weight: 900;
+    line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px;
+  }
+  h1 em { font-style: normal; color: var(--field-green); }
+  .page-sub {
+    font-size: 18px; color: rgba(255,255,255,0.6);
+    line-height: 1.6; max-width: 580px; margin-bottom: 64px;
+  }
+
+  /* PLANS GRID */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .plan-card {
+    background: var(--dark-meadow);
+    border: 1px solid rgba(76,175,80,0.15);
+    border-radius: 20px;
+    padding: 36px 32px;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .plan-card:hover { border-color: rgba(76,175,80,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+  .plan-card.featured {
+    border-color: var(--field-green);
+    background: linear-gradient(145deg, #1f4424 0%, var(--dark-meadow) 100%);
+  }
+  .plan-card.featured::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--field-green), var(--spring-green));
+    border-radius: 20px 20px 0 0;
+  }
+
+  .plan-badge {
+    display: inline-block;
+    padding: 4px 12px; border-radius: 100px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .badge-std { background: rgba(76,175,80,0.12); color: var(--sage-gray); }
+  .badge-pro { background: rgba(76,175,80,0.2); color: var(--spring-green); }
+  .badge-exc { background: rgba(255,193,7,0.15); color: var(--harvest-gold); }
+
+  .plan-name {
+    font-size: 24px; font-weight: 900; letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .plan-desc { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 28px; line-height: 1.5; }
+
+  .plan-price {
+    margin-bottom: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(76,175,80,0.1);
+  }
+  .plan-price .from { font-size: 12px; color: var(--sage-gray); margin-bottom: 4px; }
+  .plan-price .amount {
+    font-size: 38px; font-weight: 900; letter-spacing: -1.5px; line-height: 1;
+    color: var(--spring-green);
+  }
+  .plan-card.featured .plan-price .amount { color: var(--spring-green); }
+  .plan-price .period { font-size: 14px; color: var(--sage-gray); margin-top: 4px; }
+
+  .plan-features { list-style: none; margin-bottom: 36px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.75);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(76,175,80,0.06);
+  }
+  .plan-features li:last-child { border-bottom: none; }
+  .plan-features li::before {
+    content: '✓';
+    color: var(--spring-green); font-weight: 700; font-size: 13px;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .plan-features li.dim { color: rgba(255,255,255,0.3); }
+  .plan-features li.dim::before { color: rgba(76,175,80,0.25); }
+
+  .plan-cta {
+    display: block; width: 100%;
+    padding: 14px; border-radius: 10px;
+    text-align: center; font-size: 15px; font-weight: 700;
+    text-decoration: none; transition: all 0.25s; cursor: pointer;
+    border: none; font-family: inherit;
+  }
+  .cta-std {
+    background: rgba(76,175,80,0.12);
+    color: var(--spring-green);
+    border: 1.5px solid rgba(76,175,80,0.3);
+  }
+  .cta-std:hover { background: rgba(76,175,80,0.2); border-color: var(--field-green); }
+  .cta-pro {
+    background: var(--field-green); color: var(--deep-forest);
+  }
+  .cta-pro:hover { background: var(--spring-green); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(76,175,80,0.3); }
+  .cta-exc {
+    background: rgba(255,193,7,0.1);
+    color: var(--harvest-gold);
+    border: 1.5px solid rgba(255,193,7,0.3);
+  }
+  .cta-exc:hover { background: rgba(255,193,7,0.2); border-color: var(--harvest-gold); }
+
+  /* FAQ / NOTE */
+  .note-strip {
+    margin-top: 60px;
+    background: rgba(27,58,30,0.5);
+    border: 1px solid rgba(76,175,80,0.1);
+    border-radius: 16px;
+    padding: 32px 36px;
+    display: flex; gap: 48px; flex-wrap: wrap; align-items: center;
+  }
+  .note-strip .note-item { flex: 1; min-width: 200px; }
+  .note-strip .note-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--spring-green); }
+  .note-strip .note-item p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 60px 32px;
+    border-top: 1px solid rgba(76,175,80,0.1);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+    font-size: 12px; color: rgba(255,255,255,0.3);
+  }
+  .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--spring-green); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    header { padding: 16px 24px; }
+    nav { display: none; }
+    .page-wrap { padding: 100px 24px 60px; }
+    .plans-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+    .note-strip { gap: 24px; }
+    footer { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <span></span><span></span><span></span><span></span>
+      <div class="logo-dot"></div>
+    </div>
+    <div>
+      <div class="logo-text"><span class="food">Food</span><span class="bi">BI</span></div>
+      <div class="logo-descriptor">Агроформа</div>
+    </div>
+  </a>
+  <nav>
+    <a href="index.html#solutions">Решения</a>
+    <a href="index.html#features">Возможности</a>
+    <a href="index.html#clients">Клиенты</a>
+    <a href="tarify.html" class="active">Тарифы</a>
+    <a href="index.html#contacts">Контакты</a>
+  </nav>
+  <div style="display:flex;gap:10px">
+    <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_uyqhw/" target="_blank" class="btn btn-outline" style="padding:10px 18px;font-size:13px">Личный кабинет</a>
+    <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_pam56/" target="_blank" class="btn btn-primary" style="padding:10px 18px;font-size:13px">Демо-доступ</a>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <div class="section-label">Тарифы</div>
+  <h1>Выберите план для<br><em>вашего холдинга</em></h1>
+  <p class="page-sub">Предиктивная аналитика цен агрорынка для каждого масштаба бизнеса. Все тарифы включают обновление данных раз в сутки и доступ к личному кабинету.</p>
+
+  <div class="plans-grid">
+
+    <!-- СТАНДАРТ -->
+    <div class="plan-card">
+      <span class="plan-badge badge-std">Стандарт</span>
+      <div class="plan-name">Стандарт</div>
+      <div class="plan-desc">Для малых и средних предприятий АПК, начинающих работу с аналитикой цен</div>
+      <div class="plan-price">
+        <div class="from">от</div>
+        <div class="amount">7 900 ₽</div>
+        <div class="period">в месяц · оплата ежемесячно</div>
+      </div>
+      <ul class="plan-features">
+        <li>До 10 культур / SKU</li>
+        <li>Ежемесячные прогнозы цен</li>
+        <li>Доступ к базовым отчётам</li>
+        <li>Email-поддержка эксперта</li>
+        <li>Личный кабинет</li>
+        <li class="dim">Интеграция с ERP</li>
+        <li class="dim">Персональный менеджер</li>
+        <li class="dim">Индивидуальные сценарии</li>
+      </ul>
+      <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_i4zrb/" target="_blank" class="plan-cta cta-std">Выбрать тариф</a>
+    </div>
+
+    <!-- ПРОФИ (featured) -->
+    <div class="plan-card featured">
+      <span class="plan-badge badge-pro">Профи · Популярный</span>
+      <div class="plan-name">Профи</div>
+      <div class="plan-desc">Для крупных агропредприятий с широким портфелем культур и регионов</div>
+      <div class="plan-price">
+        <div class="from">от</div>
+        <div class="amount">75 900 ₽</div>
+        <div class="period">в месяц · оплата ежемесячно</div>
+      </div>
+      <ul class="plan-features">
+        <li>От 11 до 50 культур / SKU</li>
+        <li>Ежемесячные прогнозы цен</li>
+        <li>Расширенная региональная аналитика</li>
+        <li>Консультации экспертов рынка</li>
+        <li>Геоаналитика по регионам РФ и СНГ</li>
+        <li>Базовая интеграция с ERP (1С:Агро, SAP)</li>
+        <li>Сценарный анализ рынка</li>
+        <li class="dim">Персональный менеджер 24/7</li>
+      </ul>
+      <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_i4zrb/" target="_blank" class="plan-cta cta-pro">Выбрать тариф</a>
+    </div>
+
+    <!-- ЭКСКЛЮЗИВ -->
+    <div class="plan-card">
+      <span class="plan-badge badge-exc">Эксклюзив</span>
+      <div class="plan-name">Эксклюзив</div>
+      <div class="plan-desc">Для агрохолдингов федерального масштаба с индивидуальными требованиями</div>
+      <div class="plan-price">
+        <div class="from">от</div>
+        <div class="amount" style="color:var(--harvest-gold)">295 000 ₽</div>
+        <div class="period">в месяц · оплата ежемесячно</div>
+      </div>
+      <ul class="plan-features">
+        <li>50+ культур / SKU без ограничений</li>
+        <li>Ежемесячные прогнозы цен</li>
+        <li>Персональный менеджер 24/7</li>
+        <li>Индивидуальные отчёты под холдинг</li>
+        <li>Полная API-интеграция</li>
+        <li>ESG-отчётность и углеродный след</li>
+        <li>Стресс-тесты и сценарный анализ</li>
+        <li>Приоритетная поддержка и SLA</li>
+      </ul>
+      <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_i4zrb/" target="_blank" class="plan-cta cta-exc">Обсудить условия</a>
+    </div>
+
+  </div>
+
+  <!-- ПРИМЕЧАНИЯ -->
+  <div class="note-strip">
+    <div class="note-item">
+      <h4>Бесплатный пробный период</h4>
+      <p>Попробуйте платформу без обязательств. Персональный аналитик подготовит демо-отчёт по вашему сегменту в течение 1 рабочего дня.</p>
+    </div>
+    <div class="note-item">
+      <h4>Годовая оплата — скидка 15%</h4>
+      <p>При оплате на год вперёд предоставляется скидка 15% от стоимости ежемесячного тарифа.</p>
+    </div>
+    <div class="note-item">
+      <h4>Индивидуальные условия</h4>
+      <p>Для холдингов с нестандартными требованиями мы формируем персональное коммерческое предложение.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2024–2026 FoodBI Агроформа · ООО «Инлайн» · ОГРН 1047855085442 · г. Санкт-Петербург, Московский пр., д. 212</p>
+    <div class="footer-links">
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="offer.html">Публичный оффер</a>
+      <a href="index.html#contacts">Контакты</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

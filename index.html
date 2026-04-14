@@ -762,6 +762,13 @@
     font-size: 12px;
     color: rgba(255,255,255,0.3);
   }
+  .footer-bottom a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-bottom a:hover { color: var(--spring-green); }
   .footer-badges {
     display: flex;
     gap: 10px;
@@ -1195,13 +1202,14 @@
   <nav>
     <a href="#solutions">Решения</a>
     <a href="#features">Возможности</a>
+    <a href="tarify.html">Тарифы</a>
     <a href="#clients">Клиенты</a>
     <a href="#news">Аналитика</a>
     <a href="#contacts">Контакты</a>
   </nav>
 
   <div class="header-btns" style="display:flex;gap:10px">
-    <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_uyqhw/" target="_blank" class="btn btn-outline" style="padding:10px 18px;font-size:13px">Личный кабинет</a>
+    <a href="https://lk.foodbi.ru/login" target="_blank" class="btn btn-outline" style="padding:10px 18px;font-size:13px">Личный кабинет</a>
     <a href="https://b24-nf65ad.bitrix24site.ru/crm_form_pam56/" target="_blank" class="btn btn-primary" style="padding:10px 18px;font-size:13px">Демо-доступ</a>
   </div>
 
@@ -1214,6 +1222,7 @@
 <nav class="mobile-nav" id="mobileNav">
   <a href="#solutions" class="mobile-nav-link">Решения</a>
   <a href="#features" class="mobile-nav-link">Возможности</a>
+  <a href="tarify.html" class="mobile-nav-link">Тарифы</a>
   <a href="#clients" class="mobile-nav-link">Клиенты</a>
   <a href="#news" class="mobile-nav-link">Аналитика</a>
   <a href="#contacts" class="mobile-nav-link">Контакты</a>
@@ -1667,7 +1676,7 @@
 
 <!-- FOOTER -->
 <footer id="contacts">
-  <div class="footer-top">
+  <div class="footer-top" style="grid-template-columns:1fr auto;gap:40px;align-items:start">
     <div class="footer-brand">
       <a href="#" class="logo">
         <div class="logo-icon" style="width:32px;height:32px">
@@ -1680,39 +1689,29 @@
         </div>
       </a>
       <p>Предиктивная аналитика и цифровая платформа для агропромышленных холдингов России и СНГ.</p>
-      <p style="margin-top:10px">📧 <a href="mailto:sale@inline-ltd.ru" style="color:inherit">sale@inline-ltd.ru</a><br>📞 <a href="tel:+78124253265" style="color:inherit">+7 (812) 425-32-65</a></p>
+      <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.5)">
+        ООО «Инлайн» · ОГРН 1047855085442<br>
+        196066, г. Санкт-Петербург, Московский проспект, д. 212
+      </p>
+      <p style="margin-top:8px">
+        <a href="mailto:sale@inline-ltd.ru" style="color:var(--spring-green);font-size:14px">sale@inline-ltd.ru</a>&nbsp;&nbsp;
+        <a href="tel:+78124253265" style="color:var(--spring-green);font-size:14px">+7 (812) 425-32-65</a>
+      </p>
     </div>
     <div class="footer-col">
-      <h5>Решения</h5>
-      <a href="#">Растениеводство</a>
-      <a href="#">Животноводство</a>
-      <a href="#">Переработка</a>
-      <a href="#">Логистика</a>
-      <a href="#">ESG-отчётность</a>
-    </div>
-    <div class="footer-col">
-      <h5>Компания</h5>
-      <a href="#">О платформе</a>
-      <a href="#">Команда</a>
-      <a href="#">Партнёры</a>
-      <a href="#">Пресс-центр</a>
-      <a href="#">Карьера</a>
-    </div>
-    <div class="footer-col">
-      <h5>Ресурсы</h5>
-      <a href="#">Аналитика рынка</a>
-      <a href="#">База знаний</a>
-      <a href="#">API Документация</a>
-      <a href="#">Политика данных</a>
-      <a href="#">Контакты</a>
+      <h5>Навигация</h5>
+      <a href="#solutions">Решения</a>
+      <a href="#features">Возможности</a>
+      <a href="tarify.html">Тарифы</a>
+      <a href="#news">Аналитика</a>
+      <a href="#contacts">Контакты</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2024–2026 FoodBI Агроформа. Все права защищены.</p>
-    <div class="footer-badges">
-      <span class="footer-badge">B2B AgroTech</span>
-      <span class="footer-badge">Россия & СНГ</span>
-      <span class="footer-badge">ESG</span>
+    <p>© 2024–2026 FoodBI Агроформа · ООО «Инлайн» · ОГРН 1047855085442</p>
+    <div style="display:flex;gap:20px;flex-wrap:wrap">
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <a href="offer.html">Публичный оффер</a>
     </div>
   </div>
 </footer>
