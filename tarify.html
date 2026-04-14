@@ -100,13 +100,13 @@
   }
   .plan-card:hover { border-color: rgba(76,175,80,0.4); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
   .plan-card.featured {
-    border-color: var(--field-green);
-    background: linear-gradient(145deg, #1f4424 0%, var(--dark-meadow) 100%);
+    border-color: var(--harvest-gold);
+    background: linear-gradient(145deg, #2e2800 0%, var(--dark-meadow) 100%);
   }
   .plan-card.featured::before {
     content: '';
     position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--field-green), var(--spring-green));
+    background: linear-gradient(90deg, var(--harvest-gold), #ffe066);
     border-radius: 20px 20px 0 0;
   }
 
@@ -117,8 +117,8 @@
     text-transform: uppercase; margin-bottom: 20px;
   }
   .badge-std { background: rgba(76,175,80,0.12); color: var(--sage-gray); }
-  .badge-pro { background: rgba(76,175,80,0.2); color: var(--spring-green); }
-  .badge-exc { background: rgba(255,193,7,0.15); color: var(--harvest-gold); }
+  .badge-pro { background: rgba(255,193,7,0.18); color: var(--harvest-gold); }
+  .badge-exc { background: rgba(76,175,80,0.12); color: var(--sage-gray); }
 
   .plan-name {
     font-size: 24px; font-weight: 900; letter-spacing: -0.5px;
@@ -136,7 +136,7 @@
     font-size: 38px; font-weight: 900; letter-spacing: -1.5px; line-height: 1;
     color: var(--spring-green);
   }
-  .plan-card.featured .plan-price .amount { color: var(--spring-green); }
+  .plan-card.featured .plan-price .amount { color: var(--harvest-gold); }
   .plan-price .period { font-size: 14px; color: var(--sage-gray); margin-top: 4px; }
 
   .plan-features { list-style: none; margin-bottom: 36px; }
@@ -169,15 +169,15 @@
   }
   .cta-std:hover { background: rgba(76,175,80,0.2); border-color: var(--field-green); }
   .cta-pro {
-    background: var(--field-green); color: var(--deep-forest);
+    background: var(--harvest-gold); color: var(--deep-forest);
   }
-  .cta-pro:hover { background: var(--spring-green); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(76,175,80,0.3); }
+  .cta-pro:hover { background: #ffe066; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,193,7,0.35); }
   .cta-exc {
-    background: rgba(255,193,7,0.1);
-    color: var(--harvest-gold);
-    border: 1.5px solid rgba(255,193,7,0.3);
+    background: rgba(76,175,80,0.12);
+    color: var(--spring-green);
+    border: 1.5px solid rgba(76,175,80,0.3);
   }
-  .cta-exc:hover { background: rgba(255,193,7,0.2); border-color: var(--harvest-gold); }
+  .cta-exc:hover { background: rgba(76,175,80,0.2); border-color: var(--field-green); }
 
   /* FAQ / NOTE */
   .note-strip {
@@ -303,7 +303,7 @@
       <div class="plan-desc">Для агрохолдингов федерального масштаба с индивидуальными требованиями</div>
       <div class="plan-price">
         <div class="from">от</div>
-        <div class="amount" style="color:var(--harvest-gold)">295 000 ₽</div>
+        <div class="amount">295 000 ₽</div>
         <div class="period">в месяц · оплата ежемесячно</div>
       </div>
       <ul class="plan-features">
@@ -343,7 +343,7 @@
     <p>© 2024–2026 FoodBI Агроформа · ООО «Инлайн» · ОГРН 1047855085442 · г. Санкт-Петербург, Московский пр., д. 212</p>
     <div class="footer-links">
       <a href="privacy.html">Политика конфиденциальности</a>
-      <a href="offer.html">Публичный оффер</a>
+      <a href="offer.html">Публичная оферта</a>
       <a href="index.html#contacts">Контакты</a>
     </div>
   </div>
