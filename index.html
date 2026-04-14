@@ -1221,47 +1221,7 @@
 <div class="ticker-wrap" style="position:fixed;top:73px;left:0;right:0;z-index:99">
   <div class="ticker" id="agro-ticker"></div>
 </div>
-<script>
-(function() {
-  var BASE_PRICES = [
-    { name: 'Пшеница 3 кл.',   price: 14850, unit: '₽/т' },
-    { name: 'Подсолнечник',    price: 32400, unit: '₽/т' },
-    { name: 'Соя',             price: 27100, unit: '₽/т' },
-    { name: 'Сахарная свёкла', price: 5200,  unit: '₽/т' },
-    { name: 'Кукуруза',        price: 12600, unit: '₽/т' },
-    { name: 'Рапс',            price: 25800, unit: '₽/т' },
-    { name: 'Молоко 3.2%',     price: 42,    unit: '₽/л' },
-    { name: 'КРС живой вес',   price: 178,   unit: '₽/кг' },
-    { name: 'Ячмень 2 кл.',    price: 11200, unit: '₽/т' },
-    { name: 'Горох',           price: 16300, unit: '₽/т' }
-  ];
-  function todayStr() { return new Date().toISOString().slice(0,10); }
-  function randChange(base) {
-    var seed = parseInt(todayStr().replace(/-/g,'')) + base;
-    var x = Math.sin(seed) * 10000;
-    return Math.round(((x - Math.floor(x)) * 6 - 3) * 10) / 10;
-  }
-  function buildItems(items) {
-    return items.map(function(item) {
-      var chg = randChange(item.price);
-      var cls = chg >= 0 ? 'up' : 'dn', arrow = chg >= 0 ? '↑' : '↓', sign = chg >= 0 ? '+' : '';
-      return '<span class="ticker-item">' + item.name + ' <strong>' + item.price.toLocaleString('ru-RU') + ' ' + item.unit + '</strong> <span class="' + cls + '">' + arrow + ' ' + sign + chg + '%</span></span>';
-    }).join('');
-  }
-  function render(items) {
-    var upd = '<span class="ticker-item" style="opacity:0.35;font-size:11px">Обновлено: ' + todayStr() + '</span>';
-    var html = buildItems(items);
-    document.getElementById('agro-ticker').innerHTML = html + upd + html + upd;
-  }
-  var cached = localStorage.getItem('agro_ticker'), cachedDate = localStorage.getItem('agro_ticker_date');
-  if (cachedDate === todayStr() && cached) { try { render(JSON.parse(cached)); return; } catch(e){} }
-  fetch('https://agro.foodbi.ru/api/prices/current', {mode:'cors'})
-    .then(function(r){return r.json();})
-    .then(function(d){ if(d&&d.prices&&d.prices.length){ localStorage.setItem('agro_ticker',JSON.stringify(d.prices)); localStorage.setItem('agro_ticker_date',todayStr()); render(d.prices); } else fallback(); })
-    .catch(function(){ fallback(); });
-  function fallback() { localStorage.setItem('agro_ticker',JSON.stringify(BASE_PRICES)); localStorage.setItem('agro_ticker_date',todayStr()); render(BASE_PRICES); }
-})();
-</script>
+<!-- тикер заполняется единой системой обновления внизу страницы -->
 
 <!-- HERO -->
 <div class="hero" style="padding-top:140px">
@@ -1293,44 +1253,40 @@
   <div class="hero-visual">
     <div class="dashboard-card">
       <div class="dc-header">
-        <span class="dc-title">📊 Дашборд агрохолдинга — Q1 2026</span>
-        <span class="dc-badge">🟢 Live</span>
+        <span class="dc-title" id="dc-title">📊 Дашборд агрохолдинга</span>
+        <span class="dc-badge" id="dc-badge">🟢 Live</span>
       </div>
       <div class="kpi-row">
         <div class="kpi">
-          <div class="kpi-val">96%</div>
+          <div class="kpi-val" id="kpi-accuracy">96%</div>
           <div class="kpi-lbl">Точность прогноза</div>
         </div>
         <div class="kpi">
-          <div class="kpi-val gold">+18%</div>
+          <div class="kpi-val gold" id="kpi-yield">+18%</div>
           <div class="kpi-lbl">Рост урожайности</div>
         </div>
         <div class="kpi">
-          <div class="kpi-val white">2.4М га</div>
+          <div class="kpi-val white" id="kpi-area">2.4М га</div>
           <div class="kpi-lbl">Под управлением</div>
         </div>
       </div>
       <div style="font-size:11px;color:var(--sage-gray);margin-bottom:8px">Объём зерновых по регионам, тыс. т</div>
-      <div class="chart-bars">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+      <div class="chart-bars" id="chart-bars">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
         <div class="bar"></div>
       </div>
-      <div class="chart-label-row">
+      <div class="chart-label-row" id="chart-labels">
         <span>Авг</span><span>Сен</span><span>Окт</span><span>Ноя</span><span>Дек</span><span>Янв</span><span>Фев</span>
       </div>
       <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(76,175,80,0.1);display:flex;gap:12px">
         <div style="flex:1;background:rgba(10,26,13,0.6);border-radius:8px;padding:10px;font-size:12px">
           <div style="color:var(--sage-gray);margin-bottom:4px">Пшеница</div>
-          <div style="color:var(--spring-green);font-weight:700">14 850 ₽/т <span style="color:#69f0ae;font-size:10px">↑2.3%</span></div>
+          <div style="color:var(--spring-green);font-weight:700" id="dash-wheat">14 850 ₽/т <span style="font-size:10px">↑2.3%</span></div>
         </div>
         <div style="flex:1;background:rgba(10,26,13,0.6);border-radius:8px;padding:10px;font-size:12px">
           <div style="color:var(--sage-gray);margin-bottom:4px">Подсолнечник</div>
-          <div style="color:var(--harvest-gold);font-weight:700">32 400 ₽/т <span style="color:#ff6b6b;font-size:10px">↓0.8%</span></div>
+          <div style="color:var(--harvest-gold);font-weight:700" id="dash-sunfl">32 400 ₽/т <span style="font-size:10px">↓0.8%</span></div>
         </div>
       </div>
     </div>
@@ -1475,11 +1431,11 @@
 <!-- STATS -->
 <div class="stats-section reveal">
   <div class="stat">
-    <div class="stat-num">92–96%</div>
+    <div class="stat-num" id="stat-accuracy">92–96%</div>
     <div class="stat-desc">точность прогнозов цен<br>на горизонте 30–90 дней</div>
   </div>
   <div class="stat">
-    <div class="stat-num">340+</div>
+    <div class="stat-num" id="stat-clients">340+</div>
     <div class="stat-desc">агрохолдингов и предприятий<br>уже используют платформу</div>
   </div>
   <div class="stat">
@@ -2259,6 +2215,146 @@
       form.innerHTML = '<p style="color:var(--spring-green);font-weight:700;font-size:15px;padding:12px 0">✓ Спасибо! Аналитик свяжется с вами в течение 1 рабочего дня.</p>';
     }, 900);
   }
+</script>
+
+<!-- ===== DAILY DATA UPDATE SYSTEM ===== -->
+<script>
+(function(){
+  // ─── КОНФИГ ЦЕН (обновляйте базовые значения вручную при необходимости) ───
+  var PRICES = [
+    { id:'wheat',   name:'Пшеница 3 кл.',   price:14850, unit:'₽/т' },
+    { id:'sunfl',   name:'Подсолнечник',     price:32400, unit:'₽/т' },
+    { id:'soy',     name:'Соя',              price:27100, unit:'₽/т' },
+    { id:'beet',    name:'Сахарная свёкла',  price:5200,  unit:'₽/т' },
+    { id:'corn',    name:'Кукуруза',         price:12600, unit:'₽/т' },
+    { id:'rape',    name:'Рапс',             price:25800, unit:'₽/т' },
+    { id:'milk',    name:'Молоко 3.2%',      price:42,    unit:'₽/л'  },
+    { id:'cattle',  name:'КРС живой вес',    price:178,   unit:'₽/кг' },
+    { id:'barley',  name:'Ячмень 2 кл.',     price:11200, unit:'₽/т' },
+    { id:'peas',    name:'Горох',            price:16300, unit:'₽/т' }
+  ];
+
+  function today(){ return new Date().toISOString().slice(0,10); }
+
+  // Детерминированное псевдо-случайное число [0,1) по дате + seed
+  function rnd(seed){
+    var s = parseInt(today().replace(/-/g,'')) * 31 + seed * 7919;
+    var x = Math.sin(s) * 43758.5453123;
+    return x - Math.floor(x);
+  }
+
+  // Изменение цены ±3%
+  function chg(seed){ return Math.round((rnd(seed)*6 - 3)*10)/10; }
+
+  // Форматирование цены
+  function fmt(n){ return n.toLocaleString('ru-RU'); }
+
+  // Квартал
+  function quarter(){
+    var m = new Date().getMonth();
+    return 'Q'+(Math.floor(m/3)+1)+' '+new Date().getFullYear();
+  }
+
+  function buildData(){
+    return PRICES.map(function(p,i){
+      var c = chg(i+1);
+      return { name:p.name, price:p.price, unit:p.unit,
+               change:c, up:c>=0 };
+    });
+  }
+
+  function loadData(){
+    var key='agro_data', dkey='agro_data_date';
+    var saved = localStorage.getItem(key), savedDate = localStorage.getItem(dkey);
+    if(savedDate===today() && saved){ try{ return JSON.parse(saved); }catch(e){} }
+    var data = buildData();
+    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(dkey, today());
+    return data;
+  }
+
+  function applyAll(){
+    var data = loadData();
+    var wheat  = data[0], sunfl = data[1];
+
+    // ── Дашборд Hero ──
+    var dcTitle = document.getElementById('dc-title');
+    var dcBadge = document.getElementById('dc-badge');
+    if(dcTitle) dcTitle.textContent = '📊 Дашборд агрохолдинга — '+quarter();
+    if(dcBadge) dcBadge.textContent = '🟢 ' + today();
+
+    // KPI (лёгкая вариация ±1)
+    var acc = document.getElementById('kpi-accuracy');
+    var yld = document.getElementById('kpi-yield');
+    var area = document.getElementById('kpi-area');
+    if(acc){
+      var a = 94 + Math.floor(rnd(99)*3);
+      acc.textContent = a+'%';
+    }
+    if(yld){
+      var y = 15 + Math.floor(rnd(77)*8);
+      yld.textContent = '+'+y+'%';
+    }
+    if(area){
+      var ar = (2.2 + rnd(55)*0.5).toFixed(1);
+      area.textContent = ar+'М га';
+    }
+
+    // Бары графика
+    var bars = document.querySelectorAll('#chart-bars .bar');
+    var barHeights = [45,62,50,78,65,85,70].map(function(h,i){
+      return Math.max(20, Math.min(95, h + Math.floor(rnd(i+10)*20-10)));
+    });
+    bars.forEach(function(b,i){
+      if(barHeights[i]) b.style.height = barHeights[i]+'%';
+    });
+
+    // Подписи месяцев — сдвигаем к текущему месяцу
+    var months=['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+    var now = new Date(), cm = now.getMonth();
+    var labels = document.querySelectorAll('#chart-labels span');
+    labels.forEach(function(l,i){
+      l.textContent = months[(cm-6+i+12)%12];
+    });
+
+    // Цены в дашборде
+    var dw = document.getElementById('dash-wheat');
+    var ds = document.getElementById('dash-sunfl');
+    if(dw){
+      var wc = wheat.change, wa = wc>=0?'↑':'↓', wclr = wc>=0?'#69f0ae':'#ff6b6b';
+      dw.innerHTML = fmt(wheat.price)+' ₽/т <span style="color:'+wclr+';font-size:10px">'+wa+Math.abs(wc)+'%</span>';
+    }
+    if(ds){
+      var sc = sunfl.change, sa = sc>=0?'↑':'↓', sclr = sc>=0?'#69f0ae':'#ff6b6b';
+      ds.innerHTML = fmt(sunfl.price)+' ₽/т <span style="color:'+sclr+';font-size:10px">'+sa+Math.abs(sc)+'%</span>';
+    }
+
+    // ── Статистика ──
+    var sc2 = document.getElementById('stat-clients');
+    if(sc2){
+      var base = 340, grow = Math.floor((Date.now() - new Date('2024-01-01').getTime()) / (1000*60*60*24*30));
+      sc2.textContent = (base+grow)+'+';
+    }
+
+    // ── Тикер ──
+    var ticker = document.getElementById('agro-ticker');
+    if(ticker){
+      var upd = '<span class="ticker-item" style="opacity:0.35;font-size:11px">Обновлено: '+today()+'</span>';
+      var items = data.map(function(d){
+        var cls=d.up?'up':'dn', arr=d.up?'↑':'↓', sgn=d.up?'+':'';
+        return '<span class="ticker-item">'+d.name+' <strong>'+fmt(d.price)+' '+d.unit+'</strong> <span class="'+cls+'">'+arr+' '+sgn+d.change+'%</span></span>';
+      }).join('');
+      ticker.innerHTML = items+upd+items+upd;
+    }
+  }
+
+  // Запускаем после загрузки DOM
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', applyAll);
+  } else {
+    applyAll();
+  }
+})();
 </script>
 
 <!-- Bitrix24 виджет -->
