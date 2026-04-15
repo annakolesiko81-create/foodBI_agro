@@ -1294,16 +1294,16 @@
         <div class="bar"></div>
       </div>
       <div class="chart-label-row" id="chart-labels">
-        <span>Авг</span><span>Сен</span><span>Окт</span><span>Ноя</span><span>Дек</span><span>Янв</span><span>Фев</span>
+        <span>Окт</span><span>Ноя</span><span>Дек</span><span>Янв</span><span>Фев</span><span>Мар</span><span>Апр</span>
       </div>
       <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(76,175,80,0.1);display:flex;gap:12px">
         <div style="flex:1;background:rgba(10,26,13,0.6);border-radius:8px;padding:10px;font-size:12px">
           <div style="color:var(--sage-gray);margin-bottom:4px">Пшеница</div>
-          <div style="color:var(--spring-green);font-weight:700" id="dash-wheat">14 850 ₽/т <span style="font-size:10px">↑2.3%</span></div>
+          <div style="color:var(--spring-green);font-weight:700" id="dash-wheat">15 500 ₽/т <span style="font-size:10px">↑4.4%</span></div>
         </div>
         <div style="flex:1;background:rgba(10,26,13,0.6);border-radius:8px;padding:10px;font-size:12px">
           <div style="color:var(--sage-gray);margin-bottom:4px">Подсолнечник</div>
-          <div style="color:var(--harvest-gold);font-weight:700" id="dash-sunfl">32 400 ₽/т <span style="font-size:10px">↓0.8%</span></div>
+          <div style="color:var(--harvest-gold);font-weight:700" id="dash-sunfl">33 500 ₽/т <span style="font-size:10px">↑3.4%</span></div>
         </div>
       </div>
     </div>
@@ -2300,16 +2300,16 @@
 
   // ─── Базовые цены (используются как fallback и для позиций без биржевых данных) ───
   var PRICES = [
-    { id:'wheat',  name:'Пшеница 3 кл.',  price:14850, unit:'₽/т', keys:['пшениц','wheat'] },
-    { id:'sunfl',  name:'Подсолнечник',    price:32400, unit:'₽/т', keys:['подсолнечник','sunfl'] },
-    { id:'soy',    name:'Соя',             price:27100, unit:'₽/т', keys:['соя','soy'] },
-    { id:'beet',   name:'Сахарная свёкла', price:5200,  unit:'₽/т', keys:['свёкл','свекл','beet'] },
-    { id:'corn',   name:'Кукуруза',        price:12600, unit:'₽/т', keys:['кукуруза','corn','маис'] },
-    { id:'rape',   name:'Рапс',            price:25800, unit:'₽/т', keys:['рапс','rape'] },
-    { id:'milk',   name:'Молоко 3.2%',     price:42,    unit:'₽/л', keys:['молоко','milk'] },
-    { id:'cattle', name:'КРС живой вес',   price:178,   unit:'₽/кг',keys:['крс','cattle','говяд'] },
-    { id:'barley', name:'Ячмень 2 кл.',    price:11200, unit:'₽/т', keys:['ячмень','barley'] },
-    { id:'peas',   name:'Горох',           price:16300, unit:'₽/т', keys:['горох','peas'] }
+    { id:'wheat',  name:'Пшеница 3 кл.',  price:15500, unit:'₽/т', keys:['пшениц','wheat'] },
+    { id:'sunfl',  name:'Подсолнечник',    price:33500, unit:'₽/т', keys:['подсолнечник','sunfl'] },
+    { id:'soy',    name:'Соя',             price:26400, unit:'₽/т', keys:['соя','soy'] },
+    { id:'beet',   name:'Сахарная свёкла', price:5400,  unit:'₽/т', keys:['свёкл','свекл','beet'] },
+    { id:'corn',   name:'Кукуруза',        price:13800, unit:'₽/т', keys:['кукуруза','corn','маис'] },
+    { id:'rape',   name:'Рапс',            price:27200, unit:'₽/т', keys:['рапс','rape'] },
+    { id:'milk',   name:'Молоко 3.2%',     price:34,    unit:'₽/л', keys:['молоко','milk'] },
+    { id:'cattle', name:'КРС живой вес',   price:185,   unit:'₽/кг',keys:['крс','cattle','говяд'] },
+    { id:'barley', name:'Ячмень 2 кл.',    price:12100, unit:'₽/т', keys:['ячмень','barley'] },
+    { id:'peas',   name:'Горох',           price:17500, unit:'₽/т', keys:['горох','peas'] }
   ];
 
   // MOEX ISS: НТБ (Национальная Товарная Биржа) — товарный рынок
