@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Политика обработки персональных данных — FoodBI Агроформа</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tilda+Sans+VF:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --deep-forest: #0A1A0D;
+    --dark-meadow: #1B3A1E;
+    --field-green: #4CAF50;
+    --spring-green: #69F0AE;
+    --sage-gray: #7A9478;
+    --harvest-gold: #FFC107;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Tilda Sans VF', 'Tilda Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--deep-forest);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 18px 60px; display: flex; align-items: center; justify-content: space-between;
+    background: rgba(10,26,13,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(76,175,80,0.15);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 38px; height: 38px; background: var(--dark-meadow); border-radius: 8px;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding: 6px 7px 5px; gap: 3px; position: relative;
+  }
+  .logo-icon span { display: block; background: var(--field-green); border-radius: 2px; width: 5px; }
+  .logo-icon span:nth-child(1) { height: 10px; }
+  .logo-icon span:nth-child(2) { height: 16px; background: var(--spring-green); }
+  .logo-icon span:nth-child(3) { height: 8px; }
+  .logo-icon span:nth-child(4) { height: 13px; }
+  .logo-dot { position: absolute; top: 5px; right: 11px; width: 6px; height: 6px; background: var(--spring-green); border-radius: 50%; }
+  .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+  .logo-text .food { color: var(--white); font-weight: 600; }
+  .logo-text .bi { color: var(--field-green); font-weight: 900; }
+  .logo-descriptor { font-size: 9px; letter-spacing: 3px; color: var(--sage-gray); text-transform: uppercase; margin-top: -2px; }
+  .page-wrap { max-width: 800px; margin: 0 auto; padding: 140px 40px 100px; }
+  .page-label {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--field-green);
+    background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.25);
+    border-radius: 20px; padding: 5px 14px; margin-bottom: 24px;
+  }
+  h1 { font-size: 38px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .updated { font-size: 13px; color: var(--sage-gray); margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid rgba(76,175,80,0.12); }
+  .intro {
+    font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.8); margin-bottom: 32px;
+    padding: 24px; background: rgba(27,58,30,0.5); border: 1px solid rgba(76,175,80,0.15); border-radius: 12px;
+  }
+  .operator-block {
+    background: rgba(27,58,30,0.4); border: 1px solid rgba(76,175,80,0.2);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 40px;
+  }
+  .operator-block p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 8px; }
+  .operator-block p:last-child { margin-bottom: 0; }
+  .operator-block strong { color: var(--white); }
+  .policy-section { margin-bottom: 36px; }
+  .policy-section h2 {
+    font-size: 18px; font-weight: 700; color: var(--spring-green);
+    margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+  }
+  .policy-section h2 .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; background: rgba(76,175,80,0.15);
+    border: 1px solid rgba(76,175,80,0.3); border-radius: 50%;
+    font-size: 13px; font-weight: 700; color: var(--field-green); flex-shrink: 0;
+  }
+  .policy-section p { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.75); }
+  .policy-section p + p { margin-top: 12px; }
+  .policy-section ul { list-style: none; margin-top: 12px; }
+  .policy-section ul li {
+    font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.75);
+    padding: 6px 0 6px 20px; position: relative;
+    border-bottom: 1px solid rgba(76,175,80,0.07);
+  }
+  .policy-section ul li:last-child { border-bottom: none; }
+  .policy-section ul li::before {
+    content: ''; position: absolute; left: 0; top: 15px;
+    width: 6px; height: 6px; background: var(--field-green); border-radius: 50%;
+  }
+  footer {
+    background: var(--dark-meadow); border-top: 1px solid rgba(76,175,80,0.12);
+    padding: 32px 60px; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  footer p { font-size: 13px; color: var(--sage-gray); }
+  footer a { color: var(--sage-gray); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  footer a:hover { color: var(--spring-green); }
+  @media (max-width: 600px) {
+    header { padding: 14px 20px; }
+    .page-wrap { padding: 110px 20px 60px; }
+    h1 { font-size: 26px; }
+    footer { padding: 24px 20px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <span></span><span></span><span></span><span></span>
+      <div class="logo-dot"></div>
+    </div>
+    <div>
+      <div class="logo-text"><span class="food">Food</span><span class="bi">BI</span></div>
+      <div class="logo-descriptor">Агроформа</div>
+    </div>
+  </a>
+  <a href="index.html" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:6px">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    На главную
+  </a>
+</header>
+
+<div class="page-wrap">
+  <div class="page-label">Документы</div>
+  <h1>Политика обработки персональных данных</h1>
+  <div class="updated">Обновлено: март 2026 г.</div>
+
+  <div class="intro">
+    Настоящий документ определяет порядок обработки персональных данных пользователей корпоративного информационного интернет-сайта agro.foodbi.ru
+  </div>
+
+  <div class="operator-block">
+    <p><strong>Оператор обработки персональных данных:</strong></p>
+    <p>ООО «Инлайн»</p>
+    <p>ОГРН: 1047855085442</p>
+    <p>Адрес: г. Санкт-Петербург, Московский пр., д. 212</p>
+  </div>
+
+  <p style="font-size:15px;line-height:1.75;color:rgba(255,255,255,0.75);margin-bottom:40px">
+    Пользователем сайта (субъектом персональных данных) является любой посетитель сайта, заполняющий интерактивные формы, предназначенные для предоставления контактной информации для обратной связи.
+  </p>
+
+  <div class="policy-section">
+    <h2><span class="num">1</span>Обрабатываемые персональные данные</h2>
+    <p>Оператором могут обрабатываться следующие персональные данные:</p>
+    <ul>
+      <li>Фамилия</li>
+      <li>Имя</li>
+      <li>Отчество</li>
+      <li>Контактные телефоны</li>
+      <li>Адреса электронной почты (e-mail)</li>
+    </ul>
+    <p style="margin-top:14px">Персональные данные предоставляются пользователем путем заполнения интерактивных форм на страницах сайта.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">2</span>Ответственность пользователя</h2>
+    <p>Пользователь отвечает за достоверность предоставленных персональных данных и самостоятельно несёт риски наступления любых неблагоприятных последствий в случаях предоставления чужих и (или) недостоверных персональных данных.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">3</span>Цели обработки персональных данных</h2>
+    <p>Персональные данные обрабатываются в целях предоставления соответствующих сервисов на Сайте — например, для регистрации и предоставления сервиса рассылки, на которую подписался Пользователь.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">4</span>Принятие условий</h2>
+    <p>Оператор обрабатывает персональные данные Пользователя только в случае их отправки Пользователем через формы, расположенные на сайте. Отправляя свои персональные данные Оператору, Пользователь выражает своё согласие с данной Политикой.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">5</span>Обезличенные данные</h2>
+    <p>Оператор обрабатывает обезличенные данные о Пользователе в случае, если Пользователь разрешил это в настройках браузера (включено сохранение файлов «cookie» и использование технологии JavaScript).</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">6</span>Виды обработки персональных данных</h2>
+    <p>Оператором могут совершаться следующие действия с персональными данными:</p>
+    <ul>
+      <li>Сбор</li>
+      <li>Запись</li>
+      <li>Систематизация</li>
+      <li>Накопление</li>
+      <li>Хранение</li>
+      <li>Удаление</li>
+    </ul>
+    <p style="margin-top:14px">Персональные данные обрабатываются с использованием средств автоматизации.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">7</span>Передача персональных данных третьим лицам</h2>
+    <p>Персональные данные Пользователя никогда, ни при каких условиях не будут переданы третьим лицам, за исключением случаев, связанных с исполнением действующего законодательства.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">8</span>Конфиденциальность и безопасность</h2>
+    <p>Оператор соблюдает конфиденциальность персональных данных и обеспечивает безопасность персональных данных при их обработке, а также соблюдает применимые требования законодательства РФ.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">9</span>Хранение данных на территории РФ</h2>
+    <p>Оператор обеспечивает запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение персональных данных граждан Российской Федерации с использованием баз данных, находящихся на территории Российской Федерации, если иное не предусмотрено требованиями законодательства РФ.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">10</span>Трансграничная передача данных</h2>
+    <p>Оператор не осуществляет трансграничной передачи персональных данных.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">11</span>Срок обработки персональных данных</h2>
+    <p>Срок обработки персональных данных является неограниченным. Пользователь в любой момент вправе направить Оператору заявление о прекращении обработки (отозвать согласие на обработку) персональных данных путём направления письменного заявления на почтовый адрес Оператора.</p>
+    <p>При этом пользователь признаёт и соглашается с тем, что с момента направления заявления о прекращении обработки использование Сайта согласно его целевому назначению становится невозможным или ограничивается.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">12</span>Возмещение убытков</h2>
+    <p>Пользователь возмещает Оператору убытки, причинённые в случае нарушения положений настоящих Условий.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2><span class="num">13</span>Изменения в политике</h2>
+    <p>В данном документе будут отражены любые изменения политики обработки персональных данных Оператором. В случае существенных изменений Пользователю может быть выслана информация на указанный им электронный адрес.</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2024–2026 FoodBI Агроформа · ООО «Инлайн» · ОГРН 1047855085442</p>
+  <a href="index.html">← Вернуться на главную</a>
+</footer>
+
+</body>
+</html>
