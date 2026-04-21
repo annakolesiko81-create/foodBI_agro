@@ -2363,6 +2363,8 @@
     }
     btn.textContent = 'Отправляем…';
     btn.disabled = true;
+    // Яндекс Метрика — цель «Отправка формы в попапе»
+    if (typeof ym === 'function') ym(108679872, 'reachGoal', 'form_modal_submit');
     // Здесь можно подключить реальную отправку в Bitrix24 CRM
     setTimeout(() => {
       form.innerHTML = '<p style="color:var(--spring-green);font-weight:700;font-size:15px;padding:12px 0">✓ Спасибо! Аналитик свяжется с вами в течение 1 рабочего дня.</p>';
