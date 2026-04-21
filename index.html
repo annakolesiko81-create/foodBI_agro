@@ -2275,6 +2275,21 @@
   }, { threshold: 0.1 });
   reveals.forEach(el => io.observe(el));
 
+  // Яндекс Метрика — цель «Прокрутка до конца страницы»
+  let scrollGoalFired = false;
+  const footerEl = document.querySelector('footer');
+  if (footerEl) {
+    const footerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !scrollGoalFired) {
+          scrollGoalFired = true;
+          if (typeof ym === 'function') ym(108679872, 'reachGoal', 'scroll_to_bottom');
+        }
+      });
+    }, { threshold: 0.3 });
+    footerObserver.observe(footerEl);
+  }
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
