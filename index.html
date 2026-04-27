@@ -2221,6 +2221,21 @@
     footerObserver.observe(footerEl);
   }
 
+  // Скролл до блока тарифов
+  var tarifyEl = document.getElementById('tarify');
+  var tarifyGoalFired = false;
+  if (tarifyEl) {
+    var tarifyObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting && !tarifyGoalFired) {
+          tarifyGoalFired = true;
+          if (typeof ym === 'function') ym(108679872, 'reachGoal', 'scroll_to_tarify');
+        }
+      });
+    }, { threshold: 0.3 });
+    tarifyObserver.observe(tarifyEl);
+  }
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
